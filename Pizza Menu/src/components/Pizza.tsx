@@ -7,16 +7,18 @@ export function Pizza({
   price,
   soldOut,
 }: PizzaAttributes) {
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(price);
+  const formattedPrice = soldOut
+    ? 'Sold Out'
+    : new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(price);
 
-  const classList = ['pizza'];
-  if (soldOut) classList.push('sold-out');
+  const containerClassList = ['pizza'];
+  if (soldOut) containerClassList.push('sold-out');
 
   return (
-    <div className={classList.join(' ')}>
+    <div className={containerClassList.join(' ')}>
       <img src={`assets/images/pizzas/${photoName}`} alt={name} />
       <div>
         <h3>{name}</h3>

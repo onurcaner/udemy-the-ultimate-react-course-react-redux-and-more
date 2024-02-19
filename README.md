@@ -6,6 +6,8 @@ Instructor: [Jonas Schmedtmann](https://www.udemy.com/user/jonasschmedtmann/)
 
 Offered at: [Udemy](https://www.udemy.com/)
 
+Notes: TypeScript is used instead of JavaScript
+
 ## Projects
 
 ### 1. Pizza Menu
