@@ -1,7 +1,12 @@
 import { useState, FormEventHandler, ChangeEventHandler } from 'react';
+
 import { ItemAttributes } from '../ItemData';
 
-export function Form() {
+export interface FormProps {
+  onAddItem: (item: ItemAttributes) => void;
+}
+
+export function Form({ onAddItem }: FormProps) {
   const [quantity, setQuantity] = useState(1);
   const [description, setDescription] = useState('');
 
@@ -24,7 +29,7 @@ export function Form() {
     if (!description) return;
 
     const newItem = constructNewItem();
-    console.log(newItem);
+    onAddItem(newItem);
 
     resetFormStates();
   };
@@ -50,13 +55,7 @@ export function Form() {
         value={quantity}
         onChange={handleChangeOfQuantity}
       >
-        {Array.from({ length: 20 })
-          .map((_, i) => i + 1)
-          .map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
+        <Options from={1} to={20} />
       </select>
       <input
         name="item-description"
@@ -69,4 +68,15 @@ export function Form() {
       <button aria-label="Add to packing list">Add</button>
     </form>
   );
+}
+
+function Options({ from, to }: { from: number; to: number }) {
+  const length = to - from + 1;
+  return Array.from({ length })
+    .map((_, i) => i + from)
+    .map((value) => (
+      <option key={value} value={value}>
+        {value}
+      </option>
+    ));
 }

@@ -1,17 +1,30 @@
 import { ItemAttributes } from '../ItemData';
+
 import { Item } from './Item';
 
-import { initialItems } from '../ItemData';
+export interface PackingListProps {
+  items: ItemAttributes[];
+  handleDeleteItem: (id: number) => void;
+  handleToggleIsPackedOfItem: (id: number) => void;
+}
 
-export function PackingList() {
-  const renderItem = (item: ItemAttributes): JSX.Element => (
-    <li key={item.id}>
-      <Item itemAttributes={item} />
+export function PackingList({
+  items,
+  handleToggleIsPackedOfItem,
+  handleDeleteItem,
+}: PackingListProps) {
+  const renderItem = (itemAttributes: ItemAttributes): JSX.Element => (
+    <li key={itemAttributes.id}>
+      <Item
+        itemAttributes={itemAttributes}
+        onDelete={handleDeleteItem}
+        onToggleIsPacked={handleToggleIsPackedOfItem}
+      />
     </li>
   );
   return (
     <section className="list">
-      <ul>{initialItems.map(renderItem)}</ul>
+      <ul>{items.map(renderItem)}</ul>
     </section>
   );
 }
