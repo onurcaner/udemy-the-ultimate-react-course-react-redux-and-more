@@ -1,10 +1,10 @@
-import { ItemAttributes } from '../ItemData';
+import { ItemAttributes } from '../data/ItemData';
 
 export interface StatsProps {
   items: ItemAttributes[];
 }
 
-export function Stats({ items }: StatsProps) {
+export function Stats({ items }: StatsProps): JSX.Element {
   const numberOfItems = items.length;
   const numberOfItemsArePacked = items.filter((item) => item.isPacked).length;
   const completionPercent = Math.round(
@@ -14,6 +14,7 @@ export function Stats({ items }: StatsProps) {
   const isListEmpty = numberOfItems === 0;
   const isOnProgress = !isListEmpty && numberOfItems !== numberOfItemsArePacked;
   const isCompleted = !isListEmpty && !isOnProgress;
+
   return (
     <footer className="stats">
       <p>

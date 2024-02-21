@@ -1,12 +1,12 @@
 import { useState, FormEventHandler, ChangeEventHandler } from 'react';
 
-import { ItemAttributes } from '../ItemData';
+import { ItemAttributes } from '../data/ItemData';
 
 export interface FormProps {
   onAddItem: (item: ItemAttributes) => void;
 }
 
-export function Form({ onAddItem }: FormProps) {
+export function Form({ onAddItem }: FormProps): JSX.Element {
   const [quantity, setQuantity] = useState(1);
   const [description, setDescription] = useState('');
 
@@ -70,7 +70,7 @@ export function Form({ onAddItem }: FormProps) {
   );
 }
 
-function Options({ from, to }: { from: number; to: number }) {
+function Options({ from, to }: { from: number; to: number }): JSX.Element[] {
   const length = to - from + 1;
   return Array.from({ length })
     .map((_, i) => i + from)

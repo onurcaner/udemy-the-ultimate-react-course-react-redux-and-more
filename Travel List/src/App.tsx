@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import { ItemAttributes } from './ItemData';
+import { ItemAttributes } from './data/ItemData';
 
 import { Header } from './components/Header';
 import { Form } from './components/Form';
 import { PackingList } from './components/PackingList';
 import { Stats } from './components/Stats';
 
-import { initialItems } from './ItemData';
+import { initialItems } from './data/ItemData';
 
 export function App() {
   const [items, setItems] = useState<ItemAttributes[]>(initialItems);

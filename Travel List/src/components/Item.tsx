@@ -1,6 +1,6 @@
 import { ChangeEventHandler, MouseEventHandler } from 'react';
 
-import { ItemAttributes } from '../ItemData';
+import { ItemAttributes } from '../data/ItemData';
 
 interface ItemProps {
   itemAttributes: ItemAttributes;
@@ -12,7 +12,7 @@ export function Item({
   itemAttributes,
   onToggleIsPacked,
   onDelete,
-}: ItemProps) {
+}: ItemProps): JSX.Element {
   const { description, id, isPacked, quantity } = itemAttributes;
   const inputId = `${id}_${description}`;
 
