@@ -16,11 +16,11 @@ export function Item({
   const { description, id, isPacked, quantity } = itemAttributes;
   const inputId = `${id}_${description}`;
 
-  const handleChangeIsPacked: ChangeEventHandler = () => {
+  const handleChangeIsPacked: ChangeEventHandler<HTMLInputElement> = () => {
     onToggleIsPacked(id);
   };
 
-  const handleClickDelete: MouseEventHandler = () => {
+  const handleClickToDeleteItem: MouseEventHandler<HTMLButtonElement> = () => {
     onDelete(id);
   };
 
@@ -29,16 +29,24 @@ export function Item({
       <input
         type="checkbox"
         id={inputId}
+        aria-label={`Toggle packed status of ${description}`}
         checked={isPacked}
         onChange={handleChangeIsPacked}
       />
+
       <label
         htmlFor={inputId}
         style={isPacked ? { textDecoration: 'line-through' } : {}}
       >
         &nbsp;{quantity} {description}
       </label>
-      <button onClick={handleClickDelete}>❌</button>
+
+      <button
+        aria-label={`Delete ${description} from packing list`}
+        onClick={handleClickToDeleteItem}
+      >
+        ❌
+      </button>
     </div>
   );
 }

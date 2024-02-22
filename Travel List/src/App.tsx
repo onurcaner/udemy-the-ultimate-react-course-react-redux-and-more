@@ -12,15 +12,19 @@ import { initialItems } from './data/ItemData';
 export function App() {
   const [items, setItems] = useState<ItemAttributes[]>(initialItems);
 
-  const handleAddItem = (item: ItemAttributes) => {
+  const handleAddItem = (item: ItemAttributes): void => {
     setItems([...items, item]);
   };
 
-  const handleDeleteItem = (id: number) => {
+  const handleDeleteItem = (id: number): void => {
     setItems(items.filter((item) => item.id !== id));
   };
 
-  const handleToggleIsPackedOfItem = (id: number) => {
+  const handleDeleteAllItems = (): void => {
+    setItems([]);
+  };
+
+  const handleToggleIsPackedOfItem = (id: number): void => {
     setItems(
       items.map((item) =>
         item.id === id ? { ...item, isPacked: !item.isPacked } : item
@@ -34,7 +38,9 @@ export function App() {
       <Form onAddItem={handleAddItem} />
       <PackingList
         items={items}
-        {...{ handleToggleIsPackedOfItem, handleDeleteItem }}
+        onDeleteItem={handleDeleteItem}
+        onDeleteAllItems={handleDeleteAllItems}
+        onToggleIsPackedOfItem={handleToggleIsPackedOfItem}
       />
       <Stats items={items} />
     </div>

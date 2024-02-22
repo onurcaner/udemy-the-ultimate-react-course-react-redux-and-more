@@ -10,7 +10,7 @@ export function Form({ onAddItem }: FormProps): JSX.Element {
   const [quantity, setQuantity] = useState(1);
   const [description, setDescription] = useState('');
 
-  const resetFormStates = () => {
+  const resetFormStates = (): void => {
     setQuantity(1);
     setDescription('');
   };
@@ -48,7 +48,8 @@ export function Form({ onAddItem }: FormProps): JSX.Element {
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What do you need for your next trip?</h3>
+      <h2>What do you need for your next trip?</h2>
+
       <select
         name="item-quantity"
         aria-label="item quantity"
@@ -57,6 +58,7 @@ export function Form({ onAddItem }: FormProps): JSX.Element {
       >
         <Options from={1} to={20} />
       </select>
+
       <input
         name="item-description"
         aria-label="item description"
@@ -65,6 +67,7 @@ export function Form({ onAddItem }: FormProps): JSX.Element {
         value={description}
         onChange={handleChangeOfDescription}
       />
+
       <button aria-label="Add to packing list">Add</button>
     </form>
   );

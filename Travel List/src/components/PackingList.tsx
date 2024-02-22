@@ -13,14 +13,16 @@ import { Item } from './Item';
 
 export interface PackingListProps {
   items: ItemAttributes[];
-  handleDeleteItem: (id: number) => void;
-  handleToggleIsPackedOfItem: (id: number) => void;
+  onDeleteItem: (id: number) => void;
+  onDeleteAllItems: () => void;
+  onToggleIsPackedOfItem: (id: number) => void;
 }
 
 export function PackingList({
   items,
-  handleToggleIsPackedOfItem,
-  handleDeleteItem,
+  onToggleIsPackedOfItem,
+  onDeleteItem,
+  onDeleteAllItems,
 }: PackingListProps): JSX.Element {
   const [sortingOrder, setSortingOrder] = useState<SortingOrder>(
     SortingOrder.InputDate
@@ -42,8 +44,8 @@ export function PackingList({
     <li key={itemAttributes.id}>
       <Item
         itemAttributes={itemAttributes}
-        onDelete={handleDeleteItem}
-        onToggleIsPacked={handleToggleIsPackedOfItem}
+        onDelete={onDeleteItem}
+        onToggleIsPacked={onToggleIsPackedOfItem}
       />
     </li>
   );
@@ -51,9 +53,11 @@ export function PackingList({
   return (
     <section className="list">
       <ul>{sortedItems.map(renderItem)}</ul>
+
       <Actions
         sortingOrder={sortingOrder}
         onChangeOfSortingOrder={handleChangeOfSortingOrder}
+        onDeleteAllItems={onDeleteAllItems}
       />
     </section>
   );

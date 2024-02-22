@@ -19,3 +19,14 @@ Notes: TypeScript is used instead of JavaScript
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / Pizza Menu](./Pizza%20Menu)
+
+### 2. Travel List App
+
+- Description: Create customized packing lists for your upcoming adventures.
+  Check off items as you pack, delete what is unnecessary.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / Travel List](./Travel%20List)
