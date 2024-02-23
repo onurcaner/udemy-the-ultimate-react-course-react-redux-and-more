@@ -30,3 +30,15 @@ Notes: TypeScript is used instead of JavaScript
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / Travel List](./Travel%20List)
+
+### 3. Eat-N-Split App
+
+- Description: Enjoy meals with friends hassle-free. Simply log the expenses in
+  the app when you and your friend dine together. One friend covers the bill,
+  'Eat-N-Split' keeps track of who owes whom. Never lose track of shared expenses again.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / Eat-N-Split](./Eat-N-Split)
