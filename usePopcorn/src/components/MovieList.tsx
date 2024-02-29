@@ -1,16 +1,20 @@
-import { MovieData } from '../data/movieData';
+import { MovieAttributesType } from '../movie-api/MovieAttributesType';
 
 import { MovieItem } from './MovieItem';
 
-export interface MovieListProps {
-  movies: MovieData[];
+export interface MovieListProps<T extends MovieAttributesType> {
+  movies: T[];
+  onSelectMovie: (id: string) => void;
 }
 
-export function MovieList({ movies }: MovieListProps): JSX.Element {
+export function MovieList<T extends MovieAttributesType>({
+  movies,
+  onSelectMovie,
+}: MovieListProps<T>): JSX.Element {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies.map((movie) => (
-        <MovieItem movie={movie} key={movie.imdbID} />
+        <MovieItem key={movie.imdbId} movie={movie} onClick={onSelectMovie} />
       ))}
     </ul>
   );

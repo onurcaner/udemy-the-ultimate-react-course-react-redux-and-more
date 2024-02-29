@@ -1,15 +1,19 @@
-import { useState, ChangeEventHandler } from 'react';
+import { ChangeEventHandler } from 'react';
 
 export interface SearchProps {
   placeholder: string;
+  query: string;
+  onChange: (value: string) => void;
 }
 
-export function Search({ placeholder }: SearchProps): JSX.Element {
-  const [query, setQuery] = useState('');
-
+export function Search({
+  placeholder,
+  onChange,
+  query,
+}: SearchProps): JSX.Element {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
-    setQuery(value);
+    onChange(value);
   };
 
   return (

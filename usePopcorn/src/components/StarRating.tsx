@@ -20,7 +20,7 @@ export function StarRating({
   hasText = true,
   messages = [],
   className = undefined,
-  size = '2rem',
+  size = '1rem',
   color = '#fcc419',
 }: StarRatingProps): JSX.Element {
   const [rating, setRating] = useState(initialRating);

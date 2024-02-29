@@ -1,22 +1,23 @@
 import { calculateAverage } from '../utils/calculateAverage';
 
-import { WatchedMovieData } from '../data/movieData';
+import { WatchedMovieAttributes } from '../movie-api/getWatchedMovie';
 
 export interface WatchedMoviesSummaryProps {
-  watchedMovies: WatchedMovieData[];
+  watchedMovies: WatchedMovieAttributes[];
 }
 
 export function WatchedMoviesSummary({
   watchedMovies,
 }: WatchedMoviesSummaryProps): JSX.Element {
-  const avgImdbRating = calculateAverage(
+  const averageImdbRating = calculateAverage(
     ...watchedMovies.map(({ imdbRating }) => imdbRating)
   );
-  const avgUserRating = calculateAverage(
+  const averageUserRating = calculateAverage(
     ...watchedMovies.map(({ userRating }) => userRating)
   );
-  const avgRuntime = calculateAverage(
-    ...watchedMovies.map(({ runtime }) => runtime)
+  const totalRuntime = watchedMovies.reduce(
+    (total, { runtime }) => total + runtime,
+    0
   );
 
   return (
@@ -29,15 +30,15 @@ export function WatchedMoviesSummary({
         </p>
         <p>
           <span>⭐️</span>
-          <span>{avgImdbRating}</span>
+          <span>{averageImdbRating}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{averageUserRating}</span>
         </p>
         <p>
           <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span>{totalRuntime} min</span>
         </p>
       </div>
     </div>

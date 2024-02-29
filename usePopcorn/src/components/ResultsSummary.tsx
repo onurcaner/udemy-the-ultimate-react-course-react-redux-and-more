@@ -1,13 +1,11 @@
-import { MovieData } from '../data/movieData';
-
 export interface ResultsSummaryProps {
-  movies: MovieData[];
+  items: unknown[];
 }
 
-export function ResultsSummary({ movies }: ResultsSummaryProps): JSX.Element {
+export function ResultsSummary({ items }: ResultsSummaryProps): JSX.Element {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>{items.length}</strong> results
     </p>
   );
 }
