@@ -42,3 +42,20 @@ Notes: TypeScript is used instead of JavaScript
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / Eat-N-Split](./Eat-N-Split)
+
+### 4. usePopcorn App
+
+- Description: The usePopcorn is a movie list app where you can search movies, view movie details,
+  rate movies, track your watched movies.
+
+- Requirements: You need to generate an [omdbapi key](https://www.omdbapi.com/apikey.aspx). Then you
+  need to create api-key.ts file inside the [omdbapi folder](./usePopcorn/src/omdbap)
+
+```ts
+// Inside omdbapi/api-key.ts
+export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
+```
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / usePopcorn](./usePopcorn)
