@@ -22,16 +22,28 @@ export const getMovie = {
   getMovieByTitle,
 };
 
-async function getMovieById(id: string): Promise<OmdbMovieData> {
-  return await omdbFetch<OmdbMovieData>([
-    [OmdbParametersKeys.ApiKey, API_KEY],
-    [OmdbParametersKeys.Id, id],
-  ]);
+async function getMovieById(
+  id: string,
+  requestInit?: RequestInit
+): Promise<OmdbMovieData> {
+  return await omdbFetch<OmdbMovieData>(
+    [
+      [OmdbParametersKeys.ApiKey, API_KEY],
+      [OmdbParametersKeys.Id, id],
+    ],
+    requestInit
+  );
 }
 
-async function getMovieByTitle(title: string): Promise<OmdbMovieData> {
-  return await omdbFetch<OmdbMovieData>([
-    [OmdbParametersKeys.ApiKey, API_KEY],
-    [OmdbParametersKeys.Title, title],
-  ]);
+async function getMovieByTitle(
+  title: string,
+  requestInit?: RequestInit
+): Promise<OmdbMovieData> {
+  return await omdbFetch<OmdbMovieData>(
+    [
+      [OmdbParametersKeys.ApiKey, API_KEY],
+      [OmdbParametersKeys.Title, title],
+    ],
+    requestInit
+  );
 }

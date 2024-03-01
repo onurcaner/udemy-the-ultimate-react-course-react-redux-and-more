@@ -10,6 +10,8 @@ import { StarRating } from './StarRating';
 import { Loader } from './Loader';
 import { ErrorMessage } from './ErrorMessage';
 
+import { changePageTitle } from '../utils/changePageTitle';
+
 export interface MovieDetailsProps {
   imdbId: string;
   onCloseMovieDetails: () => void;
@@ -29,6 +31,7 @@ export function MovieDetails({
 
   const hasError = Boolean(error);
 
+  // Fetch movie details
   useEffect(() => {
     setIsLoading(true);
     setError(null);
@@ -40,18 +43,45 @@ export function MovieDetails({
       return;
     }
 
-    getMovieById(imdbId)
+    const abortController = new AbortController();
+    getMovieById(imdbId, { signal: abortController.signal })
       .then((movie) => {
         setMovie(movie);
         setError(null);
       })
-      .catch((err: Error) => {
-        setError(err);
+      .catch((error: Error) => {
+        if (error.name === 'AbortError') return;
+        setError(error);
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+    return () => {
+      abortController.abort();
+    };
   }, [imdbId]);
+
+  // Change page title
+  useEffect(() => {
+    if (movie) changePageTitle(movie.title);
+    return changePageTitle.bind(null);
+  }, [movie]);
+
+  // Listen 'Escape' key
+  useEffect(() => {
+    const handleKeydownEscape = ({ code }: KeyboardEvent): void => {
+      if (code !== 'Escape') return;
+
+      onCloseMovieDetails();
+    };
+
+    document.addEventListener('keydown', handleKeydownEscape);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydownEscape);
+    };
+  }, [onCloseMovieDetails]);
 
   const handleClickToCloseMovieDetails: MouseEventHandler<
     HTMLButtonElement

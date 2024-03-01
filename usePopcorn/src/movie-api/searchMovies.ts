@@ -9,9 +9,10 @@ export interface SearchMovieAttributes {
 }
 
 export async function searchMovies(
-  keyword: string
+  keyword: string,
+  requestInit?: RequestInit
 ): Promise<SearchMovieAttributes[]> {
-  const { Search: search } = await omdbapi.searchMovies(keyword);
+  const { Search: search } = await omdbapi.searchMovies(keyword, requestInit);
   return search.map(mapOmdbSearchMovie);
 }
 

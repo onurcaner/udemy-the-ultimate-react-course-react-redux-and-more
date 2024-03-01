@@ -17,8 +17,11 @@ export interface MovieAttributes extends SearchMovieAttributes {
   imdbRating: number;
 }
 
-export async function getMovieById(id: string): Promise<MovieAttributes> {
-  const movie = await omdbapi.getMovieById(id);
+export async function getMovieById(
+  id: string,
+  requestInit?: RequestInit
+): Promise<MovieAttributes> {
+  const movie = await omdbapi.getMovieById(id, requestInit);
   return mapOmdbMovie(movie);
 }
 

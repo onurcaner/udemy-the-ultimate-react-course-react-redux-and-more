@@ -13,14 +13,15 @@ export interface OmdbResponseData {
 }
 
 export async function omdbFetch<T extends OmdbResponseData>(
-  parameters: [OmdbParametersKeys, string][]
+  parameters: [OmdbParametersKeys, string][],
+  requestInit?: RequestInit
 ): Promise<T> {
   const url =
     OMDBAPI_URL +
     '?' +
     parameters.map(([key, value]) => `${key}=${value}`).join('&');
 
-  const response = await fetch(url);
+  const response = await fetch(url, requestInit);
   if (!response.ok)
     throw new Error(
       `Error(${response.status}) during fetching data from omdbapi`

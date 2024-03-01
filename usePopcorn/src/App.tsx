@@ -51,20 +51,30 @@ export function App(): JSX.Element {
       return;
     }
 
-    setSearchError(null);
-    setIsSearching(true);
+    const abortController = new AbortController();
 
-    searchMovies(searchQuery)
-      .then((movies) => {
-        setSearchedMovies(movies);
-        setSearchError(null);
-      })
-      .catch((searchError: Error) => {
-        setSearchError(searchError);
-      })
-      .finally(() => {
-        setIsSearching(false);
-      });
+    const timeoutId = setTimeout(() => {
+      setSearchError(null);
+      setIsSearching(true);
+
+      searchMovies(searchQuery, { signal: abortController.signal })
+        .then((movies) => {
+          setSearchedMovies(movies);
+          setSearchError(null);
+        })
+        .catch((searchError: Error) => {
+          if (searchError.name === 'AbortError') return;
+          setSearchError(searchError);
+        })
+        .finally(() => {
+          setIsSearching(false);
+        });
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      abortController.abort();
+    };
   }, [searchQuery]);
 
   const handleChangeOfSearch = (value: string): void => {
