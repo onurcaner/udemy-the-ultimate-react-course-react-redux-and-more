@@ -67,6 +67,7 @@ export function StarRating({
       <div
         className={createBemClassName(className, 'stars')}
         style={starContainerStyle}
+        aria-label={rating ? `Rated ${rating}` : 'Rated zero or not rated'}
       >
         {Array.from({ length: maxRating })
           .map((_, i) => i + 1)

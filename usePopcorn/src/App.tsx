@@ -24,6 +24,7 @@ import { searchMovies } from './movie-api/searchMovies';
 import { getWatchedMovies } from './movie-api/getWatchedMovies';
 import { changeWatchedMovie } from './movie-api/changeWatchedMovie';
 import { addWatchedMovie } from './movie-api/addWatchedMovie';
+import { deleteWatchedMovie } from './movie-api/deleteWatchedMovie';
 
 export function App(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
@@ -88,11 +89,17 @@ export function App(): JSX.Element {
     setWatchedMovies(getWatchedMovies());
   };
 
+  const handleDeleteWatchedMovie = (id: string): void => {
+    deleteWatchedMovie(id);
+    setWatchedMovies(getWatchedMovies());
+  };
+
   return (
     <>
       <Header>
         <Logo />
         <Search
+          ariaLabel="Search movies"
           placeholder="Search movies..."
           query={searchQuery}
           onChange={handleChangeOfSearch}
@@ -124,6 +131,7 @@ export function App(): JSX.Element {
               <MovieList
                 movies={watchedMovies}
                 onSelectMovie={handleSelectMovie}
+                onDeleteWatchedMovie={handleDeleteWatchedMovie}
               />
             </>
           )}

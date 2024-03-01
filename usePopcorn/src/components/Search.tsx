@@ -3,13 +3,15 @@ import { ChangeEventHandler } from 'react';
 export interface SearchProps {
   placeholder: string;
   query: string;
+  ariaLabel: string;
   onChange: (value: string) => void;
 }
 
 export function Search({
   placeholder,
-  onChange,
   query,
+  ariaLabel,
+  onChange,
 }: SearchProps): JSX.Element {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
@@ -20,7 +22,8 @@ export function Search({
     <input
       className="search"
       type="text"
-      placeholder={placeholder}
+      aria-label={placeholder}
+      placeholder={ariaLabel}
       value={query}
       onChange={handleChange}
     />

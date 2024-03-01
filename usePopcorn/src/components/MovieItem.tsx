@@ -7,23 +7,25 @@ import { MovieAttributesType } from '../movie-api/MovieAttributesType';
 
 export interface MovieItemProps<T extends MovieAttributesType> {
   movie: T;
-  onClick?: (id: string) => void;
+  onSelectMovie?: (id: string) => void;
+  onDeleteWatchedMovie?: (id: string) => void;
 }
 
 export function MovieItem({
   movie,
-  onClick,
+  onSelectMovie,
+  onDeleteWatchedMovie,
 }: MovieItemProps<MovieAttributesType>): JSX.Element {
   const { imdbId, title } = movie;
 
-  const handleClick: MouseEventHandler<HTMLLIElement> = () => {
-    onClick?.(imdbId);
+  const handleClickMovieItem: MouseEventHandler<HTMLLIElement> = () => {
+    onSelectMovie?.(imdbId);
   };
 
   return (
     <li
       role="button"
-      onClick={handleClick}
+      onClick={handleClickMovieItem}
       aria-label={`See details of ${title}`}
     >
       <CommonForAll movie={movie} />
@@ -33,7 +35,10 @@ export function MovieItem({
       )}
 
       {'userRating' in movie && (
-        <UniqueForWatchedMovie movie={movie}></UniqueForWatchedMovie>
+        <UniqueForWatchedMovie
+          movie={movie}
+          onDeleteWatchedMovie={onDeleteWatchedMovie}
+        ></UniqueForWatchedMovie>
       )}
     </li>
   );
@@ -67,23 +72,38 @@ function UniqueForSearchedMovie({
 
 function UniqueForWatchedMovie({
   movie,
+  onDeleteWatchedMovie,
 }: MovieItemProps<WatchedMovieAttributes>): JSX.Element {
-  const { imdbRating, runtime, userRating } = movie;
+  const { imdbRating, runtime, userRating, title, imdbId } = movie;
+
+  const handleClickDeleteWatchedMovie: MouseEventHandler<HTMLButtonElement> = (
+    e
+  ) => {
+    e.stopPropagation(); // Prevents selecting movie again
+    onDeleteWatchedMovie?.(imdbId);
+  };
 
   return (
     <div>
-      <p>
+      <p aria-label={`IMDb rating of ${title}`}>
         <span>⭐️</span>
-        <span>{imdbRating}</span>
+        <span>{imdbRating.toFixed(1)}</span>
       </p>
-      <p>
+      <p aria-label={`User rating of ${title}`}>
         <span>🌟</span>
-        <span>{userRating}</span>
+        <span>{userRating.toFixed(1)}</span>
       </p>
-      <p>
+      <p aria-label={`Runtime of ${title}`}>
         <span>⏳</span>
-        <span>{runtime} min</span>
+        <span>{runtime} minutes</span>
       </p>
+      <button
+        className="btn-delete"
+        onClick={handleClickDeleteWatchedMovie}
+        aria-label={`Delete ${title} from list.`}
+      >
+        X
+      </button>
     </div>
   );
 }

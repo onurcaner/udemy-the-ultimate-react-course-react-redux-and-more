@@ -14,7 +14,11 @@ export function ShowHideButton({
   };
 
   return (
-    <button className="btn-toggle" onClick={handleClick}>
+    <button
+      className="btn-toggle"
+      onClick={handleClick}
+      aria-label={isOpen ? 'Hide list' : 'Show list'}
+    >
       {isOpen ? '➖' : '➕'}
     </button>
   );

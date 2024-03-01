@@ -24,21 +24,21 @@ export function WatchedMoviesSummary({
     <div className="summary">
       <h2>Movies you watched</h2>
       <div>
-        <p>
+        <p aria-label="Number of watched movies">
           <span>#️⃣</span>
-          <span>{watchedMovies.length} movies</span>
+          <span>{watchedMovies.length}</span>
         </p>
-        <p>
+        <p aria-label="Average IMDb rating of watched movies">
           <span>⭐️</span>
-          <span>{averageImdbRating}</span>
+          <span>{averageImdbRating.toFixed(1)}</span>
         </p>
-        <p>
+        <p aria-label="Average user rating of watched movies">
           <span>🌟</span>
-          <span>{averageUserRating}</span>
+          <span>{averageUserRating.toFixed(1)}</span>
         </p>
-        <p>
+        <p aria-label="Total runtime of watched movies in hours">
           <span>⏳</span>
-          <span>{totalRuntime} min</span>
+          <span>{(totalRuntime / 60).toFixed(1)} hours</span>
         </p>
       </div>
     </div>
