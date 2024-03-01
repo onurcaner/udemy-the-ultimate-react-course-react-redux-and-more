@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { useRef, useEffect, ChangeEventHandler } from 'react';
 
 export interface SearchProps {
   placeholder: string;
@@ -13,6 +13,29 @@ export function Search({
   ariaLabel,
   onChange,
 }: SearchProps): JSX.Element {
+  const inputElement = useRef<HTMLInputElement>(null);
+
+  // Focus on mount
+  useEffect(() => {
+    inputElement.current?.focus();
+  }, []);
+
+  // Focus on Enter key
+  useEffect(() => {
+    const handleKeydownEnter = ({ code }: KeyboardEvent): void => {
+      if (code !== 'Enter') return;
+      if (document.activeElement === inputElement.current) return;
+
+      inputElement.current?.focus();
+      onChange('');
+    };
+
+    document.addEventListener('keydown', handleKeydownEnter);
+    return () => {
+      document.removeEventListener('keydown', handleKeydownEnter);
+    };
+  }, [onChange]);
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
     onChange(value);
@@ -26,6 +49,7 @@ export function Search({
       placeholder={ariaLabel}
       value={query}
       onChange={handleChange}
+      ref={inputElement}
     />
   );
 }
