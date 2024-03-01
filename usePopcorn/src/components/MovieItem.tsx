@@ -1,6 +1,5 @@
 import { MouseEventHandler } from 'react';
 
-import { MovieAttributes } from '../movie-api/getMovieById';
 import { SearchMovieAttributes } from '../movie-api/searchMovies';
 import { WatchedMovieAttributes } from '../movie-api/getWatchedMovie';
 import { MovieAttributesType } from '../movie-api/MovieAttributesType';
@@ -46,7 +45,7 @@ export function MovieItem({
 
 function CommonForAll({
   movie,
-}: MovieItemProps<MovieAttributes | SearchMovieAttributes>): JSX.Element {
+}: MovieItemProps<MovieAttributesType>): JSX.Element {
   const { imageUrl, title } = movie;
   return (
     <>
