@@ -49,7 +49,7 @@ Notes: TypeScript is used instead of JavaScript
   rate movies, track your watched movies.
 
 - Requirements: You need to generate an [omdbapi key](https://www.omdbapi.com/apikey.aspx). Then you
-  need to create api-key.ts file inside the [omdbapi folder](./usePopcorn/src/omdbap)
+  need to create api-key.ts file inside the [omdbapi folder](./usePopcorn/src/omdbapi)
 
 ```ts
 // Inside omdbapi/api-key.ts
