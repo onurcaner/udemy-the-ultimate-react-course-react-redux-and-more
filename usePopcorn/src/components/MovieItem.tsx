@@ -6,16 +6,20 @@ import { MovieAttributesType } from '../movie-api/MovieAttributesType';
 
 export interface MovieItemProps<T extends MovieAttributesType> {
   movie: T;
+  selectedMovieId: string;
   onSelectMovie?: (id: string) => void;
   onDeleteWatchedMovie?: (id: string) => void;
 }
 
 export function MovieItem({
   movie,
+  selectedMovieId,
   onSelectMovie,
   onDeleteWatchedMovie,
 }: MovieItemProps<MovieAttributesType>): JSX.Element {
   const { imdbId, title } = movie;
+
+  const isSelected = imdbId === selectedMovieId;
 
   const handleClickMovieItem: MouseEventHandler<HTMLLIElement> = () => {
     onSelectMovie?.(imdbId);
@@ -23,6 +27,7 @@ export function MovieItem({
 
   return (
     <li
+      className={isSelected ? 'selected' : undefined}
       role="button"
       onClick={handleClickMovieItem}
       aria-label={`See details of ${title}`}

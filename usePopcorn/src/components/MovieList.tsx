@@ -4,12 +4,14 @@ import { MovieItem } from './MovieItem';
 
 export interface MovieListProps<T extends MovieAttributesType> {
   movies: T[];
+  selectedMovieId: string;
   onSelectMovie: (id: string) => void;
   onDeleteWatchedMovie?: (id: string) => void;
 }
 
 export function MovieList<T extends MovieAttributesType>({
   movies,
+  selectedMovieId,
   onSelectMovie,
   onDeleteWatchedMovie,
 }: MovieListProps<T>): JSX.Element {
@@ -19,6 +21,7 @@ export function MovieList<T extends MovieAttributesType>({
         <MovieItem
           key={movie.imdbId}
           movie={movie}
+          selectedMovieId={selectedMovieId}
           onSelectMovie={onSelectMovie}
           onDeleteWatchedMovie={onDeleteWatchedMovie}
         />

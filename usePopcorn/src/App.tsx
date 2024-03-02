@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { SearchMovieAttributes } from './movie-api/searchMovies';
 import {
@@ -25,57 +25,19 @@ import { getWatchedMovies } from './movie-api/getWatchedMovies';
 import { changeWatchedMovie } from './movie-api/changeWatchedMovie';
 import { addWatchedMovie } from './movie-api/addWatchedMovie';
 import { deleteWatchedMovie } from './movie-api/deleteWatchedMovie';
+import { useFetch } from './hooks/useFetch';
 
 export function App(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchError, setSearchError] = useState<Error | null>(null);
-  const [searchedMovies, setSearchedMovies] = useState<SearchMovieAttributes[]>(
-    []
-  );
   const [watchedMovies, setWatchedMovies] =
     useState<WatchedMovieAttributes[]>(getWatchedMovies);
   const [selectedMovieId, setSelectedMovieId] = useState('');
+  const [searchedMovies, isSearching, searchError] = useFetch<
+    SearchMovieAttributes[]
+  >({ customFetch: searchMovies, initialValue: [], query: searchQuery });
 
   const hasSearchError = Boolean(searchError);
   const isMovieSelected = Boolean(selectedMovieId);
-
-  // Search for movies
-  useEffect(() => {
-    if (searchQuery.length === 0) {
-      return;
-    }
-    if (searchQuery.length < 3) {
-      setSearchError(null);
-      setIsSearching(false);
-      return;
-    }
-
-    const abortController = new AbortController();
-
-    const timeoutId = setTimeout(() => {
-      setSearchError(null);
-      setIsSearching(true);
-
-      searchMovies(searchQuery, { signal: abortController.signal })
-        .then((movies) => {
-          setSearchedMovies(movies);
-          setSearchError(null);
-        })
-        .catch((searchError: Error) => {
-          if (searchError.name === 'AbortError') return;
-          setSearchError(searchError);
-        })
-        .finally(() => {
-          setIsSearching(false);
-        });
-    }, 500);
-
-    return () => {
-      clearTimeout(timeoutId);
-      abortController.abort();
-    };
-  }, [searchQuery]);
 
   const handleChangeOfSearch = (value: string): void => {
     setSearchQuery(value);
@@ -123,6 +85,7 @@ export function App(): JSX.Element {
           {!isSearching && !hasSearchError && (
             <MovieList
               movies={searchedMovies}
+              selectedMovieId={selectedMovieId}
               onSelectMovie={handleSelectMovie}
             />
           )}
@@ -140,6 +103,7 @@ export function App(): JSX.Element {
               <WatchedMoviesSummary watchedMovies={watchedMovies} />
               <MovieList
                 movies={watchedMovies}
+                selectedMovieId={selectedMovieId}
                 onSelectMovie={handleSelectMovie}
                 onDeleteWatchedMovie={handleDeleteWatchedMovie}
               />

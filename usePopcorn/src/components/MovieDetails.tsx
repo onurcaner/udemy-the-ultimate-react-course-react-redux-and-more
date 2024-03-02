@@ -11,6 +11,8 @@ import { Loader } from './Loader';
 import { ErrorMessage } from './ErrorMessage';
 
 import { changePageTitle } from '../utils/changePageTitle';
+import { useFetch } from '../hooks/useFetch';
+import { useKeydown } from '../hooks/useKeydown';
 
 export interface MovieDetailsProps {
   imdbId: string;
@@ -23,44 +25,14 @@ export function MovieDetails({
   onCloseMovieDetails,
   onRateMovie,
 }: MovieDetailsProps): JSX.Element {
-  const [movie, setMovie] = useState<
-    MovieAttributes | WatchedMovieAttributes | null
-  >(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [movie, isLoading, error] = useFetch<MovieAttributes | null>({
+    customFetch: getMovieById,
+    initialValue: null,
+    query: imdbId,
+  });
+  const [userRating, setUserRating] = useState(0);
 
   const hasError = Boolean(error);
-
-  // Fetch movie details
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-
-    const watchedMovie = getWatchedMovie(imdbId);
-    if (watchedMovie) {
-      setMovie(watchedMovie);
-      setIsLoading(false);
-      return;
-    }
-
-    const abortController = new AbortController();
-    getMovieById(imdbId, { signal: abortController.signal })
-      .then((movie) => {
-        setMovie(movie);
-        setError(null);
-      })
-      .catch((error: Error) => {
-        if (error.name === 'AbortError') return;
-        setError(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-
-    return () => {
-      abortController.abort();
-    };
-  }, [imdbId]);
 
   // Change page title
   useEffect(() => {
@@ -68,20 +40,18 @@ export function MovieDetails({
     return changePageTitle.bind(null);
   }, [movie]);
 
-  // Listen 'Escape' key
+  // Get rating
   useEffect(() => {
-    const handleKeydownEscape = ({ code }: KeyboardEvent): void => {
-      if (code !== 'Escape') return;
+    if (!movie) return;
+    if (movie.imdbId !== imdbId) return;
 
-      onCloseMovieDetails();
-    };
+    const watchedMovie = getWatchedMovie(imdbId);
+    if (!watchedMovie) return;
 
-    document.addEventListener('keydown', handleKeydownEscape);
+    setUserRating(watchedMovie.userRating);
+  }, [movie, imdbId]);
 
-    return () => {
-      document.removeEventListener('keydown', handleKeydownEscape);
-    };
-  }, [onCloseMovieDetails]);
+  useKeydown({ key: 'Escape', onKeydown: onCloseMovieDetails });
 
   const handleClickToCloseMovieDetails: MouseEventHandler<
     HTMLButtonElement
@@ -134,7 +104,7 @@ export function MovieDetails({
               onRate={handleRate}
               size={'1.4rem'}
               maxRating={10}
-              initialRating={'userRating' in movie ? movie.userRating : 0}
+              initialRating={userRating}
             />
           </div>
           <p>

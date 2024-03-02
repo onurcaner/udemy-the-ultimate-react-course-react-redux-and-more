@@ -1,4 +1,5 @@
 import { useRef, useEffect, ChangeEventHandler } from 'react';
+import { useKeydown } from '../hooks/useKeydown';
 
 export interface SearchProps {
   placeholder: string;
@@ -20,21 +21,16 @@ export function Search({
     inputElement.current?.focus();
   }, []);
 
-  // Focus on Enter key
-  useEffect(() => {
-    const handleKeydownEnter = ({ code }: KeyboardEvent): void => {
-      if (code !== 'Enter') return;
+  // Focus on keydown Enter
+  useKeydown({
+    key: 'Enter',
+    onKeydown() {
       if (document.activeElement === inputElement.current) return;
 
       inputElement.current?.focus();
       onChange('');
-    };
-
-    document.addEventListener('keydown', handleKeydownEnter);
-    return () => {
-      document.removeEventListener('keydown', handleKeydownEnter);
-    };
-  }, [onChange]);
+    },
+  });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target;
