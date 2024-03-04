@@ -35,7 +35,8 @@ Notes: TypeScript is used instead of JavaScript
 
 - Description: Enjoy meals with friends hassle-free. Simply log the expenses in
   the app when you and your friend dine together. One friend covers the bill,
-  'Eat-N-Split' keeps track of who owes whom. Never lose track of shared expenses again.
+  'Eat-N-Split' keeps track of who owes whom. Never lose track of shared
+  expenses again.
 
 - Requirements: None
 
@@ -45,11 +46,12 @@ Notes: TypeScript is used instead of JavaScript
 
 ### 4. usePopcorn App
 
-- Description: The usePopcorn is a movie list app where you can search movies, view movie details,
-  rate movies, track your watched movies.
+- Description: The usePopcorn is a movie list app where you can search movies,
+  view movie details, rate movies, track your watched movies.
 
-- Requirements: You need to generate an [omdbapi key](https://www.omdbapi.com/apikey.aspx). Then you
-  need to create api-key.ts file inside the [omdbapi folder](./usePopcorn/src/omdbapi)
+- Requirements: You need to generate an [omdbapi key](https://www.omdbapi.com/apikey.aspx).
+  Then you need to create api-key.ts file inside the
+  [omdbapi folder](./usePopcorn/src/omdbapi)
 
 ```ts
 // Inside omdbapi/api-key.ts
@@ -62,7 +64,8 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 
 ### 5. Classy Weather App
 
-- Description: Classy Weather is a minimalist daily weather forecast report built using React class components.
+- Description: Classy Weather is a minimalist daily weather forecast reporting
+  app built using React class components.
 
 - Requirements: None
 
