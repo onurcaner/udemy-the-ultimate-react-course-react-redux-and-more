@@ -1,4 +1,4 @@
-export interface Weather {
+export interface WeatherAttributes {
   temperatures: {
     min: number;
     max: number;
@@ -15,7 +15,7 @@ export async function getWeather(
     timezone: string;
   },
   requestInit?: RequestInit
-): Promise<Weather> {
+): Promise<WeatherAttributes> {
   const { latitude, longitude, timezone } = geoData;
 
   const url =
@@ -38,11 +38,11 @@ export async function getWeather(
   return weather;
 }
 
-function parseWeatherData(weatherData: WeatherData): Weather {
+function parseWeatherData(weatherData: WeatherData): WeatherAttributes {
   const { temperature_2m_max, temperature_2m_min, time, weathercode } =
     weatherData.daily;
 
-  const temperatures: Weather['temperatures'] = time.map((_, i) => ({
+  const temperatures: WeatherAttributes['temperatures'] = time.map((_, i) => ({
     dateString: time[i],
     max: temperature_2m_max[i],
     min: temperature_2m_min[i],

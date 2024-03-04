@@ -59,3 +59,13 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / usePopcorn](./usePopcorn)
+
+### 5. Classy Weather App
+
+- Description: Classy Weather is a minimalist daily weather forecast report built using React class components.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / Classy Weather](./Classy%20Weather)
