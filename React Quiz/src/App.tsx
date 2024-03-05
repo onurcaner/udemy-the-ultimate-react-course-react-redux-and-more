@@ -1,76 +1,33 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, Reducer } from 'react';
 
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Loader } from './components/Loader';
 import { Error } from './components/Error';
 import { StartScreen } from './components/StartScreen';
+import { Progress } from './components/Progress';
+import { Question } from './components/Question';
+import { NextButton } from './components/NextButton';
+import { FinishScreen } from './components/FinishScreen';
 
-import { getQuestions, QuestionAttributes } from './questions/getQuestions';
+import { getQuestions } from './questions/getQuestions';
 
-//
-//
-// App State
-interface AppState {
-  questions: QuestionAttributes[];
-  status: Status;
-}
-
-enum Status {
-  Loading = 1,
-  Error,
-  Ready,
-  Active,
-  Finished,
-}
-
-const initialState: AppState = {
-  questions: [],
-  status: Status.Loading,
-};
-
-//
-//
-// useReducer Actions
-enum ActionType {
-  InsertQuestions = 1,
-  FetchError,
-}
-
-interface InsertQuestions {
-  type: ActionType.InsertQuestions;
-  payload: AppState['questions'];
-}
-
-interface FetchError {
-  type: ActionType.FetchError;
-  payload?: null;
-}
-
-type Action = InsertQuestions | FetchError;
-
-function appReducer(state: Readonly<AppState>, action: Action): AppState {
-  const { type, payload } = action;
-
-  switch (type) {
-    case ActionType.InsertQuestions:
-      return { ...state, questions: payload, status: Status.Ready };
-
-    case ActionType.FetchError:
-      return { ...state, status: Status.Error };
-
-    default:
-      return state;
-  }
-}
+import { AppState, Status, initialState } from './AppState';
+import { appReducer, ActionType, Action } from './appReducer';
 
 export function App(): JSX.Element {
-  const [{ questions, status }, dispatch] = useReducer(
-    appReducer,
-    initialState
-  );
+  const [
+    { questions, status, questionIndex, answerIndex, totalPoints, highScore },
+    dispatch,
+  ] = useReducer<Reducer<Readonly<AppState>, Action>>(appReducer, initialState);
 
   const numberOfQuestions = questions.length;
+  const question = questions[questionIndex];
+  const isQuestionAnswered = answerIndex !== null;
+  const maximumPossiblePoints = questions.reduce(
+    (total, { points }) => total + points,
+    0
+  );
 
   useEffect(() => {
     getQuestions()
@@ -87,9 +44,47 @@ export function App(): JSX.Element {
       <Header />
       <Main>
         {status === Status.Loading && <Loader />}
+
         {status === Status.Error && <Error />}
+
         {status === Status.Ready && (
-          <StartScreen numberOfQuestions={numberOfQuestions} />
+          <StartScreen
+            numberOfQuestions={numberOfQuestions}
+            dispatch={dispatch}
+          />
+        )}
+
+        {status === Status.Active && (
+          <>
+            <Progress
+              questionIndex={questionIndex}
+              totalQuestions={questions.length}
+              isQuestionAnswered={isQuestionAnswered}
+              points={totalPoints}
+              maximumPossiblePoints={maximumPossiblePoints}
+            />
+            <Question
+              question={question}
+              answerIndex={answerIndex}
+              isQuestionAnswered={isQuestionAnswered}
+              dispatch={dispatch}
+            />
+            <NextButton
+              questionIndex={questionIndex}
+              totalQuestions={questions.length}
+              isQuestionAnswered={isQuestionAnswered}
+              dispatch={dispatch}
+            />
+          </>
+        )}
+
+        {status === Status.Finished && (
+          <FinishScreen
+            points={totalPoints}
+            maximumPossiblePoints={maximumPossiblePoints}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
         )}
       </Main>
     </div>
