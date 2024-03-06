@@ -7,6 +7,7 @@ import { Error } from './components/Error';
 import { StartScreen } from './components/StartScreen';
 import { Progress } from './components/Progress';
 import { Question } from './components/Question';
+import { Timer } from './components/Timer';
 import { NextButton } from './components/NextButton';
 import { FinishScreen } from './components/FinishScreen';
 
@@ -17,7 +18,15 @@ import { appReducer, ActionType, Action } from './appReducer';
 
 export function App(): JSX.Element {
   const [
-    { questions, status, questionIndex, answerIndex, totalPoints, highScore },
+    {
+      questions,
+      status,
+      questionIndex,
+      answerIndex,
+      totalPoints,
+      highScore,
+      remainingTime,
+    },
     dispatch,
   ] = useReducer<Reducer<Readonly<AppState>, Action>>(appReducer, initialState);
 
@@ -69,6 +78,7 @@ export function App(): JSX.Element {
               isQuestionAnswered={isQuestionAnswered}
               dispatch={dispatch}
             />
+            <Timer remainingTime={remainingTime} dispatch={dispatch} />
             <NextButton
               questionIndex={questionIndex}
               totalQuestions={questions.length}

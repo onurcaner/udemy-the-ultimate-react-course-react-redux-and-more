@@ -7,6 +7,7 @@ export interface AppState {
   answerIndex: number | null;
   totalPoints: number;
   highScore: number;
+  remainingTime: number;
 }
 
 export enum Status {
@@ -20,8 +21,9 @@ export enum Status {
 export const initialState: AppState = {
   questions: [],
   status: Status.Loading,
-  questionIndex: 14,
+  questionIndex: 0,
   answerIndex: null,
   totalPoints: 0,
   highScore: 0,
+  remainingTime: 0,
 };

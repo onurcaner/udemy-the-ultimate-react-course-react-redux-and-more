@@ -1,3 +1,5 @@
+import { SECONDS_FOR_PER_QUESTION } from './config';
+
 import { AppState, Status, initialState } from './AppState';
 
 export enum ActionType {
@@ -8,6 +10,7 @@ export enum ActionType {
   NextQuestion = 'nextQuestion',
   FinishQuiz = 'finishQuiz',
   RestartQuiz = 'restartQuiz',
+  TimerTick = 'timerTick',
 }
 
 interface InsertQuestions {
@@ -45,6 +48,11 @@ interface RestartQuiz {
   payload?: undefined;
 }
 
+interface TimerTick {
+  type: ActionType.TimerTick;
+  payload?: undefined;
+}
+
 export type Action =
   | InsertQuestions
   | FetchError
@@ -52,7 +60,8 @@ export type Action =
   | AnswerQuestion
   | NextQuestion
   | FinishQuiz
-  | RestartQuiz;
+  | RestartQuiz
+  | TimerTick;
 
 export function appReducer(
   state: Readonly<AppState>,
@@ -62,7 +71,14 @@ export function appReducer(
 
   switch (type) {
     case ActionType.InsertQuestions: {
-      return { ...state, questions: payload, status: Status.Ready };
+      const questions = payload;
+
+      return {
+        ...state,
+        questions,
+        status: Status.Ready,
+        remainingTime: questions.length * SECONDS_FOR_PER_QUESTION,
+      };
     }
 
     case ActionType.FetchError: {
@@ -97,6 +113,7 @@ export function appReducer(
 
     case ActionType.FinishQuiz: {
       const hasNewHighscore = state.totalPoints > state.highScore;
+
       return {
         ...state,
         status: Status.Finished,
@@ -109,8 +126,13 @@ export function appReducer(
         ...initialState,
         highScore: state.highScore,
         questions: state.questions,
+        remainingTime: state.questions.length * SECONDS_FOR_PER_QUESTION,
         status: Status.Ready,
       };
+    }
+
+    case ActionType.TimerTick: {
+      return { ...state, remainingTime: state.remainingTime - 1 };
     }
 
     default:

@@ -72,3 +72,14 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / Classy Weather](./Classy%20Weather)
+
+### 6. React Quiz App
+
+- Description: 'Reactive Quiz' is an interactive quiz app where you can test
+  your React knowledge.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / React Quiz](./React%20Quiz)

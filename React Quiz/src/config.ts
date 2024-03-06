@@ -1,0 +1,1 @@
+export const SECONDS_FOR_PER_QUESTION = 40;
