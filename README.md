@@ -75,8 +75,8 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 
 ### 6. React Quiz App
 
-- Description: 'Reactive Quiz' is an interactive quiz app where you can test
-  your React knowledge.
+- Description: React Quiz is an interactive quiz app where you can test your
+  React knowledge.
 
 - Requirements: None
 
