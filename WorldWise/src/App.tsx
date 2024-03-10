@@ -23,7 +23,9 @@ import { AppLayout } from './pages/AppLayout';
 import { CityList } from './components/CityList';
 import { CountryList } from './components/CountryList';
 import { Form } from './components/Form';
-import { getCities } from './data/getCities';
+import { City } from './components/City';
+
+import { CitiesProvider } from './contexts/CitiesProvider';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +46,11 @@ const router = createBrowserRouter([
   },
   {
     path: APP,
-    element: <AppLayout />,
+    element: (
+      <CitiesProvider>
+        <AppLayout />
+      </CitiesProvider>
+    ),
     children: [
       {
         index: true,
@@ -52,15 +58,15 @@ const router = createBrowserRouter([
       },
       {
         path: CITIES,
-        element: <CityList cities={await getCities()} />,
+        element: <CityList />,
       },
       {
         path: CITIES + '/:id',
-        element: <CityList cities={await getCities()} />,
+        element: <City />,
       },
       {
         path: COUNTRIES,
-        element: <CountryList countries={await getCities()} />,
+        element: <CountryList />,
       },
       {
         path: FORM,

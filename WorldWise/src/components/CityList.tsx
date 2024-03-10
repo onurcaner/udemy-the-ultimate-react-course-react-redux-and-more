@@ -1,15 +1,18 @@
 import styles from './CityList.module.css';
 
-import { CityAttributes } from '../data/types';
-
 import { CityItem } from './CityItem';
 import { Message } from './Message';
+import { Spinner } from './Spinner';
 
-export interface CityListProps {
-  cities: CityAttributes[];
-}
+import { useCitiesContext } from '../contexts/useCitiesContext';
 
-export function CityList({ cities }: CityListProps): JSX.Element {
+export function CityList(): JSX.Element {
+  const {
+    cities: { cities, isLoading },
+  } = useCitiesContext();
+
+  if (isLoading) return <Spinner />;
+
   if (!cities.length)
     return <Message message="Add your first city by clicking on the map" />;
 

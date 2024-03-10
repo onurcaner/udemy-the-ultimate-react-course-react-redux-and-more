@@ -1,4 +1,12 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import styles from './City.module.css';
+
+import { Button } from './Button';
+import { Spinner } from './Spinner';
+import { Message } from './Message';
+import { useCitiesContext } from '../contexts/useCitiesContext';
 
 const formatDate = (date: string | null) =>
   new Intl.DateTimeFormat('en', {
@@ -9,13 +17,20 @@ const formatDate = (date: string | null) =>
   }).format(new Date(date ?? ''));
 
 export function City(): JSX.Element {
-  // TEMP DATA
-  const currentCity = {
-    cityName: 'Lisbon',
-    emoji: '🇵🇹',
-    date: '2027-10-31T15:59:59.138Z',
-    notes: 'My favorite city so far!',
-  };
+  const {
+    currentCity: { currentCity, isLoading, setCurrentCityId },
+  } = useCitiesContext();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (!id) throw new Error(`Param id is not valid => id: ${id}`);
+    setCurrentCityId(id);
+  }, [id, setCurrentCityId]);
+
+  if (currentCity?.id !== id) return <Spinner />;
+  if (isLoading) return <Spinner />;
+  if (!currentCity)
+    return <Message message={`Can not find a city with id: ${id}`} />;
 
   const { cityName, emoji, date, notes } = currentCity;
 
@@ -52,7 +67,7 @@ export function City(): JSX.Element {
       </div>
 
       <div>
-        <ButtonBack />
+        <Button functionType="back">Back</Button>
       </div>
     </div>
   );

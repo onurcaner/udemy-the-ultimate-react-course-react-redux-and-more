@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './Button.module.css';
 
@@ -17,10 +18,21 @@ export function Button({
   ariaLabel,
   onClick,
 }: ButtonProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const handleClick: MouseEventHandler = () => {
+    if (functionType === 'back') {
+      navigate(-1);
+      return;
+    }
+
+    onClick?.();
+  };
+
   return (
     <button
       className={`${styles.btn} ${styles[functionType]}`}
-      onClick={onClick}
+      onClick={handleClick}
       type={type}
       aria-label={ariaLabel}
     >

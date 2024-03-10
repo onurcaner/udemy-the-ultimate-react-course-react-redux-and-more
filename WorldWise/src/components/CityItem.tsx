@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import { CityAttributes } from '../data/types';
 
 import styles from './CityItem.module.css';
+import { useCitiesContext } from '../contexts/useCitiesContext';
 
 export interface CityItemProps {
   city: CityAttributes;
 }
 
 export function CityItem({ city }: CityItemProps): JSX.Element {
+  const {
+    currentCity: { currentCity },
+  } = useCitiesContext();
+
   const {
     cityName,
     date,
@@ -17,11 +22,13 @@ export function CityItem({ city }: CityItemProps): JSX.Element {
     position: { lat, lng },
   } = city;
 
-  const toLink = `${id}?lat=${lat}&lng=${lng}`;
+  const linkTo = `${id}?lat=${lat}&lng=${lng}`;
+  const linkClassList = [styles.cityItem];
+  if (currentCity?.id === id) linkClassList.push(styles['cityItem--active']);
 
   return (
     <li>
-      <Link className={styles.cityItem} to={toLink}>
+      <Link className={linkClassList.join(' ')} to={linkTo}>
         <span className={styles.emoji} aria-label="Country emoji">
           {emoji}
         </span>

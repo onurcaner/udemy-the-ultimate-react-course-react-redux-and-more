@@ -1,9 +1,9 @@
+import { BASE_URL } from './config';
+import { getGeneric } from './getGeneric';
 import { CityAttributes } from './types';
 
-export async function getCities(): Promise<CityAttributes[]> {
-  const response = await fetch('http://localhost:5174/cities');
-  if (!response.ok) throw new Error();
-
-  const data = (await response.json()) as CityAttributes[];
-  return data;
+export async function getCities(
+  requestInit?: RequestInit
+): Promise<CityAttributes[]> {
+  return await getGeneric<CityAttributes[]>(`${BASE_URL}/cities`, requestInit);
 }
