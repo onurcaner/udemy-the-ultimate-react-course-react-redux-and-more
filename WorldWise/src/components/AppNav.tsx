@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
 import { CITIES, COUNTRIES } from '../routes';
-
 import styles from './AppNav.module.css';
 
 export function AppNav(): JSX.Element {

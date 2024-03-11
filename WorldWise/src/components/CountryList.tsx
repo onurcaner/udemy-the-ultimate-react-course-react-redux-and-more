@@ -1,12 +1,9 @@
-import styles from './CountryList.module.css';
-
-import { CountryAttributes } from '../data/types';
-
-import { Message } from './Message';
-import { CountryItem } from './CountryItem';
-import { Spinner } from './Spinner';
-
 import { useCitiesContext } from '../contexts/useCitiesContext';
+import { CountryAttributes } from '../data/types';
+import { CountryItem } from './CountryItem';
+import styles from './CountryList.module.css';
+import { Message } from './Message';
+import { Spinner } from './Spinner';
 
 export function CountryList(): JSX.Element {
   const {
@@ -19,7 +16,7 @@ export function CountryList(): JSX.Element {
     (city): CountryAttributes => ({
       country: city.country,
       emoji: city.emoji,
-    })
+    }),
   );
 
   const countries = [...new Set(_countries)];

@@ -1,13 +1,11 @@
 import { ReactNode, useState } from 'react';
 
-import { CitiesContext } from './CitiesContext';
-
-import { CityAttributes } from '../data/types';
 import { getCities } from '../data/getCities';
-
+import { getCity } from '../data/getCity';
+import { CityAttributes } from '../data/types';
 import { useGetBasic } from '../hooks/useGetBasic';
 import { useGetWatch } from '../hooks/useGetWatch';
-import { getCity } from '../data/getCity';
+import { CitiesContext } from './CitiesContext';
 
 export function CitiesProvider({
   children,

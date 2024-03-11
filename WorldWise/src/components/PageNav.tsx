@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
 import { LOGIN, PRICING, PRODUCT } from '../routes';
-
-import styles from './PageNav.module.css';
-
 import { Logo } from './Logo';
+import styles from './PageNav.module.css';
 
 export function PageNav(): JSX.Element {
   return (

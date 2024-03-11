@@ -1,6 +1,5 @@
-import styles from './Product.module.css';
-
 import { PageNav } from '../components/PageNav';
+import styles from './Product.module.css';
 
 export function Product(): JSX.Element {
   return (

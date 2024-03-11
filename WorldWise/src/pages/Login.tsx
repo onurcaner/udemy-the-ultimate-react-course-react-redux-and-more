@@ -1,8 +1,7 @@
-import { useState, ChangeEventHandler, SetStateAction, Dispatch } from 'react';
-
-import styles from './Login.module.css';
+import { ChangeEventHandler, Dispatch, SetStateAction, useState } from 'react';
 
 import { PageNav } from '../components/PageNav';
+import styles from './Login.module.css';
 
 export function Login(): JSX.Element {
   // PRE-FILL FOR DEV PURPOSES
@@ -10,7 +9,7 @@ export function Login(): JSX.Element {
   const [password, setPassword] = useState('qwerty');
 
   const createChangeHandler = (
-    setState: Dispatch<SetStateAction<string>>
+    setState: Dispatch<SetStateAction<string>>,
   ): ChangeEventHandler<HTMLInputElement> => {
     return (e) => {
       const { value } = e.target;

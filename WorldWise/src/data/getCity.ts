@@ -4,10 +4,10 @@ import { CityAttributes } from './types';
 
 export async function getCity(
   id: number | string,
-  requestInit?: RequestInit
+  requestInit?: RequestInit,
 ): Promise<CityAttributes> {
   return await getGeneric<CityAttributes>(
     `${BASE_URL}/cities/${id}`,
-    requestInit
+    requestInit,
   );
 }

@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { CityAttributes } from '../data/types';
-
-import styles from './CityItem.module.css';
 import { useCitiesContext } from '../contexts/useCitiesContext';
+import { CityAttributes } from '../data/types';
+import styles from './CityItem.module.css';
 
 export interface CityItemProps {
   city: CityAttributes;

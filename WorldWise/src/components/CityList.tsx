@@ -1,10 +1,8 @@
-import styles from './CityList.module.css';
-
+import { useCitiesContext } from '../contexts/useCitiesContext';
 import { CityItem } from './CityItem';
+import styles from './CityList.module.css';
 import { Message } from './Message';
 import { Spinner } from './Spinner';
-
-import { useCitiesContext } from '../contexts/useCitiesContext';
 
 export function CityList(): JSX.Element {
   const {

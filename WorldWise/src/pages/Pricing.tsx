@@ -1,7 +1,6 @@
 // Uses the same styles as Product
-import styles from './Product.module.css';
-
 import { PageNav } from '../components/PageNav';
+import styles from './Product.module.css';
 
 export function Pricing(): JSX.Element {
   return (

@@ -1,6 +1,5 @@
-import styles from './CountryItem.module.css';
-
 import { CountryAttributes } from '../data/types';
+import styles from './CountryItem.module.css';
 
 export interface CountryItemProps {
   country: CountryAttributes;
