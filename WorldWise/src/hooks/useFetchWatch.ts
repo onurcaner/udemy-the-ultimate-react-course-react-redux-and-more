@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
 
-interface UseGetBasicOptions<T> {
-  customGet: (requestInit?: RequestInit) => Promise<T>;
+interface UseFetchWatchOptions<T, P> {
+  customFetch: (fetchParameter: P, requestInit?: RequestInit) => Promise<T>;
   initialState: T;
+  fetchParameter: P | null;
 }
 
-export function useGetBasic<T>({
-  customGet,
+export function useFetchWatch<T, P>({
+  customFetch,
   initialState,
-}: UseGetBasicOptions<T>): [T, boolean, Error | null] {
+  fetchParameter,
+}: UseFetchWatchOptions<T, P>): [T, boolean, Error | null] {
   const [data, setData] = useState<T>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    if (!fetchParameter) return;
     const abortController = new AbortController();
 
     setIsLoading(true);
     setError(null);
-    customGet({ signal: abortController.signal })
+    customFetch(fetchParameter, { signal: abortController.signal })
       .then((data) => {
         setData(data);
         setError(null);
@@ -34,7 +37,7 @@ export function useGetBasic<T>({
     return () => {
       abortController.abort();
     };
-  }, [customGet]);
+  }, [customFetch, fetchParameter]);
 
   return [data, isLoading, error];
 }

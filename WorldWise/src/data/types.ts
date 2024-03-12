@@ -8,7 +8,7 @@ export interface CityAttributes extends CountryAttributes {
   date: string;
   notes: string;
   position: Position;
-  id: number;
+  id: string;
 }
 
 export interface Position {

@@ -17,21 +17,22 @@ const formatDate = (date: string | null) =>
 
 export function City(): JSX.Element {
   const {
-    currentCity: { currentCity, isLoading, setCurrentCityId },
+    selectedCity: { selectedCity, isLoading },
+    dispatch,
   } = useCitiesContext();
   const { id } = useParams();
 
   useEffect(() => {
     if (!id) throw new Error(`Param id is not valid => id: ${id}`);
-    setCurrentCityId(id);
-  }, [id, setCurrentCityId]);
+    dispatch({ type: 'selectedCityId/will-be-fetched', payload: id });
+  }, [id, dispatch]);
 
-  if (currentCity?.id !== id) return <Spinner />;
+  if (selectedCity?.id !== id) return <Spinner />;
   if (isLoading) return <Spinner />;
-  if (!currentCity)
+  if (!selectedCity)
     return <Message message={`Can not find a city with id: ${id}`} />;
 
-  const { cityName, emoji, date, notes } = currentCity;
+  const { cityName, emoji, date, notes } = selectedCity;
 
   return (
     <div className={styles.city}>

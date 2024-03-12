@@ -1,8 +1,11 @@
-import { createContext } from 'react';
+import { Dispatch, createContext } from 'react';
 
 import { CityAttributes } from '../data/types';
+import { CityProviderAction } from './reduceCityProvider';
 
-export const CitiesContext = createContext<CitiesContextValue | null>(null);
+export const CitiesContext = createContext<
+  CitiesContextValue | null | undefined
+>(null);
 
 export interface CitiesContextValue {
   cities: {
@@ -10,10 +13,18 @@ export interface CitiesContextValue {
     isLoading: boolean;
     error: Error | null;
   };
-  currentCity: {
-    currentCity: CityAttributes | null;
+  selectedCity: {
+    selectedCity: CityAttributes | null;
     isLoading: boolean;
     error: Error | null;
-    setCurrentCityId: (id: string | number) => void;
   };
+  postCity: {
+    isLoading: boolean;
+    error: Error | null;
+  };
+  deleteCity: {
+    isLoading: boolean;
+    error: Error | null;
+  };
+  dispatch: Dispatch<CityProviderAction>;
 }

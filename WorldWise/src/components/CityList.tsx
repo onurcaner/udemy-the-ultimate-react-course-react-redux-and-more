@@ -16,7 +16,7 @@ export function CityList(): JSX.Element {
 
   return (
     <ul className={styles.cityList}>
-      {cities.map((city) => (
+      {cities.map<JSX.Element>((city) => (
         <CityItem key={city.id} city={city} />
       ))}
     </ul>

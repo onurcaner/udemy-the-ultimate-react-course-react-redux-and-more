@@ -10,7 +10,7 @@ export interface ReverseGeocoding {
 
 export async function getReverseGeocoding(
   { lat, lng }: Position,
-  requestInit: RequestInit,
+  requestInit?: RequestInit,
 ): Promise<Pick<CityAttributes, 'cityName' | 'country' | 'emoji'>> {
   const url =
     `https://api.bigdatacloud.net/data/reverse-geocode-client` +

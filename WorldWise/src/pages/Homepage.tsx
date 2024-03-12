@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { PageNav } from '../components/PageNav';
-import { APP } from '../routes';
+import { LOGIN } from '../routes';
 import styles from './Homepage.module.css';
 
 export function Homepage(): JSX.Element {
@@ -19,7 +19,7 @@ export function Homepage(): JSX.Element {
           of. Never forget your wonderful experiences, and show your friends how
           you have wandered the world.
         </h2>
-        <Link to={APP} className="cta">
+        <Link to={LOGIN} className="cta">
           Start tracking now
         </Link>
       </section>

@@ -15,6 +15,11 @@
   color: var(--color-dark--1);
 }
 
+.primary:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-light--1);
+}
+
 .back {
   font-weight: 600;
   background: none;

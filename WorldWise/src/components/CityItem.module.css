@@ -48,7 +48,15 @@
   transition: all 0.2s;
 }
 
-.deleteBtn:hover {
+.deleteBtn:disabled {
+  cursor: not-allowed;
+}
+
+.cityItem:has(:disabled) {
+  opacity: 0.5;
+}
+
+.deleteBtn:not(:disabled):hover {
   background-color: var(--color-brand--1);
   color: var(--color-dark--1);
 }

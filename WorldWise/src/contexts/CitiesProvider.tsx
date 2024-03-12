@@ -1,28 +1,84 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { deleteCity } from '../data/deleteCity';
 import { getCities } from '../data/getCities';
 import { getCity } from '../data/getCity';
+import { postCity } from '../data/postCity';
 import { CityAttributes } from '../data/types';
-import { useGetBasic } from '../hooks/useGetBasic';
-import { useGetWatch } from '../hooks/useGetWatch';
+import { useFetchBasic } from '../hooks/useFetchBasic';
+import { useFetchWatch } from '../hooks/useFetchWatch';
+import { APP } from '../routes';
 import { CitiesContext } from './CitiesContext';
+import {
+  CityProviderAction,
+  CityProviderState,
+  initialCityProviderState,
+  reduceCityProvider,
+} from './reduceCityProvider';
 
 export function CitiesProvider({
   children,
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const [currentCityId, setCurrentCityId] = useState<number | string>('');
+  const navigate = useNavigate();
 
-  const [cities, isLoadingCities, errorCities] = useGetBasic<CityAttributes[]>({
-    customGet: getCities,
-    initialState: [],
+  const [{ selectedCityId, cityToPostCity, cityIdToDeleteCity }, dispatch] =
+    useReducer<
+      (
+        state: CityProviderState,
+        action: CityProviderAction,
+      ) => CityProviderState
+    >(reduceCityProvider, initialCityProviderState);
+
+  const [cities, isLoadingCities, errorCities, setTriggerOfFetchCities] =
+    useFetchBasic<CityAttributes[]>({
+      customFetch: getCities,
+      initialState: [],
+    });
+
+  const [selectedCity, isLoadingSelectedCity, errorSelectedCity] =
+    useFetchWatch<CityAttributes | null, number | string>({
+      customFetch: getCity,
+      fetchParameter: selectedCityId,
+      initialState: null,
+    });
+
+  const [postedCity, isLoadingPostCity, errorPostCity] = useFetchWatch<
+    CityAttributes | null,
+    Omit<CityAttributes, 'id'>
+  >({
+    customFetch: postCity,
+    fetchParameter: cityToPostCity,
+    initialState: null,
   });
 
-  const [currentCity, isLoadingCurrentCity, errorCurrentCity] = useGetWatch<
+  const [deletedCity, isLoadingDeleteCity, errorDeleteCity] = useFetchWatch<
     CityAttributes | null,
-    string | number
-  >({ customGet: getCity, getParameter: currentCityId, initialState: null });
+    number | string
+  >({
+    customFetch: deleteCity,
+    fetchParameter: cityIdToDeleteCity,
+    initialState: null,
+  });
+
+  useEffect(() => {
+    if (!postedCity) return;
+
+    navigate('/' + APP);
+    dispatch({
+      type: 'selectedCityId/will-be-fetched',
+      payload: postedCity.id,
+    });
+    setTriggerOfFetchCities((n) => n + 1);
+  }, [postedCity, navigate, setTriggerOfFetchCities]);
+
+  useEffect(() => {
+    if (!deletedCity) return;
+
+    setTriggerOfFetchCities((n) => n + 1);
+  }, [deletedCity, setTriggerOfFetchCities]);
 
   return (
     <CitiesContext.Provider
@@ -32,12 +88,24 @@ export function CitiesProvider({
           isLoading: isLoadingCities,
           error: errorCities,
         },
-        currentCity: {
-          currentCity,
-          isLoading: isLoadingCurrentCity,
-          error: errorCurrentCity,
-          setCurrentCityId,
+
+        selectedCity: {
+          selectedCity,
+          isLoading: isLoadingSelectedCity,
+          error: errorSelectedCity,
         },
+
+        postCity: {
+          isLoading: isLoadingPostCity,
+          error: errorPostCity,
+        },
+
+        deleteCity: {
+          isLoading: isLoadingDeleteCity,
+          error: errorDeleteCity,
+        },
+
+        dispatch,
       }}
     >
       {children}

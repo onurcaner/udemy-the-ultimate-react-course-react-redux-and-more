@@ -9,12 +9,14 @@ import { CityList } from './components/CityList';
 import { CountryList } from './components/CountryList';
 import { Form } from './components/Form';
 import { CitiesProvider } from './contexts/CitiesProvider';
+import { FakeAuthProvider } from './contexts/FakeAuthProvider';
 import { AppLayout } from './pages/AppLayout';
 import { Homepage } from './pages/Homepage';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
 import { Pricing } from './pages/Pricing';
 import { Product } from './pages/Product';
+import { ProtectedRoute } from './pages/ProtectedRoute';
 import {
   APP,
   CITIES,
@@ -46,7 +48,9 @@ const router = createBrowserRouter([
     path: APP,
     element: (
       <CitiesProvider>
-        <AppLayout />
+        <ProtectedRoute>
+          <AppLayout />
+        </ProtectedRoute>
       </CitiesProvider>
     ),
     children: [
@@ -80,8 +84,8 @@ const router = createBrowserRouter([
 
 export function App(): JSX.Element {
   return (
-    <>
+    <FakeAuthProvider>
       <RouterProvider router={router} />
-    </>
+    </FakeAuthProvider>
   );
 }

@@ -19,6 +19,9 @@ import styles from './Map.module.css';
 
 export function Map(): JSX.Element {
   const [center, setCenter] = useState<Position>({ lat: 0, lng: 0 });
+  const [lastMarkerPosition, setLastMarkerPosition] = useState<Position | null>(
+    null,
+  );
   const {
     cities: { cities },
   } = useCitiesContext();
@@ -38,6 +41,7 @@ export function Map(): JSX.Element {
 
   useEffect(() => {
     if (!geoLocationPosition) return;
+
     setCenter(geoLocationPosition);
   }, [geoLocationPosition]);
 
@@ -54,7 +58,7 @@ export function Map(): JSX.Element {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
 
-        {cities.map((city) => (
+        {cities.map<JSX.Element>((city) => (
           <Marker position={city.position} key={city.id}>
             <Popup>
               <span role="img" aria-label="City emoji">
@@ -65,8 +69,10 @@ export function Map(): JSX.Element {
           </Marker>
         ))}
 
+        {lastMarkerPosition && <Marker position={lastMarkerPosition}></Marker>}
+
         <ChangeCenter position={center} />
-        <OnClick />
+        <OnClick setLastMarkerPosition={setLastMarkerPosition} />
         <OnDragEnd setCenter={setCenter} />
       </MapContainer>
       {center !== geoLocationPosition && (
@@ -87,13 +93,19 @@ function ChangeCenter({ position }: { position: Position }): JSX.Element {
   return <></>;
 }
 
-function OnClick(): JSX.Element {
+function OnClick({
+  setLastMarkerPosition,
+}: {
+  setLastMarkerPosition: Dispatch<SetStateAction<Position | null>>;
+}): JSX.Element {
   const navigate = useNavigate();
 
   useMapEvent('click', (e) => {
     const { lat, lng } = e.latlng;
+    setLastMarkerPosition({ lat, lng });
     navigate(`${FORM}?lat=${lat}&lng=${lng}`);
   });
+
   return <></>;
 }
 
@@ -108,5 +120,6 @@ function OnDragEnd({
     const { lat, lng } = map.getCenter();
     setCenter({ lat, lng });
   });
+
   return <></>;
 }

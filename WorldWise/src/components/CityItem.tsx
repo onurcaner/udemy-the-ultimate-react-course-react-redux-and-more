@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useCitiesContext } from '../contexts/useCitiesContext';
@@ -10,7 +11,9 @@ export interface CityItemProps {
 
 export function CityItem({ city }: CityItemProps): JSX.Element {
   const {
-    currentCity: { currentCity },
+    selectedCity: { selectedCity },
+    deleteCity: { isLoading: isLoadingDeleteCity },
+    dispatch,
   } = useCitiesContext();
 
   const {
@@ -21,9 +24,14 @@ export function CityItem({ city }: CityItemProps): JSX.Element {
     position: { lat, lng },
   } = city;
 
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    dispatch({ type: 'cityId/will-be-deleted', payload: id });
+  };
+
   const linkTo = `${id}?lat=${lat}&lng=${lng}`;
   const linkClassList = [styles.cityItem];
-  if (currentCity?.id === id) linkClassList.push(styles['cityItem--active']);
+  if (selectedCity?.id === id) linkClassList.push(styles['cityItem--active']);
 
   return (
     <li>
@@ -35,7 +43,13 @@ export function CityItem({ city }: CityItemProps): JSX.Element {
         <time className={styles.date} dateTime={date}>
           ({formatDate(date)})
         </time>
-        <button className={styles.deleteBtn} type="button" aria-label="Delete">
+        <button
+          className={styles.deleteBtn}
+          type="button"
+          onClick={handleClick}
+          aria-label="Delete"
+          disabled={isLoadingDeleteCity}
+        >
           X
         </button>
       </Link>

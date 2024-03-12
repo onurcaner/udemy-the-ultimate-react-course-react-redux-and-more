@@ -1,27 +1,30 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-interface UseGetWatchOptions<T, P> {
-  customGet: (getParameter: P, requestInit?: RequestInit) => Promise<T>;
+interface UseFetchBasicOptions<T> {
+  customFetch: (requestInit?: RequestInit) => Promise<T>;
   initialState: T;
-  getParameter: P;
 }
 
-export function useGetWatch<T, P>({
-  customGet,
+export function useFetchBasic<T>({
+  customFetch,
   initialState,
-  getParameter,
-}: UseGetWatchOptions<T, P>): [T, boolean, Error | null] {
+}: UseFetchBasicOptions<T>): [
+  T,
+  boolean,
+  Error | null,
+  Dispatch<SetStateAction<number>>,
+] {
   const [data, setData] = useState<T>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [trigger, setTrigger] = useState(0);
 
   useEffect(() => {
-    if (!getParameter) return;
     const abortController = new AbortController();
 
     setIsLoading(true);
     setError(null);
-    customGet(getParameter, { signal: abortController.signal })
+    customFetch({ signal: abortController.signal })
       .then((data) => {
         setData(data);
         setError(null);
@@ -37,7 +40,7 @@ export function useGetWatch<T, P>({
     return () => {
       abortController.abort();
     };
-  }, [customGet, getParameter]);
+  }, [customFetch, trigger]);
 
-  return [data, isLoading, error];
+  return [data, isLoading, error, setTrigger];
 }
