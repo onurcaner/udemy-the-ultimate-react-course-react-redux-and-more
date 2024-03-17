@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface UseFetchBasicOptions<T> {
   customFetch: (requestInit?: RequestInit) => Promise<T>;
@@ -8,12 +8,7 @@ interface UseFetchBasicOptions<T> {
 export function useFetchBasic<T>({
   customFetch,
   initialState,
-}: UseFetchBasicOptions<T>): [
-  T,
-  boolean,
-  Error | null,
-  Dispatch<SetStateAction<number>>,
-] {
+}: UseFetchBasicOptions<T>): [T, boolean, Error | null, () => void] {
   const [data, setData] = useState<T>(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -42,5 +37,9 @@ export function useFetchBasic<T>({
     };
   }, [customFetch, trigger]);
 
-  return [data, isLoading, error, setTrigger];
+  const reFetch = useCallback((): void => {
+    setTrigger((n) => n + 1);
+  }, []);
+
+  return [data, isLoading, error, reFetch];
 }

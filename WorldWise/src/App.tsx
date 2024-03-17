@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react';
 import {
   Navigate,
   RouterProvider,
@@ -8,14 +9,9 @@ import { City } from './components/City';
 import { CityList } from './components/CityList';
 import { CountryList } from './components/CountryList';
 import { Form } from './components/Form';
+import { SpinnerFullPage } from './components/SpinnerFullPage';
 import { CitiesProvider } from './contexts/CitiesProvider';
 import { FakeAuthProvider } from './contexts/FakeAuthProvider';
-import { AppLayout } from './pages/AppLayout';
-import { Homepage } from './pages/Homepage';
-import { Login } from './pages/Login';
-import { PageNotFound } from './pages/PageNotFound';
-import { Pricing } from './pages/Pricing';
-import { Product } from './pages/Product';
 import { ProtectedRoute } from './pages/ProtectedRoute';
 import {
   APP,
@@ -26,6 +22,34 @@ import {
   PRICING,
   PRODUCT,
 } from './routes';
+
+/*
+import { AppLayout } from './pages/AppLayout';
+import { Homepage } from './pages/Homepage';
+import { Login } from './pages/Login';
+import { PageNotFound } from './pages/PageNotFound';
+import { Pricing } from './pages/Pricing';
+import { Product } from './pages/Product';
+*/
+
+const AppLayout = lazy(async () => ({
+  default: (await import('./pages/AppLayout')).AppLayout,
+}));
+const Homepage = lazy(async () => ({
+  default: (await import('./pages/Homepage')).Homepage,
+}));
+const Login = lazy(async () => ({
+  default: (await import('./pages/Login')).Login,
+}));
+const PageNotFound = lazy(async () => ({
+  default: (await import('./pages/PageNotFound')).PageNotFound,
+}));
+const Pricing = lazy(async () => ({
+  default: (await import('./pages/Pricing')).Pricing,
+}));
+const Product = lazy(async () => ({
+  default: (await import('./pages/Product')).Product,
+}));
 
 const router = createBrowserRouter([
   {
@@ -85,7 +109,9 @@ const router = createBrowserRouter([
 export function App(): JSX.Element {
   return (
     <FakeAuthProvider>
-      <RouterProvider router={router} />
+      <Suspense fallback={<SpinnerFullPage />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </FakeAuthProvider>
   );
 }

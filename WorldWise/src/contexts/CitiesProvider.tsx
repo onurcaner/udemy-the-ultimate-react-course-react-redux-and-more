@@ -32,11 +32,12 @@ export function CitiesProvider({
       ) => CityProviderState
     >(reduceCityProvider, initialCityProviderState);
 
-  const [cities, isLoadingCities, errorCities, setTriggerOfFetchCities] =
-    useFetchBasic<CityAttributes[]>({
-      customFetch: getCities,
-      initialState: [],
-    });
+  const [cities, isLoadingCities, errorCities, reFetchCities] = useFetchBasic<
+    CityAttributes[]
+  >({
+    customFetch: getCities,
+    initialState: [],
+  });
 
   const [selectedCity, isLoadingSelectedCity, errorSelectedCity] =
     useFetchWatch<CityAttributes | null, number | string>({
@@ -71,14 +72,14 @@ export function CitiesProvider({
       type: 'selectedCityId/will-be-fetched',
       payload: postedCity.id,
     });
-    setTriggerOfFetchCities((n) => n + 1);
-  }, [postedCity, navigate, setTriggerOfFetchCities]);
+    reFetchCities();
+  }, [postedCity, navigate, reFetchCities]);
 
   useEffect(() => {
     if (!deletedCity) return;
 
-    setTriggerOfFetchCities((n) => n + 1);
-  }, [deletedCity, setTriggerOfFetchCities]);
+    reFetchCities();
+  }, [deletedCity, reFetchCities]);
 
   return (
     <CitiesContext.Provider

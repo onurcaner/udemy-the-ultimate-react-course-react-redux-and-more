@@ -28,6 +28,7 @@ export function Map(): JSX.Element {
   const {
     position: geoLocationPosition,
     isLoading: isLoadingGeolocation,
+    error: errorGeolocation,
     startGeolocation,
   } = useGeolocation();
 
@@ -75,9 +76,17 @@ export function Map(): JSX.Element {
         <OnClick setLastMarkerPosition={setLastMarkerPosition} />
         <OnDragEnd setCenter={setCenter} />
       </MapContainer>
+
       {center !== geoLocationPosition && (
-        <Button functionType="position" onClick={startGeolocation}>
-          {isLoadingGeolocation ? 'Loading...' : 'Use my location'}
+        <Button
+          functionType="position"
+          onClick={startGeolocation}
+          isDisabled={isLoadingGeolocation}
+          type="button"
+        >
+          {isLoadingGeolocation && 'Loading...'}
+          {errorGeolocation?.message}
+          {!isLoadingGeolocation && !errorGeolocation && 'Use my location'}
         </Button>
       )}
     </div>
