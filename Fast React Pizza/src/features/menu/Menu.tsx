@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 
-import { MenuItemAttributes } from '../../services/apiRestaurant';
+import { MenuItemAttributes } from '../../services/restaurant/types';
 import { MenuItem } from './MenuItem';
 
 export function Menu(): JSX.Element {

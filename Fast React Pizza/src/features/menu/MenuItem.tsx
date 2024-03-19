@@ -1,4 +1,4 @@
-import { MenuItemAttributes } from '../../services/apiRestaurant';
+import { MenuItemAttributes } from '../../services/restaurant/types';
 import { formatCurrency } from '../../utils/formatCurrency';
 
 export function MenuItem({

@@ -1,10 +1,5 @@
 import { useState } from 'react';
-
-// https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str: string) =>
-  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    str,
-  );
+import { Form, useActionData, useNavigation } from 'react-router-dom';
 
 const fakeCart = [
   {
@@ -32,47 +27,74 @@ const fakeCart = [
 
 export function CreateOrder(): JSX.Element {
   // const [withPriority, setWithPriority] = useState(false);
+  const navigation = useNavigation();
+  const errors = useActionData() as
+    | Partial<Record<'customer' | 'address' | 'phone', string>>
+    | undefined;
+
   const cart = fakeCart;
 
+  const isSubmitting = navigation.state === 'submitting';
+
+  const randomNumber = Math.random();
+
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className="mt-8">
+      <h2>Ready to order? Let&apos;s go!</h2>
 
-      <form>
+      <Form method="POST">
         <div>
-          <label>First Name</label>
-          <input type="text" name="customer" required />
+          <label htmlFor={`customer_${randomNumber}`}>First Name</label>
+          <input
+            id={`customer_${randomNumber}`}
+            type="text"
+            name="customer"
+            required
+          />
+          <p>{errors?.customer ?? ''}</p>
         </div>
 
         <div>
-          <label>Phone number</label>
+          <label htmlFor={`phone_${randomNumber}`}>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input
+              id={`phone_${randomNumber}`}
+              type="tel"
+              name="phone"
+              required
+            />
           </div>
+          <p>{errors?.phone ?? ''}</p>
         </div>
 
         <div>
-          <label>Address</label>
+          <label htmlFor={`address_${randomNumber}`}>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <textarea id={`address_${randomNumber}`} name="address" required />
           </div>
+          <p>{errors?.address ?? ''}</p>
         </div>
 
         <div>
           <input
+            id={`priority_${randomNumber}`}
             type="checkbox"
             name="priority"
-            id="priority"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor={`priority_${randomNumber}`}>
+            Want to yo give your order priority?
+          </label>
         </div>
 
         <div>
-          <button>Order now</button>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? 'Placing order' : 'Order now'}
+          </button>
         </div>
-      </form>
+        <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+      </Form>
     </div>
   );
 }

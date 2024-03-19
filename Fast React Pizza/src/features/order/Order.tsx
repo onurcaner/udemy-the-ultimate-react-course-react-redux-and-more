@@ -1,9 +1,12 @@
 // Test ID: IIDSAT
+import { useLoaderData } from 'react-router-dom';
+
+import { OrderAttributes } from '../../services/restaurant/types';
 import { calculateMinutesLeft } from '../../utils/calculateMinutesLeft';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDate } from '../../utils/formatDate';
 
-const order = {
+const ordera: OrderAttributes = {
   id: 'ABCDEF',
   customer: 'Jonas',
   phone: '123456789',
@@ -39,16 +42,11 @@ const order = {
 };
 
 export function Order(): JSX.Element {
-  // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
-  const {
-    id,
-    status,
-    priority,
-    priorityPrice,
-    orderPrice,
-    estimatedDelivery,
-    cart,
-  } = order;
+  const { status, priority, priorityPrice, orderPrice, estimatedDelivery } =
+    useLoaderData() as OrderAttributes;
+  /* Everyone can search for all orders, so for privacy reasons we're gonna
+  gonna exclude names or address, these are only for the restaurant staff */
+
   const deliveryIn = calculateMinutesLeft(estimatedDelivery);
 
   return (

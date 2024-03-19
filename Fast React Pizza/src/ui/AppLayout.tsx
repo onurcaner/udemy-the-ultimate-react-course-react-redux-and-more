@@ -7,13 +7,13 @@ import { Loader } from './Loader';
 export function AppLayout(): JSX.Element {
   const navigation = useNavigation();
 
-  const isLoading = navigation.state === 'loading';
+  const isIdle = navigation.state === 'idle';
 
   return (
-    <div>
-      {isLoading && <Loader />}
+    <div className="grid h-screen grid-rows-[min-content_1fr_min-content]">
+      {!isIdle && <Loader />}
       <Header />
-      <main>
+      <main className="mx-auto overflow-y-auto px-4 md:px-6">
         <Outlet />
       </main>
       <CartOverview />
