@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { Cart } from './features/cart/Cart';
@@ -9,6 +10,7 @@ import { createOrderAction } from './features/order/createOrderAction';
 import { orderLoader } from './features/order/orderLoader';
 import { CreateUser } from './features/user/CreateUser';
 import { CART, MENU, NEW, ORDER, USER } from './pageUrls';
+import { store } from './store';
 import { AppLayout } from './ui/AppLayout';
 import { Home } from './ui/Home';
 import { NotFound } from './ui/NotFound';
@@ -25,6 +27,8 @@ const router = createBrowserRouter([
       {
         path: `/${CART}`,
         element: <Cart />,
+        errorElement: <NotFound />,
+        loader: menuLoader,
       },
       {
         path: `/${MENU}`,
@@ -36,6 +40,7 @@ const router = createBrowserRouter([
         path: `/${ORDER}/${NEW}`,
         element: <CreateOrder />,
         action: createOrderAction,
+        loader: menuLoader,
       },
       {
         path: `/${ORDER}/:id`,
@@ -53,8 +58,8 @@ const router = createBrowserRouter([
 
 export function App() {
   return (
-    <>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </>
+    </Provider>
   );
 }

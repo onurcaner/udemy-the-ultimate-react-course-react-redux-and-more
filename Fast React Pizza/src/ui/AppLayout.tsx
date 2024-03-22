@@ -13,8 +13,10 @@ export function AppLayout(): JSX.Element {
     <div className="grid h-screen grid-rows-[min-content_1fr_min-content]">
       {!isIdle && <Loader />}
       <Header />
-      <main className="mx-auto overflow-y-auto px-4 md:px-6">
-        <Outlet />
+      <main className="overflow-y-auto px-4 md:px-6">
+        <div className="mx-auto max-w-7xl">
+          <Outlet />
+        </div>
       </main>
       <CartOverview />
     </div>

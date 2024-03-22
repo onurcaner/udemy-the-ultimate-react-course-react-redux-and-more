@@ -27,6 +27,7 @@ export function SearchOrder(): JSX.Element {
         placeholder="Search order #"
         value={query}
         onChange={handleChange}
+        className="rounded-full bg-yellow-100 px-4 py-1 text-sm text-stone-700 outline-none transition-all duration-200 placeholder:text-stone-500 focus:ring-2 focus:ring-yellow-100 focus:ring-offset-2 focus:ring-offset-yellow-400 sm:text-base"
       />
     </form>
   );
