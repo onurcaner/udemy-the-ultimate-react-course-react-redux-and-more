@@ -1,3 +1,5 @@
+import { Position } from '../reverse-geocoding/types';
+
 export interface RestaurantResponse<T> {
   status: 'success' | 'fail';
   message: string;
@@ -43,6 +45,7 @@ export interface NewOrderAttributes {
   address: string;
   priority: boolean;
   cart: CartItemAttributes[];
+  position: string;
 }
 
 export interface UserAttributes {

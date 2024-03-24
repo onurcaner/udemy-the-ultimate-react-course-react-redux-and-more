@@ -1,6 +1,6 @@
 import { ActionFunction, redirect } from 'react-router-dom';
 
-import { ORDER } from '../../pageUrls';
+import { MENU, ORDER } from '../../pageUrls';
 import { createOrder } from '../../services/restaurant/createOrder';
 import { getMenu } from '../../services/restaurant/getMenu';
 import {
@@ -17,6 +17,7 @@ interface FromFormData {
   phone: string;
   address: string;
   cart: string;
+  position: string;
   priority?: 'on';
 }
 
@@ -39,6 +40,7 @@ export const createOrderAction: ActionFunction = async ({ request }) => {
     customer: fromFormData.customer,
     phone: fromFormData.phone,
     priority: fromFormData.priority === 'on' ? true : false,
+    position: fromFormData.position,
   };
 
   store.dispatch(
@@ -49,6 +51,8 @@ export const createOrderAction: ActionFunction = async ({ request }) => {
     }),
   );
   store.dispatch(cartActions.setPriority(newOrder.priority));
+
+  if (newOrder.cart.length === 0) return redirect(`/${MENU}`);
 
   const errors: Partial<Record<'address' | 'customer' | 'phone', string>> = {};
   if (newOrder.address.length < 10)

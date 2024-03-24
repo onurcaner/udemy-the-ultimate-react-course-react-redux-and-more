@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import {
   Form,
   useActionData,
@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { MenuItemAttributes } from '../../services/restaurant/types';
-import { useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { Button } from '../../ui/Button';
 import { Checkbox } from '../../ui/Checkbox';
 import { Input } from '../../ui/Input';
@@ -15,7 +15,7 @@ import { Label } from '../../ui/Label';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { cartSelectors } from '../cart/cartSlice';
 import { createCartItemsFromMinimalCartItems } from '../cart/createCartItemsFromMinimalCartItems';
-import { userSelectors } from '../user/userSlice';
+import { userActions, userSelectors } from '../user/userSlice';
 
 export function CreateOrder(): JSX.Element {
   const user = useAppSelector(userSelectors.selectUser);
@@ -27,6 +27,7 @@ export function CreateOrder(): JSX.Element {
   const errors = useActionData() as
     | Partial<Record<'customer' | 'address' | 'phone', string>>
     | undefined;
+  const dispatch = useAppDispatch();
 
   const isSubmitting = navigation.state === 'submitting';
 
@@ -35,6 +36,13 @@ export function CreateOrder(): JSX.Element {
     menu,
   ).reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
   const priorityPrice = normalPrice * (1 + 0.2 * (localPriority ? 1 : 0));
+
+  const handleClickToFetchAddress: MouseEventHandler<HTMLButtonElement> = (
+    e,
+  ) => {
+    e.preventDefault();
+    dispatch(userActions.getAddressThunk()).unwrap;
+  };
 
   const randomNumber = Math.random();
 
@@ -75,15 +83,28 @@ export function CreateOrder(): JSX.Element {
         </p>
 
         <Label htmlFor={`address_${randomNumber}`}>Address</Label>
-        <Input
-          id={`address_${randomNumber}`}
-          name="address"
-          placeholder="Address for a delicious pizza"
-          defaultValue={user.address}
-          required
-        />
+        <div className="relative flex flex-col gap-2 sm:flex-row">
+          <Input
+            id={`address_${randomNumber}`}
+            name="address"
+            placeholder="Address for a delicious pizza"
+            defaultValue={user.address}
+            required
+            disabled={user.status === 'pending'}
+          />
+          {user.status !== 'succeeded' && (
+            <Button
+              type="button"
+              onClick={handleClickToFetchAddress}
+              disabled={user.status === 'pending'}
+              className="text-nowrap !px-[0.5em] !py-[0.25em]"
+            >
+              {user.status === 'pending' ? 'Working...' : 'Get position'}
+            </Button>
+          )}
+        </div>
         <p className="mb-5 text-sm text-amber-600 sm:text-base md:col-start-2 md:ml-4">
-          {errors?.address ?? ''}
+          {errors?.address ?? user.error?.message ?? ''}
         </p>
 
         <div className="col-span-full mb-6 flex items-center gap-4">
@@ -102,13 +123,22 @@ export function CreateOrder(): JSX.Element {
         </div>
 
         <div className="col-span-full">
-          <Button disabled={isSubmitting}>
+          <Button disabled={isSubmitting || minimalCart.length === 0}>
             {isSubmitting
               ? 'Placing order'
               : `Order now ${formatCurrency(priorityPrice)}`}
           </Button>
         </div>
         <input type="hidden" name="cart" value={JSON.stringify(minimalCart)} />
+        <input
+          type="hidden"
+          name="position"
+          value={
+            user.position
+              ? `${user.position.latitude},${user.position.longitude}`
+              : ''
+          }
+        />
       </Form>
     </div>
   );

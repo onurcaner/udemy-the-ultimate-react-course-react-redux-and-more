@@ -1,38 +1,28 @@
-/* 
-function getPosition() {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-}
-
-async function fetchAddress() {
-  // 1) We get the user's geolocation position
-  const positionObj = await getPosition();
-  const position = {
-    latitude: positionObj.coords.latitude,
-    longitude: positionObj.coords.longitude,
-  };
-
-  // 2) Then we use a reverse geocoding API to get a description of the user's address, so we can display it the order form, so that the user can correct it if wrong
-  const addressObj = await getAddress(position);
-  const address = `${addressObj?.locality}, ${addressObj?.city} ${addressObj?.postcode}, ${addressObj?.countryName}`;
-
-  // 3) Then we return an object with the data that we are interested in
-  return { position, address };
-}
- */
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { UserAttributes } from '../../services/restaurant/types';
+import { getAddressFromGeocoding } from '../../services/reverse-geocoding/getAddressFromGeocoding';
+import { Position } from '../../services/reverse-geocoding/types';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface UserState extends UserAttributes {}
+interface UserState extends UserAttributes {
+  status: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: Error | GeolocationPositionError | null;
+  position: Position | null;
+}
 
 const initialUserState: UserState = {
   username: '',
   address: '',
   phone: '',
+  status: 'idle',
+  error: null,
+  position: null,
 };
+
+const getAddressThunk = createAsyncThunk(
+  'user/getAddress',
+  getAddressFromGeocoding,
+);
 
 const userSlice = createSlice({
   name: 'user',
@@ -60,10 +50,26 @@ const userSlice = createSlice({
       state.username = username;
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAddressThunk.pending, (state) => {
+        state.status = 'pending';
+        state.error = null;
+      })
+      .addCase(getAddressThunk.fulfilled, (state, { payload }) => {
+        state.status = 'succeeded';
+        state.address = payload.address;
+      })
+      .addCase(getAddressThunk.rejected, (state, { error }) => {
+        state.status = 'failed';
+        state.error = new Error(error.message);
+      });
+  },
 });
 
 export const userReducer = userSlice.reducer;
-export const userActions = userSlice.actions;
+export const userActions = { ...userSlice.actions, getAddressThunk };
 export const userSelectors = {
   selectUsername: (state: Record<'user', UserState>) => state.user.username,
   selectPhone: (state: Record<'user', UserState>) => state.user.phone,
