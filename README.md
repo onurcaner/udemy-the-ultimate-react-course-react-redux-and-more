@@ -93,7 +93,7 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 
 - Environment: Driven by Node, displayed in browser
 
-- Code: [This Repository / WordWise](./WordWise)
+- Code: [This Repository / WorldWise](./WorldWise)
 
 ### 8. Fast React Pizza App
 
