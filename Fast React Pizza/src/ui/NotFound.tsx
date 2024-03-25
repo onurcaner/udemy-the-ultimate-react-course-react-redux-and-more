@@ -4,7 +4,7 @@ import { CustomLink } from './CustomLink';
 
 export function NotFound(): JSX.Element {
   const error = useRouteError() as Error | Record<'data', string>;
-
+  console.log(error);
   const message = 'data' in error ? error.data : error.message;
 
   return (

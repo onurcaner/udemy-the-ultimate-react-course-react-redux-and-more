@@ -1,13 +1,21 @@
 // Test ID: IIDSAT
-import { useLoaderData } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useFetcher, useLoaderData } from 'react-router-dom';
 
-import { OrderAttributes } from '../../services/restaurant/types';
+import { MENU } from '../../pageUrls';
+import {
+  MenuItemAttributes,
+  OrderAttributes,
+} from '../../services/restaurant/types';
+import { Button } from '../../ui/Button';
 import { calculateMinutesLeft } from '../../utils/calculateMinutesLeft';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDate } from '../../utils/formatDate';
 import { OrderItem } from './OrderItem';
 
 export function Order(): JSX.Element {
+  const fetcher = useFetcher<MenuItemAttributes[]>();
+
   const {
     id,
     status,
@@ -20,7 +28,14 @@ export function Order(): JSX.Element {
   /* Everyone can search for all orders, so for privacy reasons we're gonna
   gonna exclude names or address, these are only for the restaurant staff */
 
+  useEffect(() => {
+    if (fetcher.data) return;
+    if (fetcher.state !== 'idle') return;
+    fetcher.load(`/${MENU}`);
+  });
+
   const deliveryIn = calculateMinutesLeft(estimatedDelivery);
+  const isMenuLoaded = fetcher.state === 'idle' && Boolean(fetcher.data);
 
   return (
     <div className="space-y-10 py-6 text-sm sm:text-base">
@@ -54,7 +69,12 @@ export function Order(): JSX.Element {
 
       <ul className="mb-8 divide-y divide-stone-200 border-b border-t">
         {cart.map((item) => (
-          <OrderItem key={item.pizzaId} item={item} />
+          <OrderItem
+            key={item.pizzaId}
+            item={item}
+            isMenuLoaded={isMenuLoaded}
+            menu={fetcher.data}
+          />
         ))}
       </ul>
 
@@ -71,6 +91,12 @@ export function Order(): JSX.Element {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+
+      {!priority && (
+        <fetcher.Form method="PATCH">
+          <Button type="submit">Make priority</Button>
+        </fetcher.Form>
+      )}
     </div>
   );
 }

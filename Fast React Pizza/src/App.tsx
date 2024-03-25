@@ -7,6 +7,7 @@ import { menuLoader } from './features/menu/menuLoader';
 import { CreateOrder } from './features/order/CreateOrder';
 import { Order } from './features/order/Order';
 import { createOrderAction } from './features/order/createOrderAction';
+import { orderAction } from './features/order/orderAction';
 import { orderLoader } from './features/order/orderLoader';
 import { CreateUser } from './features/user/CreateUser';
 import { CART, MENU, NEW, ORDER, USER } from './pageUrls';
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
         element: <Order />,
         errorElement: <NotFound />,
         loader: orderLoader,
+        action: orderAction,
       },
       {
         path: `/${USER}/${NEW}`,

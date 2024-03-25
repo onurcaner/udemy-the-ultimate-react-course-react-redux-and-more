@@ -1,5 +1,3 @@
-import { Position } from '../reverse-geocoding/types';
-
 export interface RestaurantResponse<T> {
   status: 'success' | 'fail';
   message: string;

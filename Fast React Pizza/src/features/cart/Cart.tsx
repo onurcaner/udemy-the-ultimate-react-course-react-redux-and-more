@@ -29,13 +29,13 @@ export function Cart(): JSX.Element {
         &larr; Back to menu
       </CustomLink>
 
-      {cart.length === 0 && (
+      {minimalCart.length === 0 && (
         <p className="text-sm font-semibold sm:text-base">
           Your cart is still empty. Start adding some pizzas :)
         </p>
       )}
 
-      {cart.length > 0 && (
+      {minimalCart.length > 0 && (
         <>
           <h2 className="text-amazing-500 mb-3 text-xl font-semibold">
             Your cart, {username}

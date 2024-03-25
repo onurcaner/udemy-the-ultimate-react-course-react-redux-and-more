@@ -83,3 +83,25 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / React Quiz](./React%20Quiz)
+
+### 7. WordWise App
+
+- Description: WordWise is a travel tracking app where you can easily add your
+  adventures on a map.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / WordWise](./WordWise)
+
+### 8. Fast React Pizza App
+
+- Description: Fast React Pizza is an app where you can order pizzas from Fast
+  React Pizza Co.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / Fast React Pizza](./Fast%20React%20Pizza)
