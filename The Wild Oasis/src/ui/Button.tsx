@@ -21,6 +21,10 @@ export const Button = styled.button.attrs<ButtonProps>((props) => ({
     outline-offset: 2px;
   }
 
+  &:disabled {
+    opacity: 0.5;
+  }
+
   ${(props) => props.$variation && variations[props.$variation]}
   ${(props) => props.$size && sizes[props.$size]}
 `;

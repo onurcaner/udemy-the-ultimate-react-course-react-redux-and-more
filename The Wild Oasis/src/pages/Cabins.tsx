@@ -1,3 +1,4 @@
+import { CabinTable } from '../features/cabins/CabinTable';
 import { Heading } from '../ui/Heading';
 
 export function Cabins(): JSX.Element {
@@ -5,6 +6,8 @@ export function Cabins(): JSX.Element {
     <>
       <Heading as="h2">All cabins</Heading>
       <p>TEST</p>
+
+      <CabinTable />
     </>
   );
 }
