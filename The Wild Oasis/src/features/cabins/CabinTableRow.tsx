@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { MouseEventHandler } from 'react';
+import toast from 'react-hot-toast';
 import styled from 'styled-components';
 
 import { deleteCabin } from '../../services/apiCabins';
@@ -15,7 +16,13 @@ export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
   const queryClient = useQueryClient();
   const { isPending, mutate } = useMutation({
     mutationFn: deleteCabin,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cabins'] }),
+    onSuccess: async () => {
+      toast.success(`Successfully deleted cabin: ${cabin.name}`);
+      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 
   const handleClickToDeleteCabin: MouseEventHandler<HTMLButtonElement> = () => {

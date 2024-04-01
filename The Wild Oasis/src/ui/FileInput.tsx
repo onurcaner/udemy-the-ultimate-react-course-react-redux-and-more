@@ -1,25 +1,23 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const FileInput = styled.input`
-  font-size: 1.4rem;
+export const FileInput = styled.input`
+  font-size: 0.85rem;
   border-radius: var(--border-radius-sm);
 
   &::file-selector-button {
     font: inherit;
     font-weight: 500;
-    padding: 0.8rem 1.2rem;
-    margin-right: 1.2rem;
-    border-radius: var(--border-radius-sm);
-    border: none;
     color: var(--color-brand-50);
+    padding: 5rem 1rem;
     background-color: var(--color-brand-600);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    margin-right: 0.75rem;
+    transition: all var(--transition-duration) ease-in-out;
     cursor: pointer;
-    transition: color 0.2s, background-color 0.2s;
 
     &:hover {
       background-color: var(--color-brand-700);
     }
   }
 `;
-
-export default FileInput;

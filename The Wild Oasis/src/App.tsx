@@ -24,12 +24,14 @@ import { PageNotFound } from './pages/PageNotFound';
 import { Settings } from './pages/Settings';
 import { Users } from './pages/Users';
 import { AppLayout } from './ui/AppLayout';
+import { CustomToaster } from './ui/CustomToaster';
 
 export function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
+      <CustomToaster />
     </QueryClientProvider>
   );
 }

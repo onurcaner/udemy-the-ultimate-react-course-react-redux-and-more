@@ -10,21 +10,29 @@ export function AppLayout(): JSX.Element {
       <Header />
       <Sidebar />
       <StyledMain>
-        <Outlet />
+        <StyledContainer>
+          <Outlet />
+        </StyledContainer>
       </StyledMain>
     </StyledGrid>
   );
 }
 
-const StyledMain = styled.main`
-  padding: 2rem;
-  background-color: var(--color-grey-50);
-`;
-
 const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: min-content 1fr;
   grid-template-rows: max-content 1fr;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+`;
+
+const StyledMain = styled.main`
+  background-color: var(--color-grey-50);
+  overflow-y: scroll;
+`;
+
+const StyledContainer = styled.div`
+  padding: 4rem;
+  max-width: 120rem;
+  margin-inline: auto;
 `;
