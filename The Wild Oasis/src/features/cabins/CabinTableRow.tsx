@@ -1,57 +1,95 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { MouseEventHandler } from 'react';
-import toast from 'react-hot-toast';
+import { HiOutlineSquare2Stack, HiOutlineTrash } from 'react-icons/hi2';
 import styled from 'styled-components';
 
-import { deleteCabin } from '../../services/apiCabins';
 import { CabinAttributes } from '../../services/types';
 import { Button } from '../../ui/Button';
 import { formatCurrency } from '../../utils/formatCurrency';
+import { CabinForm } from './CabinForm';
+import { useMutationCreateCabin } from './useMutationCreateCabin';
+import { useMutationDeleteCabin } from './useMutationDeleteCabin';
 
 export interface CabinTableRowProps {
   cabin: CabinAttributes;
 }
 
 export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
-  const queryClient = useQueryClient();
-  const { isPending, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: async () => {
-      toast.success(`Successfully deleted cabin: ${cabin.name}`);
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { isPending: isPendingDeletion, mutate: mutateDeleteCabin } =
+    useMutationDeleteCabin(cabin);
+
+  const { isPending: isPendingCreation, mutate: mutateCreateCabin } =
+    useMutationCreateCabin();
+
+  const isPending = isPendingDeletion || isPendingCreation;
 
   const handleClickToDeleteCabin: MouseEventHandler<HTMLButtonElement> = () => {
-    mutate(cabin.id);
+    mutateDeleteCabin(cabin.id);
+  };
+
+  const handleClickToDuplicateCabin: MouseEventHandler<
+    HTMLButtonElement
+  > = () => {
+    mutateCreateCabin({
+      description: cabin.description,
+      discount: cabin.discount,
+      imageUrl: cabin.imageUrl,
+      maxCapacity: cabin.maxCapacity,
+      name: `Copy of ${cabin.name}`,
+      regularPrice: cabin.regularPrice,
+    });
   };
 
   return (
-    <TableRow role="row">
-      <Img src={cabin.imageUrl} alt={cabin.description} />
-      <Cabin role="cell">{cabin.name}</Cabin>
-      <div role="cell">For up to {cabin.maxCapacity} guests</div>
-      <Price role="cell">{formatCurrency(cabin.regularPrice)}</Price>
-      <Discount role="cell">
-        {cabin.discount ? formatCurrency(cabin.discount) : '-'}
-      </Discount>
-      <Button
-        $variation="danger"
-        $size="small"
-        type="button"
-        onClick={handleClickToDeleteCabin}
-        disabled={isPending}
-      >
-        Delete
-      </Button>
-    </TableRow>
+    <>
+      <StyledTableRow role="row">
+        <StyledImg src={cabin.imageUrl} alt={cabin.description} />
+
+        <StyledCabin role="cell">{cabin.name}</StyledCabin>
+
+        <div role="cell">For up to {cabin.maxCapacity} guests</div>
+
+        <StyledPrice role="cell">
+          {formatCurrency(cabin.regularPrice)}
+        </StyledPrice>
+
+        <StyledDiscount role="cell">
+          {cabin.discount ? formatCurrency(cabin.discount) : '-'}
+        </StyledDiscount>
+
+        <StyledButtonsContainer>
+          <Button
+            $variation="primary"
+            $size="small"
+            type="button"
+            onClick={handleClickToDuplicateCabin}
+            disabled={isPending}
+            aria-label="Duplicate cabin"
+          >
+            <StyledIconContainer aria-hidden={true}>
+              <HiOutlineSquare2Stack />
+            </StyledIconContainer>
+          </Button>
+          <Button
+            $variation="danger"
+            $size="small"
+            type="button"
+            onClick={handleClickToDeleteCabin}
+            disabled={isPending}
+            aria-label="Delete cabin"
+          >
+            <StyledIconContainer aria-hidden={true}>
+              <HiOutlineTrash />
+            </StyledIconContainer>
+          </Button>
+        </StyledButtonsContainer>
+      </StyledTableRow>
+
+      {<CabinForm cabin={cabin} />}
+    </>
   );
 }
 
-const TableRow = styled.div`
+const StyledTableRow = styled.div`
   display: grid;
   grid-template-columns: 0.625fr 1.7fr 2.25fr 1fr 1fr 1fr;
   column-gap: 2rem;
@@ -63,7 +101,7 @@ const TableRow = styled.div`
   }
 `;
 
-const Img = styled.img`
+const StyledImg = styled.img`
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -72,20 +110,30 @@ const Img = styled.img`
   border-radius: var(--border-radius-sm);
 `;
 
-const Cabin = styled.div`
+const StyledCabin = styled.div`
   font-family: 'Sono';
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-grey-600);
 `;
 
-const Price = styled.div`
+const StyledPrice = styled.div`
   font-family: 'Sono';
   font-weight: 600;
 `;
 
-const Discount = styled.div`
+const StyledDiscount = styled.div`
   font-family: 'Sono';
   font-weight: 500;
   color: var(--color-green-700);
+`;
+
+const StyledButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+`;
+
+const StyledIconContainer = styled.span`
+  font-size: 1.25rem;
 `;

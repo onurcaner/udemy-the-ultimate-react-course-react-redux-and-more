@@ -1,51 +1,53 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import styled from 'styled-components';
 
-import { createCabin } from '../../services/apiCabins';
-import { CreateCabinAttributes } from '../../services/types';
+import { CabinAttributes, CreateCabinAttributes } from '../../services/types';
 import { Button } from '../../ui/Button';
 import { FileInput } from '../../ui/FileInput';
 import { Form } from '../../ui/Form';
 import { FormRow } from '../../ui/FormRow';
 import { Input } from '../../ui/Input';
 import { Textarea } from '../../ui/Textarea';
+import { useMutationCreateCabin } from './useMutationCreateCabin';
+import { useMutationUpdateCabin } from './useMutationUpdateCabin';
 
-export function CreateCabinForm(): JSX.Element {
+export interface CabinFormProps {
+  cabin?: CabinAttributes;
+}
+
+type CabinFormAttributes = Record<keyof CreateCabinAttributes, string>;
+
+export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm<Record<keyof CreateCabinAttributes, string>>({
+  } = useForm<CabinFormAttributes>({
     mode: 'onChange',
-  });
-  const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: createCabin,
-    onSuccess: async () => {
-      toast.success('A new cabin created successfully');
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
+    defaultValues: cabin
+      ? (cabin as unknown as CabinFormAttributes)
+      : defaultValues,
   });
 
-  const onSubmit: SubmitHandler<Record<keyof CreateCabinAttributes, string>> = (
-    data,
-  ) => {
-    const { description, discount, name, imageUrl, maxCapacity, regularPrice } =
-      data;
-    mutate({
-      description,
-      imageUrl,
-      name,
-      discount: +discount,
-      maxCapacity: +maxCapacity,
-      regularPrice: +regularPrice,
-    });
+  const { mutate: mutateCreateCabin, isPending: isPendingCabinCreation } =
+    useMutationCreateCabin();
+  const { mutate: mutateUpdateCabin, isPending: isPendingCabinUpdating } =
+    useMutationUpdateCabin(cabin);
+
+  const isPending = isPendingCabinCreation || isPendingCabinUpdating;
+
+  const onSubmit: SubmitHandler<CabinFormAttributes> = (data) => {
+    const cabinToMutate: CreateCabinAttributes = {
+      description: data.description,
+      discount: +data.discount,
+      imageUrl: data.imageUrl,
+      maxCapacity: +data.maxCapacity,
+      name: data.name,
+      regularPrice: +data.regularPrice,
+    };
+    if (cabin) mutateUpdateCabin(cabinToMutate);
+    else mutateCreateCabin(cabinToMutate);
   };
 
   const validateDiscountIsLessThanRegularPrice = (
@@ -67,9 +69,9 @@ export function CreateCabinForm(): JSX.Element {
         <Input
           id="name"
           type="text"
-          defaultValue="001"
           disabled={isPending}
           aria-invalid={Boolean(errors.name)}
+          required={true}
           {...register('name', {
             required: 'Cabin name can not be empty',
             minLength: {
@@ -88,9 +90,9 @@ export function CreateCabinForm(): JSX.Element {
         <Input
           id="maxCapacity"
           type="number"
-          defaultValue="4"
           disabled={isPending}
           aria-invalid={Boolean(errors.maxCapacity)}
+          required={true}
           {...register('maxCapacity', {
             required: 'Cabin capacity can not be empty',
             min: {
@@ -109,9 +111,9 @@ export function CreateCabinForm(): JSX.Element {
         <Input
           id="regularPrice"
           type="number"
-          defaultValue="400"
           disabled={isPending}
           aria-invalid={Boolean(errors.regularPrice)}
+          required={true}
           {...register('regularPrice', {
             required: 'Regular price can not be empty',
             min: {
@@ -130,9 +132,9 @@ export function CreateCabinForm(): JSX.Element {
         <Input
           id="discount"
           type="number"
-          defaultValue="150"
           disabled={isPending}
           aria-invalid={Boolean(errors.discount)}
+          required={true}
           {...register('discount', {
             required: 'Discount can not be empty',
             min: {
@@ -153,9 +155,9 @@ export function CreateCabinForm(): JSX.Element {
       >
         <Textarea
           id="description"
-          defaultValue="Cozy nice cabin"
           disabled={isPending}
           aria-invalid={Boolean(errors.description)}
+          required={true}
           {...register('description', {
             required: 'Cabin description can not be empty',
             minLength: {
@@ -172,31 +174,25 @@ export function CreateCabinForm(): JSX.Element {
         htmlFor="image"
         errorMessage={errors.imageUrl?.message}
       >
-        {/* <FileInput id="image" accept="image/*" /> */}
+        {/* <FileInput id="image" accept="image/*" type="file" /> */}
         <Input
           id="image"
           type="text"
-          defaultValue="/cabins/cabin-001.jpg"
           disabled={isPending}
+          required={true}
           {...register('imageUrl', {
             required: 'Cabin photo should be added',
           })}
         />
       </FormRow>
 
-      <ButtonsContainer>
-        <Button
-          $variation="secondary"
-          $size="small"
-          type="reset"
-          disabled={isPending}
-        >
-          Clear
-        </Button>
-        <Button $size="small" type="submit" disabled={isPending}>
-          Create cabin
-        </Button>
-      </ButtonsContainer>
+      <FormRow>
+        <ButtonsContainer>
+          <Button $size="small" type="submit" disabled={isPending}>
+            {cabin ? 'Edit cabin' : 'Create cabin'}
+          </Button>
+        </ButtonsContainer>
+      </FormRow>
     </Form>
   );
 }
@@ -206,3 +202,12 @@ const ButtonsContainer = styled.div`
   justify-content: flex-end;
   gap: 0.75rem;
 `;
+
+const defaultValues: Partial<CabinFormAttributes> = {
+  name: 'Default cabin',
+  description: 'Default description',
+  discount: '150',
+  imageUrl: '/cabins/cabin-005.jpg',
+  maxCapacity: '5',
+  regularPrice: '600',
+};

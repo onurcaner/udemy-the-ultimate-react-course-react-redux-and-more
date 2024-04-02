@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
+import { CabinForm } from '../features/cabins/CabinForm';
 import { CabinTable } from '../features/cabins/CabinTable';
-import { CreateCabinForm } from '../features/cabins/CreateCabinForm';
 import { Heading } from '../ui/Heading';
 
 export function Cabins(): JSX.Element {
@@ -14,7 +14,7 @@ export function Cabins(): JSX.Element {
 
       <CabinTable />
 
-      <CreateCabinForm />
+      <CabinForm />
     </>
   );
 }

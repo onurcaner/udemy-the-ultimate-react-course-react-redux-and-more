@@ -27,6 +27,25 @@ export async function createCabin(cabin: CreateCabinAttributes) {
   const { data, error } = await supabase
     .from('cabins')
     .insert([{ ...cabin }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Cabins could not be created');
+  }
+
+  return data;
+}
+
+export async function updateCabin(
+  id: number,
+  cabin: Partial<CreateCabinAttributes>,
+) {
+  const { data, error } = await supabase
+    .from('cabins')
+    .update(cabin)
+    .eq('id', id)
     .select();
 
   if (error) {
