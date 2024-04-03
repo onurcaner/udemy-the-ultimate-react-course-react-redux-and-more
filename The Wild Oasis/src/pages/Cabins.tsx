@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-import { CabinForm } from '../features/cabins/CabinForm';
+import { AddCabinModal } from '../features/cabins/AddCabinModal';
 import { CabinTable } from '../features/cabins/CabinTable';
+import { Button } from '../ui/Button';
 import { Heading } from '../ui/Heading';
 
 export function Cabins(): JSX.Element {
@@ -12,9 +13,13 @@ export function Cabins(): JSX.Element {
         <p>Filter / Sort</p>
       </StyledFlexRow>
 
-      <CabinTable />
+      <StyledDiv>
+        <CabinTable />
+      </StyledDiv>
 
-      <CabinForm />
+      <AddCabinModal>
+        <Button>Add Cabin</Button>
+      </AddCabinModal>
     </>
   );
 }
@@ -23,4 +28,8 @@ const StyledFlexRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const StyledDiv = styled.div`
+  margin-bottom: 2rem;
 `;

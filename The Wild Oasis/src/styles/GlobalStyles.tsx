@@ -117,7 +117,7 @@ export const GlobalStyles = styled.createGlobalStyle`
   }
 
   button {
-    background-color: none;
+    background-color: transparent;
     border: none;
     cursor: pointer;
   }

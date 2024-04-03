@@ -1,11 +1,16 @@
 import { MouseEventHandler } from 'react';
-import { HiOutlineSquare2Stack, HiOutlineTrash } from 'react-icons/hi2';
+import {
+  HiOutlinePencil,
+  HiOutlineSquare2Stack,
+  HiOutlineTrash,
+} from 'react-icons/hi2';
 import styled from 'styled-components';
 
 import { CabinAttributes } from '../../services/types';
 import { Button } from '../../ui/Button';
 import { formatCurrency } from '../../utils/formatCurrency';
-import { CabinForm } from './CabinForm';
+import { DeleteCabinModal } from './DeleteCabinModal';
+import { EditCabinModal } from './EditCabinModal';
 import { useMutationCreateCabin } from './useMutationCreateCabin';
 import { useMutationDeleteCabin } from './useMutationDeleteCabin';
 
@@ -69,22 +74,39 @@ export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
               <HiOutlineSquare2Stack />
             </StyledIconContainer>
           </Button>
-          <Button
-            $variation="danger"
-            $size="small"
-            type="button"
-            onClick={handleClickToDeleteCabin}
+
+          <EditCabinModal cabin={cabin}>
+            <Button
+              $size="small"
+              type="button"
+              disabled={isPending}
+              aria-label="Edit cabin"
+            >
+              <StyledIconContainer aria-hidden={true}>
+                <HiOutlinePencil />
+              </StyledIconContainer>
+            </Button>
+          </EditCabinModal>
+
+          <DeleteCabinModal
             disabled={isPending}
-            aria-label="Delete cabin"
+            onConfirm={handleClickToDeleteCabin}
+            cabin={cabin}
           >
-            <StyledIconContainer aria-hidden={true}>
-              <HiOutlineTrash />
-            </StyledIconContainer>
-          </Button>
+            <Button
+              $variation="danger"
+              $size="small"
+              type="button"
+              disabled={isPending}
+              aria-label="Delete cabin"
+            >
+              <StyledIconContainer aria-hidden={true}>
+                <HiOutlineTrash />
+              </StyledIconContainer>
+            </Button>
+          </DeleteCabinModal>
         </StyledButtonsContainer>
       </StyledTableRow>
-
-      {<CabinForm cabin={cabin} />}
     </>
   );
 }
@@ -106,7 +128,7 @@ const StyledImg = styled.img`
   aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.5) translateX(-0.375rem);
+  transform: scale(1.25) translateX(-6.25%);
   border-radius: var(--border-radius-sm);
 `;
 

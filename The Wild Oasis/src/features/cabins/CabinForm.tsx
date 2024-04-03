@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -7,6 +8,7 @@ import { FileInput } from '../../ui/FileInput';
 import { Form } from '../../ui/Form';
 import { FormRow } from '../../ui/FormRow';
 import { Input } from '../../ui/Input';
+import { Modal } from '../../ui/Modal';
 import { Textarea } from '../../ui/Textarea';
 import { useMutationCreateCabin } from './useMutationCreateCabin';
 import { useMutationUpdateCabin } from './useMutationUpdateCabin';
@@ -18,6 +20,8 @@ export interface CabinFormProps {
 type CabinFormAttributes = Record<keyof CreateCabinAttributes, string>;
 
 export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
+  const { setOpenWindowName } = useContext(Modal.Context);
+
   const {
     register,
     handleSubmit,
@@ -46,8 +50,17 @@ export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
       name: data.name,
       regularPrice: +data.regularPrice,
     };
+
     if (cabin) mutateUpdateCabin(cabinToMutate);
     else mutateCreateCabin(cabinToMutate);
+  };
+
+  const validateRegularPriceIsMoreThanDiscount = (
+    regularPrice: string,
+  ): true | string => {
+    const { discount } = getValues();
+    if (+regularPrice >= +discount) return true;
+    else return 'Regular price can not be less than discount';
   };
 
   const validateDiscountIsLessThanRegularPrice = (
@@ -120,6 +133,9 @@ export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
               value: '1',
               message: 'Regular price should be at least 1',
             },
+            validate: {
+              v1: validateRegularPriceIsMoreThanDiscount,
+            },
           })}
         />
       </FormRow>
@@ -188,6 +204,15 @@ export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
 
       <FormRow>
         <ButtonsContainer>
+          <Button
+            $variation="secondary"
+            $size="small"
+            type="button"
+            disabled={isPending}
+            onClick={setOpenWindowName.bind(null, '')}
+          >
+            Cancel
+          </Button>
           <Button $size="small" type="submit" disabled={isPending}>
             {cabin ? 'Edit cabin' : 'Create cabin'}
           </Button>
