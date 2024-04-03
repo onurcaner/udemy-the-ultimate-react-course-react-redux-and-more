@@ -9,17 +9,13 @@ export function EditCabinModal({
   children: JSX.Element;
   cabin: CabinAttributes;
 }): JSX.Element {
-  const windowName = `EditCabinModal_${cabin.id}`;
-
   return (
-    <>
-      <Modal.ButtonContainer windowNameFor={windowName}>
-        {children}
-      </Modal.ButtonContainer>
+    <Modal.Provider>
+      <Modal.ButtonContainer>{children}</Modal.ButtonContainer>
 
-      <Modal.Window windowName={windowName}>
+      <Modal.Window>
         <CabinForm cabin={cabin} />
       </Modal.Window>
-    </>
+    </Modal.Provider>
   );
 }

@@ -6,7 +6,7 @@ import { createCabin } from '../../services/apiCabins';
 import { Modal } from '../../ui/Modal';
 
 export function useMutationCreateCabin() {
-  const { setOpenWindowName } = useContext(Modal.Context);
+  const { closeWindow } = useContext(Modal.Context);
 
   const queryClient = useQueryClient();
 
@@ -15,7 +15,7 @@ export function useMutationCreateCabin() {
 
     onSuccess: async () => {
       toast.success('A new cabin is created successfully');
-      setOpenWindowName('');
+      closeWindow();
       await queryClient.invalidateQueries({ queryKey: ['cabins'] });
     },
 

@@ -20,7 +20,7 @@ export interface CabinFormProps {
 type CabinFormAttributes = Record<keyof CreateCabinAttributes, string>;
 
 export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
-  const { setOpenWindowName } = useContext(Modal.Context);
+  const { closeWindow } = useContext(Modal.Context);
 
   const {
     register,
@@ -209,7 +209,7 @@ export function CabinForm({ cabin }: CabinFormProps): JSX.Element {
             $size="small"
             type="button"
             disabled={isPending}
-            onClick={setOpenWindowName.bind(null, '')}
+            onClick={closeWindow}
           >
             Cancel
           </Button>

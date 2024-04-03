@@ -8,6 +8,7 @@ import styled from 'styled-components';
 
 import { CabinAttributes } from '../../services/types';
 import { Button } from '../../ui/Button';
+import { Table } from '../../ui/Table';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { DeleteCabinModal } from './DeleteCabinModal';
 import { EditCabinModal } from './EditCabinModal';
@@ -45,82 +46,72 @@ export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
   };
 
   return (
-    <>
-      <StyledTableRow role="row">
+    <Table.Row>
+      <StyledTd>
         <StyledImg src={cabin.imageUrl} alt={cabin.description} />
+      </StyledTd>
 
-        <StyledCabin role="cell">{cabin.name}</StyledCabin>
+      <StyledCabin>{cabin.name}</StyledCabin>
 
-        <div role="cell">For up to {cabin.maxCapacity} guests</div>
+      <StyledTd>For up to {cabin.maxCapacity} guests</StyledTd>
 
-        <StyledPrice role="cell">
-          {formatCurrency(cabin.regularPrice)}
-        </StyledPrice>
+      <StyledPrice>{formatCurrency(cabin.regularPrice)}</StyledPrice>
 
-        <StyledDiscount role="cell">
-          {cabin.discount ? formatCurrency(cabin.discount) : '-'}
-        </StyledDiscount>
+      <StyledDiscount>
+        {cabin.discount ? formatCurrency(cabin.discount) : '-'}
+      </StyledDiscount>
 
-        <StyledButtonsContainer>
+      <StyledButtonsContainer>
+        <Button
+          $variation="primary"
+          $size="small"
+          type="button"
+          onClick={handleClickToDuplicateCabin}
+          disabled={isPending}
+          aria-label="Duplicate cabin"
+        >
+          <StyledIconContainer aria-hidden={true}>
+            <HiOutlineSquare2Stack />
+          </StyledIconContainer>
+        </Button>
+
+        <EditCabinModal cabin={cabin}>
           <Button
-            $variation="primary"
             $size="small"
             type="button"
-            onClick={handleClickToDuplicateCabin}
             disabled={isPending}
-            aria-label="Duplicate cabin"
+            aria-label="Edit cabin"
           >
             <StyledIconContainer aria-hidden={true}>
-              <HiOutlineSquare2Stack />
+              <HiOutlinePencil />
             </StyledIconContainer>
           </Button>
+        </EditCabinModal>
 
-          <EditCabinModal cabin={cabin}>
-            <Button
-              $size="small"
-              type="button"
-              disabled={isPending}
-              aria-label="Edit cabin"
-            >
-              <StyledIconContainer aria-hidden={true}>
-                <HiOutlinePencil />
-              </StyledIconContainer>
-            </Button>
-          </EditCabinModal>
-
-          <DeleteCabinModal
+        <DeleteCabinModal
+          disabled={isPending}
+          onConfirm={handleClickToDeleteCabin}
+          cabin={cabin}
+        >
+          <Button
+            $variation="danger"
+            $size="small"
+            type="button"
             disabled={isPending}
-            onConfirm={handleClickToDeleteCabin}
-            cabin={cabin}
+            aria-label="Delete cabin"
           >
-            <Button
-              $variation="danger"
-              $size="small"
-              type="button"
-              disabled={isPending}
-              aria-label="Delete cabin"
-            >
-              <StyledIconContainer aria-hidden={true}>
-                <HiOutlineTrash />
-              </StyledIconContainer>
-            </Button>
-          </DeleteCabinModal>
-        </StyledButtonsContainer>
-      </StyledTableRow>
-    </>
+            <StyledIconContainer aria-hidden={true}>
+              <HiOutlineTrash />
+            </StyledIconContainer>
+          </Button>
+        </DeleteCabinModal>
+      </StyledButtonsContainer>
+    </Table.Row>
   );
 }
 
-const StyledTableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.625fr 1.7fr 2.25fr 1fr 1fr 1fr;
-  column-gap: 2rem;
-  align-items: center;
-  padding: 1rem 2rem;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
+const StyledTd = styled.td`
+  display: block;
 `;
 
 const StyledImg = styled.img`
@@ -128,23 +119,25 @@ const StyledImg = styled.img`
   aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.25) translateX(-6.25%);
   border-radius: var(--border-radius-sm);
 `;
 
-const StyledCabin = styled.div`
+const StyledCabin = styled.td`
+  display: block;
   font-family: 'Sono';
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-grey-600);
 `;
 
-const StyledPrice = styled.div`
+const StyledPrice = styled.td`
+  display: block;
   font-family: 'Sono';
   font-weight: 600;
 `;
 
-const StyledDiscount = styled.div`
+const StyledDiscount = styled.td`
+  display: block;
   font-family: 'Sono';
   font-weight: 500;
   color: var(--color-green-700);

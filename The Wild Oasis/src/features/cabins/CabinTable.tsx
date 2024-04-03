@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Spinner } from '../../ui/Spinner';
+import { Table } from '../../ui/Table';
 import { CabinTableRow } from './CabinTableRow';
 import { useQueryCabins } from './useQueryCabins';
 
@@ -12,40 +13,24 @@ export function CabinTable(): JSX.Element {
   if (!cabins) return <></>;
 
   return (
-    <StyledTable role="table">
-      <StyledTableHeader role="row">
-        <div role="cell"></div>
-        <div role="cell">Cabin</div>
-        <div role="cell">Capacity</div>
-        <div role="cell">Price</div>
-        <div role="cell">Discount</div>
-        <div role="cell"></div>
-      </StyledTableHeader>
-      {cabins.map((cabin) => (
-        <CabinTableRow cabin={cabin} key={cabin.id} />
-      ))}
-    </StyledTable>
+    <Table.Provider templateColumns="1fr 1fr 1fr 0.5fr 0.5fr 1fr">
+      <Table.HeaderRow>
+        <StyledTh></StyledTh>
+        <StyledTh>Cabin</StyledTh>
+        <StyledTh>Capacity</StyledTh>
+        <StyledTh>Price</StyledTh>
+        <StyledTh>Discount</StyledTh>
+        <StyledTh></StyledTh>
+      </Table.HeaderRow>
+
+      <Table.Body
+        items={cabins}
+        render={(cabin) => <CabinTableRow cabin={cabin} key={cabin.id} />}
+      />
+    </Table.Provider>
   );
 }
 
-const StyledTable = styled.div`
-  font-size: 1rem;
-  background-color: var(--color-grey-0);
-  border: 1px solid var(--color-grey-200);
-  border-radius: var(--border-radius-md);
-  overflow: hidden;
-`;
-
-const StyledTableHeader = styled.div`
-  display: grid;
-  grid-template-columns: 0.625fr 1.7fr 2.25fr 1fr 1fr 1fr;
-  align-items: center;
-  column-gap: 2rem;
-
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--color-grey-600);
-  padding: 1rem 2rem;
-  background-color: var(--color-grey-50);
-  border-bottom: 1px solid var(--color-grey-100);
+const StyledTh = styled.th`
+  display: block;
 `;

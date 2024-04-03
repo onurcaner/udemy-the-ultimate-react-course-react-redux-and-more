@@ -15,21 +15,17 @@ export function DeleteCabinModal({
   onConfirm: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
 }): JSX.Element {
-  const windowName = `DeleteCabinModal_${cabin.id}`;
-
   return (
-    <>
-      <Modal.ButtonContainer windowNameFor={windowName}>
-        {children}
-      </Modal.ButtonContainer>
+    <Modal.Provider>
+      <Modal.ButtonContainer>{children}</Modal.ButtonContainer>
 
-      <Modal.Window windowName={windowName}>
+      <Modal.Window>
         <ConfirmDelete
           resourceName={cabin.name}
           disabled={disabled}
           onConfirm={onConfirm}
         />
       </Modal.Window>
-    </>
+    </Modal.Provider>
   );
 }

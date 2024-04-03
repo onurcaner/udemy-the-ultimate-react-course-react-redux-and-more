@@ -7,7 +7,7 @@ import { CabinAttributes } from '../../services/types';
 import { Modal } from '../../ui/Modal';
 
 export function useMutationDeleteCabin(cabin: CabinAttributes) {
-  const { setOpenWindowName } = useContext(Modal.Context);
+  const { closeWindow } = useContext(Modal.Context);
 
   const queryClient = useQueryClient();
 
@@ -16,7 +16,7 @@ export function useMutationDeleteCabin(cabin: CabinAttributes) {
 
     onSuccess: async () => {
       toast.success(`Successfully deleted cabin: ${cabin.name}`);
-      setOpenWindowName('');
+      closeWindow();
       await queryClient.invalidateQueries({ queryKey: ['cabins'] });
     },
 

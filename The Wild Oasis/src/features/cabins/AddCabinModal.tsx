@@ -6,15 +6,11 @@ export function AddCabinModal({
 }: {
   children: JSX.Element;
 }): JSX.Element {
-  const windowName = 'AddCabinModal';
-
   return (
     <Modal.Provider>
-      <Modal.ButtonContainer windowNameFor={windowName}>
-        {children}
-      </Modal.ButtonContainer>
+      <Modal.ButtonContainer>{children}</Modal.ButtonContainer>
 
-      <Modal.Window windowName={windowName}>
+      <Modal.Window>
         <CabinForm />
       </Modal.Window>
     </Modal.Provider>

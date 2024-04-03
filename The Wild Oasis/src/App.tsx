@@ -25,17 +25,14 @@ import { Settings } from './pages/Settings';
 import { Users } from './pages/Users';
 import { AppLayout } from './ui/AppLayout';
 import { CustomToaster } from './ui/CustomToaster';
-import { Modal } from './ui/Modal';
 
 export function App(): JSX.Element {
   return (
-    <Modal.Provider>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <RouterProvider router={router} />
-        <CustomToaster />
-      </QueryClientProvider>
-    </Modal.Provider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+      <CustomToaster />
+    </QueryClientProvider>
   );
 }
 

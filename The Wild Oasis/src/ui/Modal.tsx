@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import {
-  MouseEventHandler,
   ReactNode,
   cloneElement,
   createContext,
+  useCallback,
   useContext,
   useState,
 } from 'react';
@@ -12,63 +12,60 @@ import { HiOutlineXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
 
 interface ModalContext {
-  openWindowName: string;
-  setOpenWindowName: React.Dispatch<React.SetStateAction<string>>;
+  isWindowOpen: boolean;
+  openWindow: () => void;
+  closeWindow: () => void;
 }
 
-const Context = createContext<ModalContext>({
-  openWindowName: '',
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setOpenWindowName: () => {},
+const ModalContext = createContext<ModalContext>({
+  isWindowOpen: false,
+  openWindow: () => {
+    return;
+  },
+  closeWindow: () => {
+    return;
+  },
 });
 
-function Provider({ children }: { children: ReactNode }): JSX.Element {
-  const [openWindowName, setOpenWindowName] = useState('');
+function ModalProvider({ children }: { children: ReactNode }): JSX.Element {
+  const [isWindowOpen, setIsWindowOpen] = useState(false);
+
+  const openWindow = useCallback(() => {
+    setIsWindowOpen(true);
+  }, []);
+
+  const closeWindow = useCallback(() => {
+    setIsWindowOpen(false);
+  }, []);
 
   return (
-    <Context.Provider value={{ openWindowName, setOpenWindowName }}>
+    <ModalContext.Provider value={{ isWindowOpen, openWindow, closeWindow }}>
       {children}
-    </Context.Provider>
+    </ModalContext.Provider>
   );
 }
 
-function ButtonContainer({
+function ModalButtonContainer({
   children,
-  windowNameFor,
 }: {
   children: JSX.Element;
-  windowNameFor: string;
 }): JSX.Element {
-  const { setOpenWindowName } = useContext(Context);
+  const { openWindow } = useContext(ModalContext);
 
-  const handleClick: MouseEventHandler = () => {
-    setOpenWindowName(windowNameFor);
-  };
-
-  return cloneElement(children, { onClick: handleClick });
+  return cloneElement(children, { onClick: openWindow });
 }
 
-function Window({
-  children,
-  windowName,
-}: {
-  children: ReactNode;
-  windowName: string;
-}): JSX.Element {
-  const { openWindowName, setOpenWindowName } = useContext(Context);
+function ModalWindow({ children }: { children: ReactNode }): JSX.Element {
+  const { isWindowOpen, closeWindow } = useContext(ModalContext);
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setOpenWindowName('');
-  };
-
-  if (openWindowName !== windowName) return <></>;
+  if (!isWindowOpen) return <></>;
 
   return createPortal(
     <>
-      <StyledOverlay onClick={handleClick} />
+      <StyledOverlay onClick={closeWindow} />
       <StyledModal>
         <StyledButton
-          onClick={handleClick}
+          onClick={closeWindow}
           type="button"
           aria-label="Close modal window"
         >
@@ -139,8 +136,8 @@ const StyledButton = styled.button`
 `;
 
 export const Modal = {
-  Context,
-  Provider,
-  ButtonContainer,
-  Window,
+  Context: ModalContext,
+  Provider: ModalProvider,
+  ButtonContainer: ModalButtonContainer,
+  Window: ModalWindow,
 };
