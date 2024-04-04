@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { AddCabinModal } from '../features/cabins/AddCabinModal';
 import { CabinTable } from '../features/cabins/CabinTable';
+import { CabinTableOperations } from '../features/cabins/CabinTableOperations';
 import { Button } from '../ui/Button';
 import { Heading } from '../ui/Heading';
 
@@ -10,7 +11,7 @@ export function Cabins(): JSX.Element {
     <>
       <StyledFlexRow>
         <Heading as="h2">All cabins</Heading>
-        <p>Filter / Sort</p>
+        <CabinTableOperations />
       </StyledFlexRow>
 
       <StyledDiv>

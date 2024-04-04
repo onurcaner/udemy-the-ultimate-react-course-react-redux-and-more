@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { updateCabin } from '../../services/apiCabins';
 import { CabinAttributes, CreateCabinAttributes } from '../../services/types';
 import { Modal } from '../../ui/Modal';
+import { QueryKeyOfCabins } from './config';
 
 export function useMutationUpdateCabin(cabin?: CabinAttributes) {
   const { closeWindow } = useContext(Modal.Context);
@@ -18,7 +19,7 @@ export function useMutationUpdateCabin(cabin?: CabinAttributes) {
     onSuccess: async () => {
       toast.success('The cabin is updated successfully');
       closeWindow();
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
+      await queryClient.invalidateQueries({ queryKey: QueryKeyOfCabins });
     },
 
     onError: (error) => {

@@ -3,17 +3,17 @@ import styled from 'styled-components';
 import { Spinner } from '../../ui/Spinner';
 import { Table } from '../../ui/Table';
 import { CabinTableRow } from './CabinTableRow';
+import { useFilteredAndSortedCabins } from './useFilteredAndSortedCabins';
 import { useQueryCabins } from './useQueryCabins';
 
 export function CabinTable(): JSX.Element {
   const { data: cabins, isLoading } = useQueryCabins();
+  const filteredAndSortedCabins = useFilteredAndSortedCabins(cabins);
 
   if (isLoading) return <Spinner />;
 
-  if (!cabins) return <></>;
-
   return (
-    <Table.Provider templateColumns="1fr 1fr 1fr 0.5fr 0.5fr 1fr">
+    <Table.Provider templateColumns="0.5fr 1fr 1fr 0.5fr 0.5fr 0.25fr">
       <Table.HeaderRow>
         <StyledTh></StyledTh>
         <StyledTh>Cabin</StyledTh>
@@ -24,7 +24,7 @@ export function CabinTable(): JSX.Element {
       </Table.HeaderRow>
 
       <Table.Body
-        items={cabins}
+        items={filteredAndSortedCabins}
         render={(cabin) => <CabinTableRow cabin={cabin} key={cabin.id} />}
       />
     </Table.Provider>

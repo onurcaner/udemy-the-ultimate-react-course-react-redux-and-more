@@ -32,6 +32,7 @@ const StyledMain = styled.main`
 `;
 
 const StyledContainer = styled.div`
+  position: relative;
   padding: 4rem;
   max-width: 120rem;
   margin-inline: auto;

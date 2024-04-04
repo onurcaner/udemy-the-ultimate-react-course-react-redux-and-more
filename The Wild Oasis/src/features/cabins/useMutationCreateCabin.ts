@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 
 import { createCabin } from '../../services/apiCabins';
 import { Modal } from '../../ui/Modal';
+import { QueryKeyOfCabins } from './config';
 
 export function useMutationCreateCabin() {
   const { closeWindow } = useContext(Modal.Context);
@@ -16,7 +17,7 @@ export function useMutationCreateCabin() {
     onSuccess: async () => {
       toast.success('A new cabin is created successfully');
       closeWindow();
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
+      await queryClient.invalidateQueries({ queryKey: QueryKeyOfCabins });
     },
 
     onError: (error) => {

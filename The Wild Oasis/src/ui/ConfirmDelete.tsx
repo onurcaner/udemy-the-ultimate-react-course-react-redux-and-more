@@ -1,8 +1,9 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useContext } from 'react';
 import styled from 'styled-components';
 
 import { Button } from './Button';
 import { Heading } from './Heading';
+import { Modal } from './Modal';
 
 const StyledConfirmDelete = styled.div`
   display: flex;
@@ -29,7 +30,9 @@ export function ConfirmDelete({
   resourceName: string;
   onConfirm: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
-}) {
+}): JSX.Element {
+  const { closeWindow } = useContext(Modal.Context);
+
   return (
     <StyledConfirmDelete>
       <Heading as="h3">Delete {resourceName}</Heading>
@@ -39,7 +42,11 @@ export function ConfirmDelete({
       </p>
 
       <div>
-        <Button $variation="secondary" disabled={disabled}>
+        <Button
+          $variation="secondary"
+          disabled={disabled}
+          onClick={closeWindow}
+        >
           Cancel
         </Button>
         <Button $variation="danger" disabled={disabled} onClick={onConfirm}>

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { deleteCabin } from '../../services/apiCabins';
 import { CabinAttributes } from '../../services/types';
 import { Modal } from '../../ui/Modal';
+import { QueryKeyOfCabins } from './config';
 
 export function useMutationDeleteCabin(cabin: CabinAttributes) {
   const { closeWindow } = useContext(Modal.Context);
@@ -17,7 +18,7 @@ export function useMutationDeleteCabin(cabin: CabinAttributes) {
     onSuccess: async () => {
       toast.success(`Successfully deleted cabin: ${cabin.name}`);
       closeWindow();
-      await queryClient.invalidateQueries({ queryKey: ['cabins'] });
+      await queryClient.invalidateQueries({ queryKey: QueryKeyOfCabins });
     },
 
     onError: (error) => {

@@ -7,7 +7,7 @@ import {
 import styled from 'styled-components';
 
 import { CabinAttributes } from '../../services/types';
-import { Button } from '../../ui/Button';
+import { Menu } from '../../ui/Menu';
 import { Table } from '../../ui/Table';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { DeleteCabinModal } from './DeleteCabinModal';
@@ -61,7 +61,7 @@ export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
         {cabin.discount ? formatCurrency(cabin.discount) : '-'}
       </StyledDiscount>
 
-      <StyledButtonsContainer>
+      {/* <StyledButtonsContainer>
         <Button
           $variation="primary"
           $size="small"
@@ -105,7 +105,52 @@ export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
             </StyledIconContainer>
           </Button>
         </DeleteCabinModal>
-      </StyledButtonsContainer>
+      </StyledButtonsContainer> */}
+      <StyledTd>
+        <Menu.Provider>
+          <Menu.OpenButton />
+          <Menu.List>
+            <Menu.ListItem>
+              <button
+                type="button"
+                onClick={handleClickToDuplicateCabin}
+                disabled={isPending}
+              >
+                <StyledIconContainer aria-hidden={true}>
+                  <HiOutlineSquare2Stack />
+                </StyledIconContainer>
+                <span>Duplicate cabin</span>
+              </button>
+            </Menu.ListItem>
+
+            <Menu.ListItem>
+              <EditCabinModal cabin={cabin}>
+                <button type="button" disabled={isPending}>
+                  <StyledIconContainer aria-hidden={true}>
+                    <HiOutlinePencil />
+                  </StyledIconContainer>
+                  <span>Edit Cabin</span>
+                </button>
+              </EditCabinModal>
+            </Menu.ListItem>
+
+            <Menu.ListItem>
+              <DeleteCabinModal
+                cabin={cabin}
+                disabled={isPending}
+                onConfirm={handleClickToDeleteCabin}
+              >
+                <button type="button" disabled={isPending}>
+                  <StyledIconContainer aria-hidden={true}>
+                    <HiOutlineTrash />
+                  </StyledIconContainer>
+                  <span>Delete Cabin</span>
+                </button>
+              </DeleteCabinModal>
+            </Menu.ListItem>
+          </Menu.List>
+        </Menu.Provider>
+      </StyledTd>
     </Table.Row>
   );
 }
@@ -141,12 +186,6 @@ const StyledDiscount = styled.td`
   font-family: 'Sono';
   font-weight: 500;
   color: var(--color-green-700);
-`;
-
-const StyledButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
 `;
 
 const StyledIconContainer = styled.span`

@@ -24,11 +24,11 @@ function TableHeaderRow({ children }: { children: ReactNode }): JSX.Element {
   const { templateColumns } = useContext(TableContext);
 
   return (
-    <>
+    <StyledTBody as="thead">
       <StyledHeaderRow $templateColumns={templateColumns}>
         {children}
       </StyledHeaderRow>
-    </>
+    </StyledTBody>
   );
 }
 
@@ -40,11 +40,11 @@ function TableBody<T>({
   render: (item: T) => JSX.Element;
 }): JSX.Element {
   if (items.length === 0) return <StyledEmpty>No data to show</StyledEmpty>;
-  return <StyledBody>{items.map(render)}</StyledBody>;
+  return <StyledTBody>{items.map(render)}</StyledTBody>;
 }
 
 function TableFooter({ children }: { children: ReactNode }): JSX.Element {
-  return <StyledFooter>{children}</StyledFooter>;
+  return <StyledTFoot>{children}</StyledTFoot>;
 }
 
 function TableRow({ children }: { children: ReactNode }): JSX.Element {
@@ -87,11 +87,12 @@ const StyledRow = styled(StyledCommonRow)`
   }
 `;
 
-const StyledBody = styled.tbody`
-  margin: 0.4rem 0;
+const StyledTBody = styled.tbody`
+  display: block;
+  margin-inline: 0.4rem;
 `;
 
-const StyledFooter = styled.tfoot`
+const StyledTFoot = styled.tfoot`
   background-color: var(--color-grey-50);
   display: flex;
   justify-content: center;
