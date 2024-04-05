@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { Uploader } from '../data/Uploader';
 import { Logo } from './Logo';
 import { SidebarNav } from './SidebarNav';
 
@@ -8,6 +9,7 @@ export function Sidebar(): JSX.Element {
     <StyledAside>
       <Logo />
       <SidebarNav />
+      <Uploader />
     </StyledAside>
   );
 }

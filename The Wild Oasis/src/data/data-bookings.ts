@@ -9,7 +9,8 @@ function fromToday(numDays, withTime = false) {
 export const bookings = [
   // CABIN 001
   {
-    created_at: fromToday(-20, true),
+    id: 1,
+    createdAt: fromToday(-20, true),
     startDate: fromToday(0),
     endDate: fromToday(7),
     cabinId: 1,
@@ -18,10 +19,11 @@ export const bookings = [
     observations:
       'I have a gluten allergy and would like to request a gluten-free breakfast.',
     isPaid: false,
-    numGuests: 1,
+    guests: 1,
   },
   {
-    created_at: fromToday(-33, true),
+    id: 2,
+    createdAt: fromToday(-33, true),
     startDate: fromToday(-23),
     endDate: fromToday(-13),
     cabinId: 1,
@@ -29,10 +31,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 2,
+    guests: 2,
   },
   {
-    created_at: fromToday(-27, true),
+    id: 3,
+    createdAt: fromToday(-27, true),
     startDate: fromToday(12),
     endDate: fromToday(18),
     cabinId: 1,
@@ -40,12 +43,13 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: false,
-    numGuests: 2,
+    guests: 2,
   },
 
   // CABIN 002
   {
-    created_at: fromToday(-45, true),
+    id: 4,
+    createdAt: fromToday(-45, true),
     startDate: fromToday(-45),
     endDate: fromToday(-29),
     cabinId: 2,
@@ -53,10 +57,11 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    numGuests: 2,
+    guests: 2,
   },
   {
-    created_at: fromToday(-2, true),
+    id: 5,
+    createdAt: fromToday(-2, true),
     startDate: fromToday(15),
     endDate: fromToday(18),
     cabinId: 2,
@@ -64,10 +69,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 2,
+    guests: 2,
   },
   {
-    created_at: fromToday(-5, true),
+    id: 6,
+    createdAt: fromToday(-5, true),
     startDate: fromToday(33),
     endDate: fromToday(48),
     cabinId: 2,
@@ -75,12 +81,13 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: false,
-    numGuests: 2,
+    guests: 2,
   },
 
   // CABIN 003
   {
-    created_at: fromToday(-65, true),
+    id: 7,
+    createdAt: fromToday(-65, true),
     startDate: fromToday(-25),
     endDate: fromToday(-20),
     cabinId: 3,
@@ -88,10 +95,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 4,
+    guests: 4,
   },
   {
-    created_at: fromToday(-2, true),
+    id: 8,
+    createdAt: fromToday(-2, true),
     startDate: fromToday(-2),
     endDate: fromToday(0),
     cabinId: 3,
@@ -99,10 +107,11 @@ export const bookings = [
     hasBreakfast: false,
     observations: 'We will be bringing our small dog with us',
     isPaid: true,
-    numGuests: 3,
+    guests: 3,
   },
   {
-    created_at: fromToday(-14, true),
+    id: 9,
+    createdAt: fromToday(-14, true),
     startDate: fromToday(-14),
     endDate: fromToday(-11),
     cabinId: 3,
@@ -110,12 +119,13 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 4,
+    guests: 4,
   },
 
   // CABIN 004
   {
-    created_at: fromToday(-30, true),
+    id: 10,
+    createdAt: fromToday(-30, true),
     startDate: fromToday(-4),
     endDate: fromToday(8),
     cabinId: 4,
@@ -123,10 +133,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 4,
+    guests: 4,
   },
   {
-    created_at: fromToday(-1, true),
+    id: 11,
+    createdAt: fromToday(-1, true),
     startDate: fromToday(12),
     endDate: fromToday(17),
     cabinId: 4,
@@ -134,10 +145,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: false,
-    numGuests: 4,
+    guests: 4,
   },
   {
-    created_at: fromToday(-3, true),
+    id: 12,
+    createdAt: fromToday(-3, true),
     startDate: fromToday(18),
     endDate: fromToday(19),
     cabinId: 4,
@@ -145,12 +157,13 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    numGuests: 1,
+    guests: 1,
   },
 
   // CABIN 005
   {
-    created_at: fromToday(0, true),
+    id: 13,
+    createdAt: fromToday(0, true),
     startDate: fromToday(14),
     endDate: fromToday(21),
     cabinId: 5,
@@ -158,10 +171,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: false,
-    numGuests: 5,
+    guests: 5,
   },
   {
-    created_at: fromToday(-6, true),
+    id: 14,
+    createdAt: fromToday(-6, true),
     startDate: fromToday(-6),
     endDate: fromToday(-4),
     cabinId: 5,
@@ -169,10 +183,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 4,
+    guests: 4,
   },
   {
-    created_at: fromToday(-4, true),
+    id: 15,
+    createdAt: fromToday(-4, true),
     startDate: fromToday(-4),
     endDate: fromToday(-1),
     cabinId: 5,
@@ -180,12 +195,13 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    numGuests: 6,
+    guests: 6,
   },
 
   // CABIN 006
   {
-    created_at: fromToday(-3, true),
+    id: 16,
+    createdAt: fromToday(-3, true),
     startDate: fromToday(0),
     endDate: fromToday(11),
     cabinId: 6,
@@ -194,10 +210,11 @@ export const bookings = [
     observations:
       "We will be checking in late, around midnight. Hope that's okay :)",
     isPaid: true,
-    numGuests: 6,
+    guests: 6,
   },
   {
-    created_at: fromToday(-16, true),
+    id: 17,
+    createdAt: fromToday(-16, true),
     startDate: fromToday(-16),
     endDate: fromToday(-9),
     cabinId: 6,
@@ -205,10 +222,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: 'I will need a rollaway bed for one of the guests',
     isPaid: true,
-    numGuests: 4,
+    guests: 4,
   },
   {
-    created_at: fromToday(-18, true),
+    id: 18,
+    createdAt: fromToday(-18, true),
     startDate: fromToday(-4),
     endDate: fromToday(-1),
     cabinId: 6,
@@ -216,12 +234,13 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 6,
+    guests: 6,
   },
 
   // CABIN 007
   {
-    created_at: fromToday(-2, true),
+    id: 19,
+    createdAt: fromToday(-2, true),
     startDate: fromToday(17),
     endDate: fromToday(23),
     cabinId: 7,
@@ -229,10 +248,11 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: false,
-    numGuests: 8,
+    guests: 8,
   },
   {
-    created_at: fromToday(-7, true),
+    id: 20,
+    createdAt: fromToday(-7, true),
     startDate: fromToday(40),
     endDate: fromToday(50),
     cabinId: 7,
@@ -240,10 +260,11 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 7,
+    guests: 7,
   },
   {
-    created_at: fromToday(-55, true),
+    id: 21,
+    createdAt: fromToday(-55, true),
     startDate: fromToday(32),
     endDate: fromToday(37),
     cabinId: 7,
@@ -251,12 +272,13 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    numGuests: 6,
+    guests: 6,
   },
 
   // CABIN 008
   {
-    created_at: fromToday(-8, true),
+    id: 22,
+    createdAt: fromToday(-8, true),
     startDate: fromToday(-5),
     endDate: fromToday(0),
     cabinId: 8,
@@ -265,10 +287,11 @@ export const bookings = [
     observations:
       'My wife has a gluten allergy so I would like to request a gluten-free breakfast if possible',
     isPaid: true,
-    numGuests: 9,
+    guests: 9,
   },
   {
-    created_at: fromToday(0, true),
+    id: 23,
+    createdAt: fromToday(0, true),
     startDate: fromToday(0),
     endDate: fromToday(5),
     cabinId: 8,
@@ -277,10 +300,11 @@ export const bookings = [
     observations:
       'I am celebrating my anniversary, can you arrange for any special amenities or decorations?',
     isPaid: true,
-    numGuests: 10,
+    guests: 10,
   },
   {
-    created_at: fromToday(-10, true),
+    id: 24,
+    createdAt: fromToday(-10, true),
     startDate: fromToday(10),
     endDate: fromToday(13),
     cabinId: 8,
@@ -288,6 +312,6 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    numGuests: 7,
+    guests: 7,
   },
 ];

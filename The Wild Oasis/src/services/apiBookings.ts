@@ -1,6 +1,19 @@
 import { getToday } from '../utils/getToday';
 import { supabase } from './supabase';
-import { BookingAttributes } from './types';
+import { BookingAttributes, BookingAttributesExtended } from './types';
+
+export async function getBookings() {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*, cabins(*), guests(*)');
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking not found');
+  }
+
+  return data as unknown as BookingAttributesExtended[];
+}
 
 export async function getBooking(id: BookingAttributes['id']) {
   const { data, error } = await supabase
