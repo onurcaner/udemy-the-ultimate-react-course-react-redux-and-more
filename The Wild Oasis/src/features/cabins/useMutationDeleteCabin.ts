@@ -18,7 +18,7 @@ export function useMutationDeleteCabin(cabin: CabinAttributes) {
     onSuccess: async () => {
       toast.success(`Successfully deleted cabin: ${cabin.name}`);
       closeWindow();
-      await queryClient.invalidateQueries({ queryKey: QueryKeyOfCabins });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeyOfCabins] });
     },
 
     onError: (error) => {

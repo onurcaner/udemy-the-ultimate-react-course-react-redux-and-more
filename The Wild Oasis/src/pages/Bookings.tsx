@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { BookingTable } from '../features/bookings/BookingTable';
+import BookingTableOperations from '../features/bookings/BookingTableOperations';
 import { Heading } from '../ui/Heading';
 
 export function Bookings(): JSX.Element {
@@ -8,7 +9,7 @@ export function Bookings(): JSX.Element {
     <>
       <StyledFlexRow>
         <Heading as="h2">All bookings</Heading>
-        <p>TEST</p>
+        <BookingTableOperations />
       </StyledFlexRow>
 
       <BookingTable />

@@ -1,56 +1,67 @@
 import { Filter } from '../../ui/Filter';
 import { SortBy } from '../../ui/SortBy';
-import { ParamDiscountValues, ParamNames, ParamSortValues } from './config';
+import { TableOperations } from '../../ui/TableOperations';
+import {
+  SearchParamsDiscountValuesForCabins,
+  SearchParamsNamesForCabins,
+  SearchParamsSortValuesForCabins,
+} from './config';
 
 export function CabinTableOperations(): JSX.Element {
   return (
-    <>
+    <TableOperations>
       <Filter
-        searchParamName={ParamNames.Discount}
+        searchParamName={SearchParamsNamesForCabins.Discount}
         buttonProperties={[
-          { label: 'All', value: ParamDiscountValues.All },
-          { label: 'With discount', value: ParamDiscountValues.WithDiscount },
-          { label: 'No discount', value: ParamDiscountValues.NoDiscount },
+          { label: 'All', value: SearchParamsDiscountValuesForCabins.All },
+          {
+            label: 'With discount',
+            value: SearchParamsDiscountValuesForCabins.WithDiscount,
+          },
+          {
+            label: 'No discount',
+            value: SearchParamsDiscountValuesForCabins.NoDiscount,
+          },
         ]}
       />
 
       <SortBy
-        searchParamName={ParamNames.Sort}
+        searchParamName={SearchParamsNamesForCabins.Sort}
         selectOptions={[
           {
             label: 'Sort by name (Ascending)',
-            value: ParamSortValues.NameAscending,
+            value: SearchParamsSortValuesForCabins.NameAscending,
           },
           {
             label: 'Sort by name (Descending)',
-            value: ParamSortValues.NameDescending,
+            value: SearchParamsSortValuesForCabins.NameDescending,
           },
           {
             label: 'Sort by capacity (Ascending)',
-            value: ParamSortValues.CapacityAscending,
+            value: SearchParamsSortValuesForCabins.CapacityAscending,
           },
           {
             label: 'Sort by capacity (Descending)',
-            value: ParamSortValues.CapacityDescending,
+            value: SearchParamsSortValuesForCabins.CapacityDescending,
           },
           {
             label: 'Sort by price (Ascending)',
-            value: ParamSortValues.PriceAscending,
+            value: SearchParamsSortValuesForCabins.PriceAscending,
           },
           {
             label: 'Sort by price (Descending)',
-            value: ParamSortValues.PriceDescending,
+            value: SearchParamsSortValuesForCabins.PriceDescending,
           },
           {
             label: 'Sort by discount (Ascending)',
-            value: ParamSortValues.DiscountAscending,
+            value: SearchParamsSortValuesForCabins.DiscountAscending,
           },
           {
             label: 'Sort by discount (Descending)',
-            value: ParamSortValues.DiscountDescending,
+            value: SearchParamsSortValuesForCabins.DiscountDescending,
           },
         ]}
       />
-    </>
+    </TableOperations>
   );
 }

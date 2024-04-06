@@ -5,7 +5,7 @@ import { QueryKeyOfBookings } from './config';
 
 export function useQueryBookings() {
   return useQuery({
-    queryKey: QueryKeyOfBookings,
-    queryFn: getBookings,
+    queryKey: [QueryKeyOfBookings],
+    queryFn: getBookings.bind(null, undefined),
   });
 }

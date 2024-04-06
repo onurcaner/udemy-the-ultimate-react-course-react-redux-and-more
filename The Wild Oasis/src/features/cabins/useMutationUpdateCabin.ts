@@ -19,7 +19,7 @@ export function useMutationUpdateCabin(cabin?: CabinAttributes) {
     onSuccess: async () => {
       toast.success('The cabin is updated successfully');
       closeWindow();
-      await queryClient.invalidateQueries({ queryKey: QueryKeyOfCabins });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeyOfCabins] });
     },
 
     onError: (error) => {

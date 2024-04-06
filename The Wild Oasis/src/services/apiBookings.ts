@@ -1,18 +1,76 @@
+import { PAGINATION_ITEM_COUNT } from '../config';
+import {
+  SearchParamsSortValuesForBookings,
+  SearchParamsStatusValuesForBookings,
+} from '../features/bookings/config';
 import { getToday } from '../utils/getToday';
 import { supabase } from './supabase';
 import { BookingAttributes, BookingAttributesExtended } from './types';
 
-export async function getBookings() {
-  const { data, error } = await supabase
+export async function getBookings(
+  options:
+    | {
+        status: SearchParamsStatusValuesForBookings;
+        sort: SearchParamsSortValuesForBookings;
+        page: number;
+      }
+    | null
+    | undefined,
+) {
+  let query = supabase
     .from('bookings')
-    .select('*, cabins(*), guests(*)');
+    .select('*, cabins(*), guests(*)', { count: 'exact' });
+
+  if (options?.status) {
+    switch (options.status) {
+      case SearchParamsStatusValuesForBookings.Unconfirmed:
+        query = query.eq('status', 'unconfirmed');
+        break;
+      case SearchParamsStatusValuesForBookings.CheckedIn:
+        query = query.eq('status', 'checked-in');
+        break;
+      case SearchParamsStatusValuesForBookings.CheckedOut:
+        query = query.eq('status', 'checked-out');
+        break;
+    }
+  }
+
+  if (options?.sort) {
+    switch (options.sort) {
+      case SearchParamsSortValuesForBookings.DateAscending:
+        query = query.order('startDate', { ascending: true });
+        break;
+      case SearchParamsSortValuesForBookings.TotalPriceAscending:
+        query = query.order('totalPrice', { ascending: true });
+        break;
+      case SearchParamsSortValuesForBookings.TotalPriceDescending:
+        query = query.order('totalPrice', { ascending: false });
+        break;
+      default:
+        query = query.order('startDate', { ascending: false });
+        break;
+    }
+  }
+
+  if (options?.page) {
+    const from = (options.page - 1) * PAGINATION_ITEM_COUNT;
+    const to = options.page * PAGINATION_ITEM_COUNT - 1;
+    query = query.range(from, to);
+  }
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.error(error);
     throw new Error('Booking not found');
   }
 
-  return data as unknown as BookingAttributesExtended[];
+  const returnMe = {
+    data: data as unknown as BookingAttributesExtended[],
+    count,
+  };
+
+  return returnMe;
 }
 
 export async function getBooking(id: BookingAttributes['id']) {
@@ -27,7 +85,7 @@ export async function getBooking(id: BookingAttributes['id']) {
     throw new Error('Booking not found');
   }
 
-  return data;
+  return data as unknown as BookingAttributesExtended;
 }
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.

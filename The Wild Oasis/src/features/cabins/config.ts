@@ -1,14 +1,14 @@
-export const QueryKeyOfCabins = ['cabins'];
-export enum ParamNames {
+export const QueryKeyOfCabins = 'cabins';
+export enum SearchParamsNamesForCabins {
   Discount = 'discount',
   Sort = 'sort',
 }
-export enum ParamDiscountValues {
+export enum SearchParamsDiscountValuesForCabins {
   All = 'all',
   WithDiscount = 'withDiscount',
   NoDiscount = 'noDiscount',
 }
-export enum ParamSortValues {
+export enum SearchParamsSortValuesForCabins {
   NameAscending = 'nameAscending',
   NameDescending = 'nameDescending',
   CapacityAscending = 'capacityAscending',

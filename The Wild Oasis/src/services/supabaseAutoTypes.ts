@@ -118,7 +118,7 @@ export type Database = {
           email: string;
           fullName: string;
           id: number;
-          nationalID: string;
+          nationalId: string;
           nationality: string;
         };
         Insert: {
@@ -127,7 +127,7 @@ export type Database = {
           email: string;
           fullName: string;
           id?: number;
-          nationalID: string;
+          nationalId: string;
           nationality: string;
         };
         Update: {
@@ -136,7 +136,7 @@ export type Database = {
           email?: string;
           fullName?: string;
           id?: number;
-          nationalID?: string;
+          nationalId?: string;
           nationality?: string;
         };
         Relationships: [];

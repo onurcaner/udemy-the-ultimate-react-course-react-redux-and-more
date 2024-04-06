@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div`
   display: flex;
-  gap: 1.2rem;
   justify-content: flex-end;
+  gap: 0.75rem;
 `;
-
-export default ButtonGroup;

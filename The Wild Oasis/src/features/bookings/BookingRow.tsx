@@ -1,27 +1,27 @@
 import { format, isToday } from 'date-fns';
+import { MouseEventHandler } from 'react';
+import { HiOutlineEye } from 'react-icons/hi2';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import {
-  BookingAttributes,
-  BookingAttributesExtended,
-} from '../../services/types';
+import { BOOKINGS } from '../../config/routePaths';
+import { BookingAttributesExtended } from '../../services/types';
+import { Menu } from '../../ui/Menu';
 import { Table } from '../../ui/Table';
 import { Tag } from '../../ui/Tag';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDistanceFromNow } from '../../utils/formatDistanceFromNow';
+import { statusToTagName } from './config';
 
 export function BookingRow({
   booking,
 }: {
   booking: BookingAttributesExtended;
 }): JSX.Element {
-  const statusToTagName: Record<
-    BookingAttributes['status'],
-    'blue' | 'green' | 'silver'
-  > = {
-    unconfirmed: 'blue',
-    'checked-in': 'green',
-    'checked-out': 'silver',
+  const navigate = useNavigate();
+
+  const handleClickOnSeeDetails: MouseEventHandler<HTMLButtonElement> = () => {
+    navigate(`/${BOOKINGS}/${booking.id}`);
   };
 
   return (
@@ -51,6 +51,20 @@ export function BookingRow({
       </Tag>
 
       <StyledAmount>{formatCurrency(booking.totalPrice)}</StyledAmount>
+
+      <Menu.Provider>
+        <Menu.OpenButton />
+        <Menu.List>
+          <Menu.ListItem>
+            <button onClick={handleClickOnSeeDetails}>
+              <span aria-hidden="true">
+                <HiOutlineEye />
+              </span>
+              <span>See details</span>
+            </button>
+          </Menu.ListItem>
+        </Menu.List>
+      </Menu.Provider>
     </Table.Row>
   );
 }

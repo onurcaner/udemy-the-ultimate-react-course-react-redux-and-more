@@ -58,7 +58,7 @@ const StyledTable = styled.table`
   font-size: 1rem;
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-200);
-  border-radius: var(---border-radius-md);
+  border-radius: var(--border-radius-lg);
   overflow: hidden;
 `;
 
@@ -89,7 +89,6 @@ const StyledRow = styled(StyledCommonRow)`
 
 const StyledTBody = styled.tbody`
   display: block;
-  margin-inline: 0.4rem;
 `;
 
 const StyledTFoot = styled.tfoot`

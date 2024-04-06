@@ -16,6 +16,7 @@ import {
   USERS,
 } from './config/routePaths';
 import { Account } from './pages/Account';
+import { Booking } from './pages/Booking';
 import { Bookings } from './pages/Bookings';
 import { Cabins } from './pages/Cabins';
 import { Dashboard } from './pages/Dashboard';
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: BOOKINGS,
         element: <Bookings />,
+      },
+      {
+        path: `${BOOKINGS}/:id`,
+        element: <Booking />,
       },
       {
         path: CABINS,
