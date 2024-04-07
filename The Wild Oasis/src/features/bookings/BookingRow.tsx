@@ -1,16 +1,23 @@
 import { format, isToday } from 'date-fns';
 import { MouseEventHandler } from 'react';
-import { HiOutlineEye } from 'react-icons/hi2';
+import {
+  HiOutlineArrowDownOnSquare,
+  HiOutlineArrowUpOnSquare,
+  HiOutlineEye,
+  HiOutlineTrash,
+} from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { BOOKINGS } from '../../config/routePaths';
+import { BOOKINGS, CHECK_IN } from '../../config/routePaths';
 import { BookingAttributesExtended } from '../../services/types';
 import { Menu } from '../../ui/Menu';
 import { Table } from '../../ui/Table';
 import { Tag } from '../../ui/Tag';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDistanceFromNow } from '../../utils/formatDistanceFromNow';
+import { CheckOutModal } from '../check-in-out/CheckOutModal';
+import { DeleteBookingModal } from './DeleteBookingModal';
 import { statusToTagName } from './config';
 
 export function BookingRow({
@@ -22,6 +29,10 @@ export function BookingRow({
 
   const handleClickOnSeeDetails: MouseEventHandler<HTMLButtonElement> = () => {
     navigate(`/${BOOKINGS}/${booking.id}`);
+  };
+
+  const handleClickOnCheckIn: MouseEventHandler<HTMLButtonElement> = () => {
+    navigate(`/${CHECK_IN}/${booking.id}`);
   };
 
   return (
@@ -62,6 +73,41 @@ export function BookingRow({
               </span>
               <span>See details</span>
             </button>
+          </Menu.ListItem>
+
+          {booking.status === 'unconfirmed' && (
+            <Menu.ListItem>
+              <button onClick={handleClickOnCheckIn}>
+                <span aria-hidden="true">
+                  <HiOutlineArrowDownOnSquare />
+                </span>
+                <span>Check in</span>
+              </button>
+            </Menu.ListItem>
+          )}
+
+          {booking.status === 'checked-in' && (
+            <Menu.ListItem>
+              <CheckOutModal bookingId={booking.id}>
+                <button>
+                  <span aria-hidden="true">
+                    <HiOutlineArrowUpOnSquare />
+                  </span>
+                  <span>Check out</span>
+                </button>
+              </CheckOutModal>
+            </Menu.ListItem>
+          )}
+
+          <Menu.ListItem>
+            <DeleteBookingModal bookingId={booking.id}>
+              <button>
+                <span aria-hidden="true">
+                  <HiOutlineTrash />
+                </span>
+                <span>Delete</span>
+              </button>
+            </DeleteBookingModal>
           </Menu.ListItem>
         </Menu.List>
       </Menu.Provider>

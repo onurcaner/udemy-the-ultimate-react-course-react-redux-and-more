@@ -19,7 +19,7 @@ export const bookings = [
     observations:
       'I have a gluten allergy and would like to request a gluten-free breakfast.',
     isPaid: false,
-    guests: 1,
+    numberOfGuests: 1,
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 2,
+    numberOfGuests: 2,
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: false,
-    guests: 2,
+    numberOfGuests: 2,
   },
 
   // CABIN 002
@@ -57,7 +57,7 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    guests: 2,
+    numberOfGuests: 2,
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 2,
+    numberOfGuests: 2,
   },
   {
     id: 6,
@@ -81,7 +81,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: false,
-    guests: 2,
+    numberOfGuests: 2,
   },
 
   // CABIN 003
@@ -95,7 +95,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 4,
+    numberOfGuests: 4,
   },
   {
     id: 8,
@@ -107,7 +107,7 @@ export const bookings = [
     hasBreakfast: false,
     observations: 'We will be bringing our small dog with us',
     isPaid: true,
-    guests: 3,
+    numberOfGuests: 3,
   },
   {
     id: 9,
@@ -119,7 +119,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 4,
+    numberOfGuests: 4,
   },
 
   // CABIN 004
@@ -133,7 +133,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 4,
+    numberOfGuests: 4,
   },
   {
     id: 11,
@@ -145,7 +145,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: false,
-    guests: 4,
+    numberOfGuests: 4,
   },
   {
     id: 12,
@@ -157,7 +157,7 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    guests: 1,
+    numberOfGuests: 1,
   },
 
   // CABIN 005
@@ -171,7 +171,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: false,
-    guests: 5,
+    numberOfGuests: 5,
   },
   {
     id: 14,
@@ -183,7 +183,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 4,
+    numberOfGuests: 4,
   },
   {
     id: 15,
@@ -195,7 +195,7 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    guests: 6,
+    numberOfGuests: 6,
   },
 
   // CABIN 006
@@ -210,7 +210,7 @@ export const bookings = [
     observations:
       "We will be checking in late, around midnight. Hope that's okay :)",
     isPaid: true,
-    guests: 6,
+    numberOfGuests: 6,
   },
   {
     id: 17,
@@ -220,9 +220,9 @@ export const bookings = [
     cabinId: 6,
     guestId: 18,
     hasBreakfast: true,
-    observations: 'I will need a rollaway bed for one of the guests',
+    observations: 'I will need a rollaway bed for one of the numberOfGuests',
     isPaid: true,
-    guests: 4,
+    numberOfGuests: 4,
   },
   {
     id: 18,
@@ -234,7 +234,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 6,
+    numberOfGuests: 6,
   },
 
   // CABIN 007
@@ -248,7 +248,7 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: false,
-    guests: 8,
+    numberOfGuests: 8,
   },
   {
     id: 20,
@@ -260,7 +260,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 7,
+    numberOfGuests: 7,
   },
   {
     id: 21,
@@ -272,7 +272,7 @@ export const bookings = [
     hasBreakfast: true,
     observations: '',
     isPaid: true,
-    guests: 6,
+    numberOfGuests: 6,
   },
 
   // CABIN 008
@@ -287,7 +287,7 @@ export const bookings = [
     observations:
       'My wife has a gluten allergy so I would like to request a gluten-free breakfast if possible',
     isPaid: true,
-    guests: 9,
+    numberOfGuests: 9,
   },
   {
     id: 23,
@@ -300,7 +300,7 @@ export const bookings = [
     observations:
       'I am celebrating my anniversary, can you arrange for any special amenities or decorations?',
     isPaid: true,
-    guests: 10,
+    numberOfGuests: 10,
   },
   {
     id: 24,
@@ -312,6 +312,6 @@ export const bookings = [
     hasBreakfast: false,
     observations: '',
     isPaid: true,
-    guests: 7,
+    numberOfGuests: 7,
   },
 ];

@@ -68,16 +68,16 @@ const variations = {
 
   secondary: css`
     color: var(--color-grey-600);
-    background: var(--color-grey-200);
-    border-color: var(--color-grey-600);
+    background: var(--color-grey-50);
+    border-color: var(--color-grey-400);
 
     &:hover,
     &:focus-visible {
-      background-color: var(--color-grey-100);
+      background-color: var(--color-grey-0);
     }
 
     &:focus-visible {
-      outline-color: var(--color-grey-600);
+      outline-color: var(--color-grey-400);
     }
   `,
 

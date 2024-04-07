@@ -2,6 +2,8 @@ import { MouseEventHandler } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import { SearchParamsNamesGlobal } from '../config';
+
 export function Filter({
   searchParamName,
   buttonProperties,
@@ -19,6 +21,9 @@ export function Filter({
   ): MouseEventHandler<HTMLButtonElement> => {
     return () => {
       searchParams.set(searchParamName, value);
+      if (searchParams.get(SearchParamsNamesGlobal.Page))
+        searchParams.delete(SearchParamsNamesGlobal.Page);
+
       setSearchParams(searchParams);
     };
   };

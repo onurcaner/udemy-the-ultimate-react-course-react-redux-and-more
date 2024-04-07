@@ -17,7 +17,7 @@ export type Database = {
           endDate: string;
           extrasPrice: number;
           guestId: number;
-          guests: number;
+          numberOfGuests: number;
           hasBreakfast: boolean;
           id: number;
           isPaid: boolean;

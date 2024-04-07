@@ -23,7 +23,7 @@ export function BookingDataBox({
     startDate,
     endDate,
     nights,
-    guests,
+    numberOfGuests,
     cabinPrice,
     extrasPrice,
     totalPrice,
@@ -39,8 +39,6 @@ export function BookingDataBox({
     },
     cabins: { name: cabinName },
   } = booking;
-
-  console.log(booking);
 
   return (
     <StyledBookingDataBox>
@@ -67,7 +65,8 @@ export function BookingDataBox({
             <Flag src={countryFlag} alt={`Flag of ${nationality}`} />
           )}
           <p>
-            {guestName} {guests > 1 ? `+ ${guests - 1} guests` : ''}
+            {guestName}{' '}
+            {numberOfGuests > 1 ? `+ ${numberOfGuests - 1} guests` : ''}
           </p>
           <span>&bull;</span>
           <p>{email}</p>

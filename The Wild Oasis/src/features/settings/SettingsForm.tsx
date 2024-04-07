@@ -50,6 +50,7 @@ export function SettingsForm(): JSX.Element {
           disabled={isPending}
           aria-invalid={Boolean(errors.minimumBookingLength)}
           required={true}
+          min={2}
           {...register('minimumBookingLength', {
             required: 'Minimum booking nights can not be empty',
             min: {
@@ -76,6 +77,7 @@ export function SettingsForm(): JSX.Element {
           disabled={isPending}
           aria-invalid={Boolean(errors.maximumBookingLength)}
           required={true}
+          max={90}
           {...register('maximumBookingLength', {
             required: 'Maximum booking nights can not be empty',
             max: {
@@ -102,6 +104,8 @@ export function SettingsForm(): JSX.Element {
           disabled={isPending}
           aria-invalid={Boolean(errors.maximumGuestsPerBooking)}
           required={true}
+          min={1}
+          max={12}
           {...register('maximumGuestsPerBooking', {
             required: 'Maximum guests per booking can not be empty',
             min: {
@@ -128,6 +132,7 @@ export function SettingsForm(): JSX.Element {
           defaultValue={settings?.breakfastPrice}
           disabled={isPending}
           aria-invalid={Boolean(errors.breakfastPrice)}
+          min={0}
           required={true}
           {...register('breakfastPrice', {
             required: 'Breakfast price can not be empty',

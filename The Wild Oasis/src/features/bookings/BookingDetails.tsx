@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { CHECK_IN } from '../../config/routePaths';
 import { useNavigateBack } from '../../hooks/useNavigateBack';
 import { Button } from '../../ui/Button';
 import { ButtonGroup } from '../../ui/ButtonGroup';
@@ -8,13 +10,15 @@ import { Empty } from '../../ui/Empty';
 import { Heading } from '../../ui/Heading';
 import { Spinner } from '../../ui/Spinner';
 import { Tag } from '../../ui/Tag';
+import { CheckOutModal } from '../check-in-out/CheckOutModal';
 import { BookingDataBox } from './BookingDataBox';
+import { DeleteBookingModal } from './DeleteBookingModal';
 import { statusToTagName } from './config';
 import { useQueryBooking } from './useQueryBooking';
 
 export function BookingDetails(): JSX.Element {
   const { data: booking, isLoading } = useQueryBooking();
-
+  const navigate = useNavigate();
   const navigateBack = useNavigateBack();
 
   if (isLoading) return <Spinner />;
@@ -25,7 +29,7 @@ export function BookingDetails(): JSX.Element {
       <StyledRow>
         <StyledHeadingGroup>
           <Heading as="h2" $marginBottom="0">
-            Booking #X
+            Booking #{booking.id}
           </Heading>
           <Tag $variant={statusToTagName[booking.status]}>
             {booking.status.replace('-', ' ')}
@@ -36,10 +40,30 @@ export function BookingDetails(): JSX.Element {
 
       <BookingDataBox booking={booking} />
 
-      <ButtonGroup>
+      <ButtonGroup style={{ marginTop: '2rem' }}>
         <Button $variation="secondary" onClick={navigateBack}>
           Back
         </Button>
+
+        <DeleteBookingModal bookingId={booking.id} onSuccess={navigateBack}>
+          <Button $variation="danger">Delete Booking</Button>
+        </DeleteBookingModal>
+
+        {booking.status === 'checked-in' && (
+          <CheckOutModal bookingId={booking.id}>
+            <Button>Check out</Button>
+          </CheckOutModal>
+        )}
+
+        {booking.status === 'unconfirmed' && (
+          <Button
+            onClick={() => {
+              navigate(`/${CHECK_IN}/${booking.id}`);
+            }}
+          >
+            Check in
+          </Button>
+        )}
       </ButtonGroup>
     </>
   );

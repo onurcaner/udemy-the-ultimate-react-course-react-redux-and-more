@@ -10,6 +10,7 @@ import {
   ACCOUNT,
   BOOKINGS,
   CABINS,
+  CHECK_IN,
   DASHBOARD,
   LOGIN,
   SETTINGS,
@@ -19,6 +20,7 @@ import { Account } from './pages/Account';
 import { Booking } from './pages/Booking';
 import { Bookings } from './pages/Bookings';
 import { Cabins } from './pages/Cabins';
+import { CheckIn } from './pages/CheckIn';
 import { Dashboard } from './pages/Dashboard';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/PageNotFound';
@@ -40,7 +42,7 @@ export function App(): JSX.Element {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      staleTime: 2 * 1000,
     },
   },
 });
@@ -69,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: `${BOOKINGS}/:id`,
         element: <Booking />,
+      },
+      {
+        path: `${CHECK_IN}/:id`,
+        element: <CheckIn />,
       },
       {
         path: CABINS,

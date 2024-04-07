@@ -33,20 +33,20 @@ function BookingTableOperations() {
         searchParamName={SearchParamsNamesForBookings.Sort}
         selectOptions={[
           {
-            value: SearchParamsSortValuesForBookings.DateAscending,
-            label: 'Sort by date (Ascending)',
-          },
-          {
             value: SearchParamsSortValuesForBookings.DateDescending,
             label: 'Sort by date (Descending)',
           },
           {
-            value: SearchParamsSortValuesForBookings.TotalPriceAscending,
-            label: 'Total Price (Ascending)',
+            value: SearchParamsSortValuesForBookings.DateAscending,
+            label: 'Sort by date (Ascending)',
           },
           {
             value: SearchParamsSortValuesForBookings.TotalPriceDescending,
             label: 'Total Price (Descending)',
+          },
+          {
+            value: SearchParamsSortValuesForBookings.TotalPriceAscending,
+            label: 'Total Price (Ascending)',
           },
         ]}
       />
