@@ -16,6 +16,7 @@ import {
   SETTINGS,
   USERS,
 } from './config/routePaths';
+import { ProtectedRouteLoggedIn } from './features/authentication/ProtectedRouteLoggedIn';
 import { Account } from './pages/Account';
 import { Booking } from './pages/Booking';
 import { Bookings } from './pages/Bookings';
@@ -50,7 +51,11 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <AppLayout />,
+    element: (
+      <ProtectedRouteLoggedIn>
+        <AppLayout />
+      </ProtectedRouteLoggedIn>
+    ),
     children: [
       {
         index: true,

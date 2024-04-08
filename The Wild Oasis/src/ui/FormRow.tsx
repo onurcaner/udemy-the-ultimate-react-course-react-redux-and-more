@@ -6,6 +6,7 @@ export interface FormRowProps {
   label?: string;
   htmlFor?: string;
   errorMessage?: string | null;
+  isVertical?: boolean;
 }
 
 export function FormRow({
@@ -13,9 +14,10 @@ export function FormRow({
   label,
   htmlFor,
   errorMessage,
+  isVertical,
 }: FormRowProps): JSX.Element {
   return (
-    <StyledFormRow>
+    <StyledFormRow $isVertical={isVertical}>
       {label && <StyledLabel htmlFor={htmlFor}>{label}</StyledLabel>}
       {children}
       {errorMessage && <StyledSpan role="alert">{errorMessage}</StyledSpan>}
@@ -23,11 +25,13 @@ export function FormRow({
   );
 }
 
-const StyledFormRow = styled.div`
+const StyledFormRow = styled.div<{ $isVertical?: boolean }>`
   display: grid;
   align-items: center;
-  grid-template-columns: 15rem 1fr 1.25fr;
-  gap: 1.5rem;
+  grid-template-columns: ${(props) =>
+    props.$isVertical ? '1fr' : '16rem 1fr 1.25fr'};
+  column-gap: 1.5rem;
+  row-gap: 0.5rem;
   padding-block: 0.75rem;
 
   &:first-child {
