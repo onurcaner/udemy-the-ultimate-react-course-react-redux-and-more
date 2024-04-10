@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
+import { LogoutButton } from '../features/authentication/LogoutButton';
+
 export function Header(): JSX.Element {
-  return <StyledHeader>HEADER</StyledHeader>;
+  return (
+    <StyledHeader>
+      <LogoutButton />
+    </StyledHeader>
+  );
 }
 
 const StyledHeader = styled.header`

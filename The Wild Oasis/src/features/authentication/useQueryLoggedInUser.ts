@@ -7,6 +7,5 @@ export function useQueryLoggedInUser() {
   return useQuery({
     queryKey: [QueryKeyOfAuthenticatedUser],
     queryFn: getLoggedInUser,
-    staleTime: 1000 * 60,
   });
 }

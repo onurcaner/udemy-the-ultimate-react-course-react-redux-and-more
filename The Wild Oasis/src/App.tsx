@@ -43,7 +43,7 @@ export function App(): JSX.Element {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 2 * 1000,
+      staleTime: 0 * 1000,
     },
   },
 });
