@@ -23,3 +23,8 @@ export type CreateCabinAttributes = Pick<
   | 'name'
   | 'regularPrice'
 >;
+
+export interface CustomUserMetadata {
+  fullName: string;
+  avatarUrl: string;
+}

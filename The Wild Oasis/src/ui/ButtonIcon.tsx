@@ -9,6 +9,10 @@ export const ButtonIcon = styled.button`
     background-color: var(--color-grey-100);
   }
 
+  & span {
+    display: flex;
+  }
+
   & svg {
     width: 1.5rem;
     height: 1.5rem;
