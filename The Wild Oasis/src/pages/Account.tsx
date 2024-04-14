@@ -1,3 +1,5 @@
+import { UpdatePasswordForm } from '../features/authentication/UpdatePasswordForm';
+import { UpdateUserDataForm } from '../features/authentication/UpdateUserDataForm';
 import { Heading } from '../ui/Heading';
 
 export function Account(): JSX.Element {
@@ -5,14 +7,14 @@ export function Account(): JSX.Element {
     <>
       <Heading as="h2">Update your account</Heading>
 
-      <div>
+      <div style={{ marginBottom: '2rem' }}>
         <Heading as="h3">Update user data</Heading>
-        <p>Update user data form</p>
+        <UpdateUserDataForm />
       </div>
 
       <div>
         <Heading as="h3">Update password</Heading>
-        <p>Update user password form</p>
+        <UpdatePasswordForm />
       </div>
     </>
   );

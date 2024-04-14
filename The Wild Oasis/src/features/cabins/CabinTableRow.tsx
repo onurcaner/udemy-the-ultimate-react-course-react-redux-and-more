@@ -48,7 +48,7 @@ export function CabinTableRow({ cabin }: CabinTableRowProps): JSX.Element {
   return (
     <Table.Row>
       <StyledTd>
-        <StyledImg src={cabin.imageUrl} alt={cabin.description} />
+        <StyledImg src={cabin.imageUrl} alt={cabin.name} />
       </StyledTd>
 
       <StyledCabin>{cabin.name}</StyledCabin>

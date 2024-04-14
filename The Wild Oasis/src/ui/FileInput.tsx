@@ -31,4 +31,9 @@ export const FileInput = styled.input`
       background-color: var(--color-brand-700);
     }
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;

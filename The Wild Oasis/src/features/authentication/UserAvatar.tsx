@@ -1,8 +1,36 @@
 import styled from 'styled-components';
 
 import { CustomUserMetadata } from '../../services/types';
-import { Spinner } from '../../ui/Spinner';
+import { SpinnerMini } from '../../ui/SpinnerMini';
 import { useQueryLoggedInUser } from './useQueryLoggedInUser';
+import { useQueryLoggedInUserAvatar } from './useQueryLoggedInUserAvatar';
+
+export function UserAvatar(): JSX.Element {
+  const { data: userData, isPending: isPendingData } = useQueryLoggedInUser();
+  const { data: avatarData, isPending: isPendingAvatar } =
+    useQueryLoggedInUserAvatar();
+
+  const isPending = isPendingData || isPendingAvatar;
+
+  if (isPending)
+    return (
+      <StyledDiv>
+        <SpinnerMini />
+        <span>Loading...</span>
+      </StyledDiv>
+    );
+
+  if (!userData?.user || !avatarData) return <></>;
+
+  const { fullName } = userData.user.user_metadata as CustomUserMetadata;
+
+  return (
+    <StyledDiv>
+      <StyledImg src={URL.createObjectURL(avatarData)} alt={fullName} />
+      <span>{fullName}</span>
+    </StyledDiv>
+  );
+}
 
 const StyledDiv = styled.div`
   display: flex;
@@ -23,19 +51,3 @@ const StyledImg = styled.img`
   background-color: var(--color-grey-200);
   outline: var(--color-grey-100) solid 2px;
 `;
-
-export function UserAvatar(): JSX.Element {
-  const { data, isPending } = useQueryLoggedInUser();
-
-  if (isPending) return <Spinner />;
-  if (!data?.user) return <></>;
-
-  const { avatarUrl, fullName } = data.user.user_metadata as CustomUserMetadata;
-
-  return (
-    <StyledDiv>
-      <StyledImg src={avatarUrl} alt={fullName} />
-      <span>{fullName}</span>
-    </StyledDiv>
-  );
-}
