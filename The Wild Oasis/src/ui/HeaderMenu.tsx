@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { ACCOUNT } from '../config/routePaths';
 import { LogoutButton } from '../features/authentication/LogoutButton';
+import { DarkModeButtonIcon } from '../features/dark-mode/DarkModeButtonIcon';
 import { ButtonIcon } from './ButtonIcon';
 
 export function HeaderMenu(): JSX.Element {
@@ -23,6 +24,9 @@ export function HeaderMenu(): JSX.Element {
             <HiOutlineUser />
           </span>
         </ButtonIcon>
+      </li>
+      <li>
+        <DarkModeButtonIcon />
       </li>
       <li>
         <LogoutButton />

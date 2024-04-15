@@ -17,6 +17,7 @@ import {
   USERS,
 } from './config/routePaths';
 import { ProtectedRouteLoggedIn } from './features/authentication/ProtectedRouteLoggedIn';
+import { DarkModeProvider } from './features/dark-mode/DarkModeProvider';
 import { Account } from './pages/Account';
 import { Booking } from './pages/Booking';
 import { Bookings } from './pages/Bookings';
@@ -34,8 +35,11 @@ export function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />
-      <CustomToaster />
+
+      <DarkModeProvider>
+        <RouterProvider router={router} />
+        <CustomToaster />
+      </DarkModeProvider>
     </QueryClientProvider>
   );
 }

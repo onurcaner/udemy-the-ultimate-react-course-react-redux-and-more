@@ -94,24 +94,23 @@ export async function getBookingsAfterDate(
 ) {
   const { data, error } = await supabase
     .from('bookings')
-    .select('createdAt, totalPrice, extrasPrice')
-    .gte('created_at', date)
-    .lte('created_at', getToday({ end: true }));
+    .select('*, cabins(*), guests(*)')
+    .gte('createdAt', date)
+    .lte('createdAt', getToday({ end: true }));
 
   if (error) {
     console.error(error);
     throw new Error('Bookings could not get loaded');
   }
 
-  return data;
+  return data as unknown as BookingAttributesExtended[];
 }
 
 // Returns all STAYS that are were created after the given date
 export async function getStaysAfterDate(date: BookingAttributes['startDate']) {
   const { data, error } = await supabase
     .from('bookings')
-    // .select('*')
-    .select('*, guests(fullName)')
+    .select('*, cabins(*), guests(*)')
     .gte('startDate', date)
     .lte('startDate', getToday());
 
@@ -127,7 +126,7 @@ export async function getStaysAfterDate(date: BookingAttributes['startDate']) {
 export async function getStaysTodayActivity() {
   const { data, error } = await supabase
     .from('bookings')
-    .select('*, guests(fullName, nationality, countryFlag)')
+    .select('*, cabins(*), guests(*)')
     .or(
       `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`,
     )

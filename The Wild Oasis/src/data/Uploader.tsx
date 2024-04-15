@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { supabase } from '../services/supabase';
 import { Button } from '../ui/Button';
+import { Heading } from '../ui/Heading';
 import { subtractDates } from '../utils/subtractDates';
 import { bookings } from './data-bookings';
 import { cabins } from './data-cabins';
@@ -131,22 +132,22 @@ export function Uploader() {
     <div
       style={{
         marginTop: 'auto',
-        backgroundColor: '#e0e7ff',
-        padding: '8px',
-        borderRadius: '5px',
+        backgroundColor: 'var(--color-grey-200)',
+        padding: '0.5rem',
+        borderRadius: 'var(--border-radius-md)',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
-        gap: '8px',
+        gap: '0.5rem',
       }}
     >
-      <h3>SAMPLE DATA</h3>
+      <Heading as="h4">Sample Data</Heading>
 
-      <Button onClick={uploadAll} disabled={isLoading}>
+      <Button $size="small" onClick={uploadAll} disabled={isLoading}>
         Upload ALL
       </Button>
 
-      <Button onClick={uploadBookings} disabled={isLoading}>
+      <Button $size="small" onClick={uploadBookings} disabled={isLoading}>
         Upload bookings ONLY
       </Button>
     </div>
