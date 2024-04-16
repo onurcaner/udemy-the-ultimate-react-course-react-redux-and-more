@@ -1,16 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { sub } from 'date-fns';
-import { useSearchParams } from 'react-router-dom';
 
 import { getBookingsAfterDate } from '../../services/apiBookings';
 import { QueryKeyOfBookings } from '../bookings/config';
 import { SearchParamsNamesForDashboard } from './config';
+import { useSearchParamsLastDays } from './useSearchParamsLastDays';
 
 export function useQueryBookingsAfterDate() {
-  const [searchParams] = useSearchParams();
-
-  const lastDaysParam =
-    searchParams.get(SearchParamsNamesForDashboard.LastDays) ?? '7';
+  const lastDaysParam = useSearchParamsLastDays();
 
   const queryKey: string[] = [
     QueryKeyOfBookings,

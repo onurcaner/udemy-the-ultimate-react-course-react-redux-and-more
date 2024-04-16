@@ -1,23 +1,16 @@
 import styled from 'styled-components';
 
-import { Spinner } from '../../ui/Spinner';
-import { filterStaysFromBooking } from './filterStaysFromBooking';
-import { useQueryBookingsAfterDate } from './useQueryBookingsAfterDate';
+import { DurationChart } from './DurationChart';
+import { SalesChart } from './SalesChart';
+import { Stats } from './Stats';
 
 export function DashboardLayout(): JSX.Element {
-  const { isPending, data: lastBookings } = useQueryBookingsAfterDate();
-
-  if (isPending) return <Spinner />;
-  if (!lastBookings) return <></>;
-
-  const lastStays = lastBookings.filter(filterStaysFromBooking);
-
   return (
     <StyledDashboardLayout>
-      <div>Statistics</div>
+      <Stats />
       <div>Todays activities</div>
-      <div>Chart: Stay durations</div>
-      <div>Chart: sales</div>
+      <DurationChart />
+      <SalesChart />
     </StyledDashboardLayout>
   );
 }
@@ -25,6 +18,6 @@ export function DashboardLayout(): JSX.Element {
 const StyledDashboardLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto 34rem auto;
+  grid-template-rows: auto 32rem auto;
   gap: 1.5rem;
 `;
