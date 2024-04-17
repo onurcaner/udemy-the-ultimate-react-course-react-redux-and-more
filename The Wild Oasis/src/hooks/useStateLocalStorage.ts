@@ -7,7 +7,10 @@ export function useStateLocalStorage<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const storedJSON = localStorage.getItem(localStorageKey);
-      return storedJSON ? (JSON.parse(storedJSON) as T) : initialState;
+      const defaultState = storedJSON
+        ? (JSON.parse(storedJSON) as T)
+        : initialState;
+      return defaultState;
     } catch (_error) {
       return initialState;
     }

@@ -5,6 +5,7 @@ import {
   HiOutlineChartBar,
 } from 'react-icons/hi2';
 
+import { Empty } from '../../ui/Empty';
 import { SpinnerMini } from '../../ui/SpinnerMini';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { useQueryCabins } from '../cabins/useQueryCabins';
@@ -55,7 +56,8 @@ export function Stats(): JSX.Element {
     );
   }
 
-  if (!lastBookings || !cabins) return <></>;
+  if (!lastBookings) return <Empty resourceName="bookings" />;
+  if (!cabins) return <Empty resourceName="cabins" />;
 
   const lastStays = lastBookings.filter(filterStaysFromBooking);
 

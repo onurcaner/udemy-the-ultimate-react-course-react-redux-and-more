@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { CustomUserMetadata } from '../../services/types';
+import { Empty } from '../../ui/Empty';
 import { SpinnerMini } from '../../ui/SpinnerMini';
 import { useQueryLoggedInUser } from './useQueryLoggedInUser';
 import { useQueryLoggedInUserAvatar } from './useQueryLoggedInUserAvatar';
@@ -20,7 +21,8 @@ export function UserAvatar(): JSX.Element {
       </StyledDiv>
     );
 
-  if (!userData?.user || !avatarData) return <></>;
+  if (!userData?.user || !avatarData)
+    return <Empty resourceName="logged in user" />;
 
   const { fullName } = userData.user.user_metadata as CustomUserMetadata;
 

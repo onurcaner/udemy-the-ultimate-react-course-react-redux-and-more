@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import styled from 'styled-components';
 
+import { Empty } from '../../ui/Empty';
 import { Heading } from '../../ui/Heading';
 import { Spinner } from '../../ui/Spinner';
 import { useContextDarkMode } from '../dark-mode/useContextDarkMode';
@@ -36,7 +37,7 @@ export function SalesChart(): JSX.Element {
   const lastDays = +useSearchParamsLastDays();
 
   if (isPending) return <Spinner />;
-  if (!bookingsAfterDate) return <></>;
+  if (!bookingsAfterDate) return <Empty resourceName="bookings" />;
 
   const colors = isDarkMode
     ? {

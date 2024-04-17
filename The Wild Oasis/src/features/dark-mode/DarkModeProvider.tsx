@@ -8,7 +8,10 @@ export function DarkModeProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const [isDarkMode, setIsDarkMode] = useStateLocalStorage(false, 'darkMode');
+  const [isDarkMode, setIsDarkMode] = useStateLocalStorage(
+    window.matchMedia('(prefers-color-scheme: dark)').matches,
+    'darkMode',
+  );
 
   useEffect(() => {
     const htmlElement = document.documentElement;

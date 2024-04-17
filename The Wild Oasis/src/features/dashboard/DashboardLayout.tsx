@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { TodaysActivities } from '../check-in-out/TodaysActivities';
 import { DurationChart } from './DurationChart';
 import { SalesChart } from './SalesChart';
 import { Stats } from './Stats';
@@ -8,7 +9,7 @@ export function DashboardLayout(): JSX.Element {
   return (
     <StyledDashboardLayout>
       <Stats />
-      <div>Todays activities</div>
+      <TodaysActivities />
       <DurationChart />
       <SalesChart />
     </StyledDashboardLayout>

@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { CustomUserMetadata } from '../../services/types';
 import { Button } from '../../ui/Button';
+import { Empty } from '../../ui/Empty';
 import { FileInput } from '../../ui/FileInput';
 import { Form } from '../../ui/Form';
 import { FormRow } from '../../ui/FormRow';
@@ -38,7 +39,7 @@ export function UpdateUserDataForm(): JSX.Element {
   };
 
   if (isPendingUser) return <Spinner />;
-  if (!data?.user) return <></>;
+  if (!data?.user) return <Empty resourceName="logged in user" />;
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises

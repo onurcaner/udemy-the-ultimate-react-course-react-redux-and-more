@@ -2,6 +2,7 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer } from 'recharts';
 import styled from 'styled-components';
 
 import { BookingAttributesExtended } from '../../services/types';
+import { Empty } from '../../ui/Empty';
 import { Heading } from '../../ui/Heading';
 import { Spinner } from '../../ui/Spinner';
 import { useContextDarkMode } from '../dark-mode/useContextDarkMode';
@@ -33,7 +34,7 @@ export function DurationChart(): JSX.Element {
   const { isPending, data: bookingsAfterDate } = useQueryBookingsAfterDate();
 
   if (isPending) return <Spinner />;
-  if (!bookingsAfterDate) return <></>;
+  if (!bookingsAfterDate) return <Empty resourceName="bookings" />;
 
   const dataPoints = prepareData(
     isDarkMode ? startDataDark() : startDataLight(),
