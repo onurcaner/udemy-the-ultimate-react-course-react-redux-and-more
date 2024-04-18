@@ -21,14 +21,20 @@ export function UserAvatar(): JSX.Element {
       </StyledDiv>
     );
 
-  if (!userData?.user || !avatarData)
-    return <Empty resourceName="logged in user" />;
+  if (!userData?.user) return <Empty resourceName="logged in user" />;
 
   const { fullName } = userData.user.user_metadata as CustomUserMetadata;
 
   return (
     <StyledDiv>
-      <StyledImg src={URL.createObjectURL(avatarData)} alt={fullName} />
+      <StyledImg
+        src={
+          avatarData
+            ? URL.createObjectURL(avatarData)
+            : '/logos/default-user.jpg'
+        }
+        alt={fullName}
+      />
       <span>{fullName}</span>
     </StyledDiv>
   );

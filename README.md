@@ -105,3 +105,17 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / Fast React Pizza](./Fast%20React%20Pizza)
+
+### 9. The Wild Oasis App
+
+- Description: The Wild Oasis app is created for the hotel staff for displaying
+  stats, checking in and checking out customers, creating and editing cabins,
+  creating new users(staff), editing settings.
+
+- Requirements: None
+
+- Environment: Driven by Node, displayed in browser
+
+- Code: [This Repository / The Wild Oasis](./The%20Wild%20Oasis)
+
+- Notes: Backend is inactive. It is impossible to enter the application.

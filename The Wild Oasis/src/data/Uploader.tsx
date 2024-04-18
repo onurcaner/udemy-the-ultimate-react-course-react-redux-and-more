@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { isFuture, isPast, isToday } from 'date-fns';
 import { useState } from 'react';
 
@@ -105,6 +106,7 @@ async function createBookings() {
 
 export function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   async function uploadAll() {
     setIsLoading(true);
@@ -119,6 +121,7 @@ export function Uploader() {
     await createBookings();
 
     setIsLoading(false);
+    await queryClient.refetchQueries();
   }
 
   async function uploadBookings() {
@@ -126,6 +129,7 @@ export function Uploader() {
     await deleteBookings();
     await createBookings();
     setIsLoading(false);
+    await queryClient.refetchQueries();
   }
 
   return (
