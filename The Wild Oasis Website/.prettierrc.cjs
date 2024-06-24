@@ -1,7 +1,11 @@
 module.exports = {
   singleQuote: true,
   trailingComma: 'all',
-  importOrder: ['^@core/(.*)$', '^@server/(.*)$', '^@ui/(.*)$', '^[./]'],
+  // prettier-ignore
+  importOrder: [
+    '^(\w|@\w)', // node_modules
+    '^(\.\/|\.\.\/|@\/)', // local
+  ],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
   plugins: [
