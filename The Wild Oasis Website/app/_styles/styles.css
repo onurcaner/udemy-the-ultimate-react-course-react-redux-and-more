@@ -4,22 +4,12 @@
 
 @layer components {
   .spinner {
-    margin: 3.2rem auto 1.6rem;
-    width: 60px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 8px solid theme('colors.primary.900');
-    border-right-color: theme('colors.primary.200');
+    @apply mx-auto h-20 w-20 rounded-full border-[0.625rem] border-transparent border-r-current;
     animation: rotate 1s infinite linear;
   }
 
   .spinner-mini {
-    margin: 0;
-    width: 20px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 2px solid theme('colors.primary.200');
-    border-right-color: transparent;
+    @apply m-0 h-[1em] w-[1em] rounded-full border-2 border-current border-r-transparent;
     animation: rotate 1s infinite linear;
   }
 

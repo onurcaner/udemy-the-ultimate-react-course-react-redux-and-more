@@ -1,10 +1,19 @@
-import { Inter } from 'next/font/google';
+import type { Metadata } from 'next';
+import { Nunito_Sans } from 'next/font/google';
 import type { ReactNode } from 'react';
 
-import Header from './_components/Header';
+import { DebugDarkMode } from './_components/DebugDarkMode';
+import { Header } from './_components/Header';
 import './_styles/styles.css';
 
-const inter = Inter({ subsets: ['latin'] });
+export const metadata: Metadata = {
+  title: {
+    template: '%s | The Wild Oasis',
+    default: 'Welcome | The Wild Oasis',
+  },
+};
+
+const nextFont = Nunito_Sans({ subsets: ['latin'], display: 'swap' });
 
 export default function RootLayout({
   children,
@@ -13,9 +22,15 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={
+          nextFont.className +
+          ' grid min-h-screen grid-rows-[max-content_1fr] bg-primary-50 text-base text-primary-800 antialiased dark:bg-primary-950 dark:text-primary-200'
+        }
+      >
+        <DebugDarkMode />
         <Header />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );

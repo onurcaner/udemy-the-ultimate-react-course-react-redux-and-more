@@ -3,7 +3,7 @@ import { Navigation } from './Navigation';
 
 export function Header(): JSX.Element {
   return (
-    <header className="border-b border-primary-900 px-8 py-5">
+    <header className="sticky top-0 z-10 border-b border-primary-200/80 bg-primary-100/80 px-8 py-5 backdrop-blur-sm dark:border-primary-800/80 dark:bg-primary-900/80">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Logo />
         <Navigation />
@@ -11,5 +11,3 @@ export function Header(): JSX.Element {
     </header>
   );
 }
-
-export default Header;

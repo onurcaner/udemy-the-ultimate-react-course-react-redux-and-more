@@ -1,17 +1,17 @@
-import Link from 'next/link';
+import { CustomNavLink } from './CustomNavLink';
 
 export function Navigation(): JSX.Element {
   return (
-    <nav className="z-10 text-xl">
+    <nav>
       <ul className="flex items-center gap-16">
         <li>
-          <Link href="/cabins">Cabins</Link>
+          <CustomNavLink href="/cabins">Cabins</CustomNavLink>
         </li>
         <li>
-          <Link href="/about">About</Link>
+          <CustomNavLink href="/about">About</CustomNavLink>
         </li>
         <li>
-          <Link href="/account">Account</Link>
+          <CustomNavLink href="/account">Account</CustomNavLink>
         </li>
       </ul>
     </nav>
