@@ -1,9 +1,5 @@
-import { Spinner } from './_components/Spinner';
+import { SpinnerWithMessage } from '@/app/_components/SpinnerWithMessage';
 
 export default function RootLoading(): JSX.Element {
-  return (
-    <div className="relative grid h-full w-full content-center justify-center">
-      <Spinner />
-    </div>
-  );
+  return <SpinnerWithMessage message="loading page" />;
 }

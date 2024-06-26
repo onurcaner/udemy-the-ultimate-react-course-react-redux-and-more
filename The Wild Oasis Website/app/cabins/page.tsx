@@ -1,19 +1,20 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { H2 } from '../_components/H2';
 import { Main } from '../_components/Main';
+import { SpinnerWithMessage } from '../_components/SpinnerWithMessage';
+import { CabinList } from './_components/CabinList';
 
 export const metadata: Metadata = {
   title: 'Cabins',
 };
 
 export default function CabinsPage(): JSX.Element {
-  const cabins = [];
-
   return (
     <Main>
       <H2>Our Luxury Cabins</H2>
-      <p className="mb-10">
+      <p className="mb-20">
         Cozy yet luxurious cabins, located right in the heart of the Italian
         Dolomites. Imagine waking up to beautiful mountain views, spending your
         days exploring the dark forests around, or just relaxing in your private
@@ -21,14 +22,11 @@ export default function CabinsPage(): JSX.Element {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-
-      {/* {cabins.length > 0 && (
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:gap-12 xl:gap-14">
-          {cabins.map((cabin) => (
-            <CabinCard cabin={cabin} key={cabin.id} />
-          ))}
-        </div>
-      )} */}
+      <Suspense
+        fallback={<SpinnerWithMessage message="loading cabins' data" />}
+      >
+        <CabinList />
+      </Suspense>
     </Main>
   );
 }

@@ -4,7 +4,10 @@ import type { ReactNode } from 'react';
 
 import { DebugDarkMode } from './_components/DebugDarkMode';
 import { Header } from './_components/Header';
+import { authorizeNextjs } from './_services/supabase';
 import './_styles/styles.css';
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: {
