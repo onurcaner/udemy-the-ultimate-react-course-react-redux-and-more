@@ -4,16 +4,23 @@ import Image from 'next/image';
 
 import { H2 } from '@/app/_components/H2';
 import { Main } from '@/app/_components/Main';
-import { getCabin } from '@/app/_services/apiCabins';
+import { getCabin, getCabins } from '@/app/_services/apiCabins';
 
 interface CabinPageParams {
-  params: { cabinId: number };
+  params: { cabinId: string };
+}
+
+export async function generateStaticParams(): Promise<
+  CabinPageParams['params'][]
+> {
+  const cabins = await getCabins();
+  return cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
 }
 
 export async function generateMetadata({
   params,
 }: CabinPageParams): Promise<Metadata> {
-  const { name } = await getCabin(params.cabinId);
+  const { name } = await getCabin(+params.cabinId);
 
   return {
     title: `Cabin: ${name}`,
@@ -24,7 +31,7 @@ export default async function CabinPage({
   params,
 }: CabinPageParams): Promise<JSX.Element> {
   const { description, imageUrl, maxCapacity, name } = await getCabin(
-    params.cabinId,
+    +params.cabinId,
   );
 
   return (
@@ -46,21 +53,21 @@ export default async function CabinPage({
 
           <ul className="flex flex-col gap-4">
             <li className="flex items-center gap-4">
-              <UsersIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+              <UsersIcon className="icon" />
               <p>
                 For up to <span className="font-bold">{maxCapacity}</span>{' '}
                 guests
               </p>
             </li>
             <li className="flex items-center gap-4">
-              <MapPinIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+              <MapPinIcon className="icon" />
               <p>
                 Located in the heart of the{' '}
                 <span className="font-bold">Dolomites</span> (Italy)
               </p>
             </li>
             <li className="flex items-center gap-4">
-              <EyeSlashIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+              <EyeSlashIcon className="icon" />
               <p>
                 Privacy <span className="font-bold">100%</span> guaranteed
               </p>

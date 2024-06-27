@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { ButtonLink } from '../_components/ButtonLink';
+import { CustomLink } from '../_components/CustomLink';
 import { H2 } from '../_components/H2';
 import { Main } from '../_components/Main';
 
@@ -74,9 +74,13 @@ export default function AboutPage(): JSX.Element {
               every visit is like coming home.
             </p>
 
-            <div className="mt-5">
-              <ButtonLink href="/cabins">Explore our luxury cabins</ButtonLink>
-            </div>
+            <CustomLink
+              href="/cabins"
+              $variant="primary"
+              className="mt-5 self-start"
+            >
+              Explore our luxury cabins
+            </CustomLink>
           </div>
         </div>
       </article>

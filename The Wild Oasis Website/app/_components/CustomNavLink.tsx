@@ -27,8 +27,8 @@ export function CustomNavLink({
       {...rest}
       href={href}
       className={twMerge(
-        'text-lg font-medium transition-colors hover:text-accent-800 dark:hover:text-accent-400',
-        isActive && 'text-accent-800 dark:text-accent-400',
+        'text-lg font-medium transition-colors hover:text-accent-800 dark:hover:text-accent-200',
+        isActive && 'text-accent-800 dark:text-accent-200',
         className,
       )}
     >

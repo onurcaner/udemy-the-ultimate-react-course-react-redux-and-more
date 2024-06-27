@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { cache } from 'react';
 
 import { supabase } from './supabase';
@@ -11,7 +12,7 @@ export const getCabin = cache(async (id: number) => {
 
   if (error) {
     console.error(error);
-    throw new Error(error.message);
+    notFound();
   }
 
   return data;

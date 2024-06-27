@@ -13,6 +13,15 @@
     animation: rotate 1s infinite linear;
   }
 
+  .icon {
+    @apply h-5 w-5 text-primary-600 transition-colors dark:text-primary-400;
+  }
+
+  button:hover .icon,
+  a:hover .icon {
+    @apply text-primary-400 dark:text-primary-600;
+  }
+
   @keyframes rotate {
     to {
       transform: rotate(1turn);

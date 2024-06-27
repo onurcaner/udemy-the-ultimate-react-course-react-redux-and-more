@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { ButtonLink } from './_components/ButtonLink';
+import { CustomLink } from './_components/CustomLink';
 import backgroundSrc from '@/app/_assets/bg.png';
 
 export default function HomePage(): JSX.Element {
@@ -18,9 +18,9 @@ export default function HomePage(): JSX.Element {
         <h2 className="mb-10 text-7xl font-semibold tracking-tight text-primary-100">
           Welcome to paradise
         </h2>
-        <ButtonLink href="/cabins" className="text-lg">
+        <CustomLink href="/cabins" $variant="primary" className="text-lg">
           Explore luxury cabins
-        </ButtonLink>
+        </CustomLink>
       </main>
     </>
   );

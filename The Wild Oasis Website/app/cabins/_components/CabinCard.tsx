@@ -1,8 +1,8 @@
-import { UsersIcon } from '@heroicons/react/24/solid';
+import { ArrowRightIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 
-import { ButtonLink } from '@/app/_components/ButtonLink';
 import { Card } from '@/app/_components/Card';
+import { CustomLink } from '@/app/_components/CustomLink';
 import { H3 } from '@/app/_components/H3';
 import { CabinAttributes } from '@/app/_services/types';
 
@@ -25,7 +25,7 @@ export function CabinCard({ cabin }: { cabin: CabinAttributes }) {
           <H3>Cabin {name}</H3>
 
           <div className="mb-10 flex items-center gap-2">
-            <UsersIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+            <UsersIcon className="icon" />
             <p>
               For up to <span className="font-bold">{maxCapacity}</span> guests
             </p>
@@ -46,9 +46,16 @@ export function CabinCard({ cabin }: { cabin: CabinAttributes }) {
         </div>
 
         <div className="flex justify-end border-t border-primary-200 dark:border-t-primary-800">
-          <ButtonLink href={`/cabins/${String(id)}`} className="text-base">
-            Details & reservation &rarr;
-          </ButtonLink>
+          <CustomLink
+            href={`/cabins/${String(id)}`}
+            $variant="primary"
+            className="flex items-center gap-x-4 text-base"
+          >
+            <span>Details & reservation</span>
+            <span>
+              <ArrowRightIcon className="h-5 w-5" />
+            </span>
+          </CustomLink>
         </div>
       </div>
     </Card>
