@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import { Main } from '../_components/Main';
 import { SideNavigation } from '../_components/SideNavigation';
 
 export default function AccountLayout({
@@ -8,9 +9,10 @@ export default function AccountLayout({
   children: ReactNode;
 }): JSX.Element {
   return (
-    <main className="grid grid-cols-[16rem_1fr]">
+    <div className="grid grid-cols-[16rem_1fr_16rem]">
       <SideNavigation />
-      <div>{children}</div>
-    </main>
+      <Main>{children}</Main>
+      <div></div>
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import { appRoutes } from '../_appRoutes';
 import { CustomNavLink } from './CustomNavLink';
 
 export function Navigation(): JSX.Element {
@@ -5,13 +6,13 @@ export function Navigation(): JSX.Element {
     <nav>
       <ul className="flex items-center gap-16">
         <li>
-          <CustomNavLink href="/cabins">Cabins</CustomNavLink>
+          <CustomNavLink href={appRoutes.cabins}>Cabins</CustomNavLink>
         </li>
         <li>
-          <CustomNavLink href="/about">About</CustomNavLink>
+          <CustomNavLink href={appRoutes.about}>About</CustomNavLink>
         </li>
         <li>
-          <CustomNavLink href="/account">Account</CustomNavLink>
+          <CustomNavLink href={appRoutes.account}>Account</CustomNavLink>
         </li>
       </ul>
     </nav>

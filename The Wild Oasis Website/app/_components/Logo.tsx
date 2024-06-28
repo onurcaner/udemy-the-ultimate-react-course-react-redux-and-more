@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { appRoutes } from '../_appRoutes';
 import logoSrc from '../_assets/logo.png';
 
 export function Logo(): JSX.Element {
   return (
-    <Link href="/" className="flex items-center gap-4">
+    <Link href={appRoutes.root} className="flex items-center gap-4">
       <Image
         className="h-16 w-16 rounded-full object-cover object-center"
         src={logoSrc}

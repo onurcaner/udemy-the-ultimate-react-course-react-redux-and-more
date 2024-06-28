@@ -4,6 +4,8 @@ import { cache } from 'react';
 import { supabase } from './supabase';
 
 export const getCabin = cache(async (id: number) => {
+  console.log(`Inside: getCabin(${String(id)})`);
+
   const { data, error } = await supabase
     .from('cabins')
     .select('*')
@@ -19,6 +21,8 @@ export const getCabin = cache(async (id: number) => {
 });
 
 export const getCabins = cache(async () => {
+  console.log('Inside: getCabins()');
+
   const { data, error } = await supabase
     .from('cabins')
     .select('*')

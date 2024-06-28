@@ -1,6 +1,7 @@
 import { ArrowRightIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 
+import { appRoutes } from '@/app/_appRoutes';
 import { Card } from '@/app/_components/Card';
 import { CustomLink } from '@/app/_components/CustomLink';
 import { H3 } from '@/app/_components/H3';
@@ -47,7 +48,7 @@ export function CabinCard({ cabin }: { cabin: CabinAttributes }) {
 
         <div className="flex justify-end border-t border-primary-200 dark:border-t-primary-800">
           <CustomLink
-            href={`/cabins/${String(id)}`}
+            href={appRoutes.cabin(String(id))}
             $variant="primary"
             className="flex items-center gap-x-4 text-base"
           >

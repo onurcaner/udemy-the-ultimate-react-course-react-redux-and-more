@@ -1,3 +1,4 @@
+import { appRoutes } from './_appRoutes';
 import { CustomLink } from './_components/CustomLink';
 import { H2 } from './_components/H2';
 import { Main } from './_components/Main';
@@ -10,7 +11,7 @@ export default function RootNotFound() {
       </H2>
 
       <div className="flex items-center gap-x-5">
-        <CustomLink href="/" $variant="secondary">
+        <CustomLink href={appRoutes.root} $variant="secondary">
           Go back to home
         </CustomLink>
       </div>

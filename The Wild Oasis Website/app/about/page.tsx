@@ -4,12 +4,18 @@ import Image from 'next/image';
 import { CustomLink } from '../_components/CustomLink';
 import { H2 } from '../_components/H2';
 import { Main } from '../_components/Main';
+import { revalidates } from '../_revalidates';
+import { getCabins } from '../_services/apiCabins';
+
+export const revalidate = revalidates.cabins;
 
 export const metadata: Metadata = {
   title: 'About',
 };
 
-export default function AboutPage(): JSX.Element {
+export default async function AboutPage(): Promise<JSX.Element> {
+  const cabins = await getCabins();
+
   return (
     <Main className="flex flex-col gap-y-28">
       <article className="grid auto-rows-max grid-cols-5 items-center gap-x-16">
@@ -24,10 +30,11 @@ export default function AboutPage(): JSX.Element {
               with nature and enjoying simple pleasures with family.
             </p>
             <p>
-              Our 8 luxury cabins provide a cozy base, but the real freedom and
-              peace you&apos;ll find in the surrounding mountains. Wander
-              through lush forests, breathe in the fresh air, and watch the
-              stars twinkle above from the warmth of a campfire or your hot tub.
+              Our {cabins.length} luxury cabins provide a cozy base, but the
+              real freedom and peace you&apos;ll find in the surrounding
+              mountains. Wander through lush forests, breathe in the fresh air,
+              and watch the stars twinkle above from the warmth of a campfire or
+              your hot tub.
             </p>
             <p>
               This is where memorable moments are made, surrounded by

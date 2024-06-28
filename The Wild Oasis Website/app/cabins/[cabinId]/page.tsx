@@ -4,11 +4,14 @@ import Image from 'next/image';
 
 import { H2 } from '@/app/_components/H2';
 import { Main } from '@/app/_components/Main';
+import { revalidates } from '@/app/_revalidates';
 import { getCabin, getCabins } from '@/app/_services/apiCabins';
 
 interface CabinPageParams {
   params: { cabinId: string };
 }
+
+export const revalidate = revalidates.cabin;
 
 export async function generateStaticParams(): Promise<
   CabinPageParams['params'][]
