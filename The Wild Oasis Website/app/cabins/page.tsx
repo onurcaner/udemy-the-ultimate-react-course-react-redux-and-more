@@ -5,15 +5,27 @@ import { H2 } from '../_components/H2';
 import { Main } from '../_components/Main';
 import { SpinnerWithMessage } from '../_components/SpinnerWithMessage';
 import { CabinList } from './_components/CabinList';
+import { CabinsFilter } from './_components/CabinsFilter';
+import { CabinsSearchCapacityValues, CabinsSearchFields } from './_query';
+
+interface CabinsPageQuery {
+  searchParams: { [CabinsSearchFields.Capacity]?: CabinsSearchCapacityValues };
+}
 
 export const metadata: Metadata = {
   title: 'Cabins',
 };
 
-export default function CabinsPage(): JSX.Element {
+export default function CabinsPage({
+  searchParams,
+}: CabinsPageQuery): JSX.Element {
+  const capacityFilterValue =
+    searchParams[CabinsSearchFields.Capacity] ?? CabinsSearchCapacityValues.All;
+
   return (
     <Main>
       <H2>Our Luxury Cabins</H2>
+
       <p className="mb-20">
         Cozy yet luxurious cabins, located right in the heart of the Italian
         Dolomites. Imagine waking up to beautiful mountain views, spending your
@@ -22,10 +34,16 @@ export default function CabinsPage(): JSX.Element {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
+
+      <div className="mb-10 flex justify-end">
+        <CabinsFilter />
+      </div>
+
       <Suspense
-        fallback={<SpinnerWithMessage message="loading cabins' data" />}
+        fallback={<SpinnerWithMessage message="Loading cabins' data" />}
+        key={capacityFilterValue}
       >
-        <CabinList />
+        <CabinList capacityFilterValue={capacityFilterValue} />
       </Suspense>
     </Main>
   );

@@ -15,7 +15,7 @@ export const authorizeNextjs = cache(async () => {
   });
 
   if (error) {
-    console.log();
+    console.log(error.message);
     throw new Error(error.message);
   }
 

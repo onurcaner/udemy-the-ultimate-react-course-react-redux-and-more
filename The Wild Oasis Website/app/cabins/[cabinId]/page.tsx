@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import { H2 } from '@/app/_components/H2';
 import { Main } from '@/app/_components/Main';
+import { PWithShowButton } from '@/app/_components/PWithShowButton';
 import { revalidates } from '@/app/_revalidates';
 import { getCabin, getCabins } from '@/app/_services/apiCabins';
 
@@ -52,7 +53,7 @@ export default async function CabinPage({
         <div className="px-8 py-10">
           <H2>Cabin {name}</H2>
 
-          <p className="mb-10">{description}</p>
+          <PWithShowButton className="mb-10">{description}</PWithShowButton>
 
           <ul className="flex flex-col gap-4">
             <li className="flex items-center gap-4">
