@@ -18,7 +18,8 @@
   }
 
   button:hover .icon,
-  a:hover .icon {
+  a:hover .icon,
+  [aria-current='page'] .icon {
     @apply text-primary-400 dark:text-primary-600;
   }
 

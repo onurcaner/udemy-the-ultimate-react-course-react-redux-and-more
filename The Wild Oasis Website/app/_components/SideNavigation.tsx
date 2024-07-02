@@ -9,7 +9,7 @@ import { SignOutButton } from './SignOutButton';
 
 export function SideNavigation() {
   return (
-    <nav className="border-r border-primary-100 dark:border-primary-900">
+    <nav className="sticky top-0 h-full border-r border-primary-100 py-2 dark:border-primary-900">
       <ul className="flex h-full flex-col gap-2 text-lg">
         {navLinks.map((navLink) => (
           <li key={navLink.name}>
