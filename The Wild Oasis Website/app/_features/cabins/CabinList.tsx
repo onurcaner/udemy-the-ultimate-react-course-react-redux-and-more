@@ -1,4 +1,4 @@
-import { CabinsSearchCapacityValues } from '../_query';
+import { CabinsSearchCapacityValues } from '../../cabins/_query';
 import { CabinCard } from './CabinCard';
 import { Ul } from '@/app/_components/Ul';
 import { revalidates } from '@/app/_revalidates';

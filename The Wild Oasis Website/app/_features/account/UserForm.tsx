@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import { Button } from '@/app/_components/Button';
 import { Form } from '@/app/_components/Form';
+import { Input } from '@/app/_components/Input';
 
 interface UserFormProps {
   SelectCountry: JSX.Element;
@@ -14,18 +15,12 @@ export function UserForm({ SelectCountry }: UserFormProps): JSX.Element {
     <Form>
       <div>
         <label>Full name</label>
-        <input
-          disabled
-          className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-primary-800 dark:text-primary-200"
-        />
+        <Input disabled />
       </div>
 
       <div>
         <label>Email address</label>
-        <input
-          disabled
-          className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-primary-800 dark:text-primary-200"
-        />
+        <Input disabled />
       </div>
 
       <div>
@@ -46,10 +41,7 @@ export function UserForm({ SelectCountry }: UserFormProps): JSX.Element {
 
       <div>
         <label htmlFor="nationalId">National ID</label>
-        <input
-          name="nationalId"
-          className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-primary-800 dark:text-primary-200"
-        />
+        <Input name="nationalId" />
       </div>
 
       <div className="flex items-center justify-end gap-6">

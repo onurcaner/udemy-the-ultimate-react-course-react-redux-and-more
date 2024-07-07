@@ -1,4 +1,4 @@
-import { UserForm } from '../_components/UserForm';
+import { UserForm } from '../../_features/account/UserForm';
 import { H2 } from '@/app/_components/H2';
 import { SelectCountry } from '@/app/_components/SelectCountry';
 
@@ -19,7 +19,6 @@ export default function ProfilePage(): JSX.Element {
           <SelectCountry
             name="nationality"
             id="nationality"
-            className="w-full rounded-sm bg-primary-200 px-5 py-3 text-primary-800 dark:bg-primary-800 dark:text-primary-200"
             defaultCountry={nationality}
           />
         }

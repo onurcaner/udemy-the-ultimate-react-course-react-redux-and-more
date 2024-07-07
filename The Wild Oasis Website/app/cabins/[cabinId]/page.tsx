@@ -82,8 +82,13 @@ export default async function CabinPage({
 
       <section>
         <H2 className="text-center capitalize">
-          Reserve today, Pay on arrival!
+          Reserve {name} today, Pay on arrival!
         </H2>
+
+        <div className="grid grid-cols-2">
+          <div></div>
+          <div></div>
+        </div>
       </section>
     </Main>
   );

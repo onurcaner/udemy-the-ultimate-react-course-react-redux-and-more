@@ -1,4 +1,7 @@
-import { CabinsSearchCapacityValues, CabinsSearchFields } from '../_query';
+import {
+  CabinsSearchCapacityValues,
+  CabinsSearchFields,
+} from '../../cabins/_query';
 import { Filter } from '@/app/_components/Filter';
 
 export function CabinsFilter(): JSX.Element {
