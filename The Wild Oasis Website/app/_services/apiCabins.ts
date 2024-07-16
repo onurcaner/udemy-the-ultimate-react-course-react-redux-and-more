@@ -6,7 +6,6 @@ import { supabase } from './supabase';
 
 export const getCabin = cache(async (id: number) => {
   console.log(`Inside: getCabin(${String(id)})`);
-
   await delayDebug();
 
   const { data, error } = await supabase
@@ -25,7 +24,6 @@ export const getCabin = cache(async (id: number) => {
 
 export const getCabins = cache(async () => {
   console.log('Inside: getCabins()');
-
   await delayDebug();
 
   const { data, error } = await supabase

@@ -1,10 +1,10 @@
-import { CabinsSearchCapacityValues } from '../../cabins/_query';
 import { CabinCard } from './CabinCard';
+import { appRevalidates } from '@/app/_appRevalidates';
 import { Ul } from '@/app/_components/Ul';
-import { revalidates } from '@/app/_revalidates';
 import { getCabins } from '@/app/_services/apiCabins';
+import { CabinsSearchCapacityValues } from '@/app/cabins/_query';
 
-export const revalidate = revalidates.cabins;
+export const revalidate = appRevalidates.cabins;
 
 export async function CabinList({
   capacityFilterValue,

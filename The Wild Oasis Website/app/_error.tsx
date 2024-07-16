@@ -1,9 +1,9 @@
 'use client';
 
-import { Button } from './_components/Button';
-import { CustomLink } from './_components/CustomLink';
-import { H2 } from './_components/H2';
-import { Main } from './_components/Main';
+import { Button } from '@/app/_components/Button';
+import { CustomLink } from '@/app/_components/CustomLink';
+import { H2 } from '@/app/_components/H2';
+import { Main } from '@/app/_components/Main';
 
 export default function RootError({
   error,

@@ -1,19 +1,17 @@
 import { cache } from 'react';
 
-export interface CountryAttributes {
-  name: string;
-  flag: string;
-  independent: boolean;
-}
+import { delayDebug } from './delayDebug';
+import { CountryAttributes } from './types';
 
 export const getCountries = cache(async (): Promise<CountryAttributes[]> => {
-  try {
-    const res = await fetch(
-      'https://restcountries.com/v2/all?fields=name,flag',
-    );
-    const countries = (await res.json()) as CountryAttributes[];
-    return countries;
-  } catch {
-    throw new Error('Could not fetch countries');
-  }
+  console.log('Inside: getCountries()');
+  await delayDebug();
+
+  const res = await fetch('https://restcountries.com/v2/all?fields=name,flag');
+  if (!res.ok) throw new Error('Response is not ok');
+
+  const countries = (await res.json()) as CountryAttributes[];
+  if (countries.length === 0) throw new Error('countries.length is zero');
+
+  return countries;
 });

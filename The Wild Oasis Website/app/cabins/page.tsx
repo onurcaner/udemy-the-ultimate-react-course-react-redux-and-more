@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
-import { H2 } from '../_components/H2';
-import { Main } from '../_components/Main';
-import { SpinnerWithMessage } from '../_components/SpinnerWithMessage';
-import { CabinList } from '../_features/cabins/CabinList';
-import { CabinsFilter } from '../_features/cabins/CabinsFilter';
 import { CabinsSearchCapacityValues, CabinsSearchFields } from './_query';
+import { H2 } from '@/app/_components/H2';
+import { Main } from '@/app/_components/Main';
+import { SpinnerWithMessage } from '@/app/_components/SpinnerWithMessage';
+import { CabinList } from '@/app/_features/cabins/CabinList';
+import { CabinsFilter } from '@/app/_features/cabins/CabinsFilter';
 
 interface CabinsPageQuery {
   searchParams: { [CabinsSearchFields.Capacity]?: CabinsSearchCapacityValues };

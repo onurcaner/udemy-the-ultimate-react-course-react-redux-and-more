@@ -1,11 +1,10 @@
-// Let's imagine your colleague already built this component 😃
 import type { DetailedHTMLProps, SelectHTMLAttributes } from 'react';
 
-import { revalidates } from '../_revalidates';
-import { getCountries } from '../_services/apiCountries';
-import { Select } from './Select';
+import { appRevalidates } from '@/app/_appRevalidates';
+import { Select } from '@/app/_components/Select';
+import { getCountries } from '@/app/_services/apiCountries';
 
-export const revalidate = revalidates.countries;
+export const revalidate = appRevalidates.countries;
 
 interface SelectCountryProps
   extends DetailedHTMLProps<

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Main } from '../_components/Main';
-import { SideNavigation } from '../_components/SideNavigation';
+import { Main } from '@/app/_components/Main';
+import { SideNavigation } from '@/app/_components/SideNavigation';
 
 export default function AccountLayout({
   children,

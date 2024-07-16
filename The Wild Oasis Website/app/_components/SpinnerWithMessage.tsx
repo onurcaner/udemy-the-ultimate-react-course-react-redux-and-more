@@ -1,4 +1,4 @@
-import { Spinner } from './Spinner';
+import { Spinner } from '@/app/_components/Spinner';
 
 export function SpinnerWithMessage({
   message = 'Loading',

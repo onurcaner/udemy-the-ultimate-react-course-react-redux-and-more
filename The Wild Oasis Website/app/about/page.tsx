@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { CustomLink } from '../_components/CustomLink';
-import { H2 } from '../_components/H2';
-import { Main } from '../_components/Main';
-import { revalidates } from '../_revalidates';
-import { getCabins } from '../_services/apiCabins';
+import { appRevalidates } from '@/app/_appRevalidates';
+import { CustomLink } from '@/app/_components/CustomLink';
+import { H2 } from '@/app/_components/H2';
+import { Main } from '@/app/_components/Main';
+import { getCabins } from '@/app/_services/apiCabins';
 
-export const revalidate = revalidates.cabins;
+export const revalidate = appRevalidates.cabins;
 
 export const metadata: Metadata = {
   title: 'About',

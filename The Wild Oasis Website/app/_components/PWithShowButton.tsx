@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { twJoin } from 'tailwind-merge';
 
-import { Button } from './Button';
+import { Button } from '@/app/_components/Button';
 
 type PWithShowButtonProps = DetailedHTMLProps<
   HTMLAttributes<HTMLParagraphElement>,

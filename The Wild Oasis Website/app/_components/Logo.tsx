@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { appRoutes } from '../_appRoutes';
-import logoSrc from '../_assets/logo.png';
+import { appRoutes } from '@/app/_appRoutes';
+import logoSrc from '@/app/_assets/logo.png';
 
 export function Logo(): JSX.Element {
   return (

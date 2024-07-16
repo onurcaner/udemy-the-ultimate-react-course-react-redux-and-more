@@ -4,8 +4,8 @@ import {
   UserIcon,
 } from '@heroicons/react/24/solid';
 
-import { CustomNavLink } from './CustomNavLink';
-import { SignOutButton } from './SignOutButton';
+import { CustomNavLink } from '@/app/_components/CustomNavLink';
+import { SignOutButton } from '@/app/_components/SignOutButton';
 
 export function SideNavigation() {
   return (

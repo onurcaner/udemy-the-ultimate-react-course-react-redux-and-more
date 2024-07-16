@@ -28,3 +28,8 @@ export interface CustomUserMetadata {
   fullName: string;
   avatarUrl: string;
 }
+export interface CountryAttributes {
+  name: string;
+  flag: string;
+  independent: boolean;
+}

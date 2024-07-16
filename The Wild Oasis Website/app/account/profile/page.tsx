@@ -1,6 +1,6 @@
-import { UserForm } from '../../_features/account/UserForm';
 import { H2 } from '@/app/_components/H2';
 import { SelectCountry } from '@/app/_components/SelectCountry';
+import { UserForm } from '@/app/_features/account/UserForm';
 
 export default function ProfilePage(): JSX.Element {
   const nationality = 'portugal';

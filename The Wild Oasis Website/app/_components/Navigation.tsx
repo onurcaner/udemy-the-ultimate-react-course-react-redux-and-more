@@ -1,5 +1,5 @@
-import { appRoutes } from '../_appRoutes';
-import { CustomNavLink } from './CustomNavLink';
+import { appRoutes } from '@/app/_appRoutes';
+import { CustomNavLink } from '@/app/_components/CustomNavLink';
 
 export function Navigation(): JSX.Element {
   return (
