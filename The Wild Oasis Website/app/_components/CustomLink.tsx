@@ -27,7 +27,7 @@ export function CustomLink({
       {...rest}
       className={twMerge(
         twJoin(
-          'inline-block transition-colors disabled:cursor-not-allowed disabled:opacity-80',
+          'inline-block !leading-none transition-colors disabled:cursor-not-allowed disabled:opacity-80',
           isButton && 'px-[2em] py-[1em] font-bold',
           isText && 'underline underline-offset-2',
           $variant === 'primary' &&

@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 import { DebugDarkMode } from './_components/DebugDarkMode';
 import { Header } from './_components/Header';
+import { NewReservationContextProvider } from './_features/reservations/NewReservationContextProvider';
 import './_styles/styles.css';
 
 export const revalidate = 3600;
@@ -32,7 +33,9 @@ export default function RootLayout({
       >
         <DebugDarkMode />
         <Header />
-        {children}
+        <NewReservationContextProvider>
+          {children}
+        </NewReservationContextProvider>
       </body>
     </html>
   );

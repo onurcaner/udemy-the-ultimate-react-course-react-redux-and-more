@@ -6,7 +6,7 @@ import { Select } from '@/app/_components/Select';
 import { Textarea } from '@/app/_components/Textarea';
 import { CabinAttributes } from '@/app/_services/types';
 
-export function ReservationForm({
+export function NewReservationForm({
   cabin,
 }: {
   cabin: CabinAttributes;

@@ -4,8 +4,8 @@ import { appRevalidates } from '@/app/_appRevalidates';
 import { H2 } from '@/app/_components/H2';
 import { Main } from '@/app/_components/Main';
 import { CabinDetails } from '@/app/_features/cabins/CabinDetails';
-import { DateSelector } from '@/app/_features/reservations/ReservationDateSelector';
-import { ReservationForm } from '@/app/_features/reservations/ReservationForm';
+import { NewReservationDateSelector } from '@/app/_features/reservations/NewReservationDateSelector';
+import { NewReservationForm } from '@/app/_features/reservations/NewReservationForm';
 import { getBookedDatesByCabinId } from '@/app/_services/apiBookings';
 import { getCabin, getCabins } from '@/app/_services/apiCabins';
 import { getSettings } from '@/app/_services/apiSettings';
@@ -58,12 +58,12 @@ export default async function CabinPage({
         </H2>
 
         <div className="grid grid-cols-2 border border-primary-200 dark:border-primary-800">
-          <DateSelector
+          <NewReservationDateSelector
             cabin={cabin}
             settings={settings}
             bookedDates={bookedDates}
           />
-          <ReservationForm cabin={cabin} />
+          <NewReservationForm cabin={cabin} />
         </div>
       </section>
     </Main>

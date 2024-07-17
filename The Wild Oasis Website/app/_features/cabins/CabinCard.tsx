@@ -33,15 +33,12 @@ export function CabinCard({ cabin }: { cabin: CabinAttributes }) {
           </div>
 
           <p className="flex items-baseline justify-end gap-3">
+            <span className="text-3xl">${regularPrice - discount}</span>
             {discount > 0 && (
-              <>
-                <span className="text-3xl">${regularPrice - discount}</span>
-                <span className="font-semibold text-primary-400 line-through dark:text-primary-600">
-                  ${regularPrice}
-                </span>
-              </>
+              <span className="text-xl font-semibold text-primary-400 line-through dark:text-primary-600">
+                ${regularPrice}
+              </span>
             )}
-            {discount <= 0 && <span className="text-3xl">${regularPrice}</span>}
             <span>/ night</span>
           </p>
         </div>

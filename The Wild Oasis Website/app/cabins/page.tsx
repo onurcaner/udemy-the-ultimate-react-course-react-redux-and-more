@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
+import { NewReservationReminder } from '../_features/reservations/NewReservationReminder';
 import { CabinsSearchCapacityValues, CabinsSearchFields } from './_query';
 import { H2 } from '@/app/_components/H2';
 import { Main } from '@/app/_components/Main';
@@ -24,6 +25,7 @@ export default function CabinsPage({
 
   return (
     <Main>
+      <NewReservationReminder />
       <H2>Our Luxury Cabins</H2>
 
       <p className="mb-20">

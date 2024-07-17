@@ -28,7 +28,7 @@ export function CustomNavLink({
       href={href}
       aria-current={isActive ? 'page' : 'false'}
       className={twMerge(
-        'text-lg font-medium transition-colors hover:text-accent-800 aria-[current=page]:text-accent-800 dark:hover:text-accent-200 dark:aria-[current=page]:text-accent-200',
+        'text-lg font-medium leading-none transition-colors hover:text-accent-800 aria-[current=page]:text-accent-800 dark:hover:text-accent-200 dark:aria-[current=page]:text-accent-200',
         className,
       )}
     >
