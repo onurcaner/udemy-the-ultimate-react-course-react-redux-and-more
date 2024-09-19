@@ -5,7 +5,7 @@ import { DateRange } from 'react-day-picker';
 
 export const NewReservationContext = createContext<{
   dateRange?: DateRange;
-  setDateRange: (range?: DateRange | undefined) => void;
+  setDateRange: (range?: DateRange) => void;
   resetDateRange: () => void;
   nights: number;
 }>({

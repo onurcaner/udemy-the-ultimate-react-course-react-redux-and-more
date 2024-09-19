@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { JSX } from 'react';
 
 import { appRoutes } from '@/app/_appRoutes';
 import logoSrc from '@/app/_assets/logo.png';

@@ -24,6 +24,8 @@ export type CreateCabinAttributes = Pick<
   | 'regularPrice'
 >;
 
+export type CreateGuestAttributes = Pick<GuestAttributes, 'email' | 'fullName'>;
+
 export interface CustomUserMetadata {
   fullName: string;
   avatarUrl: string;

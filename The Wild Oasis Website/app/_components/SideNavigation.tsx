@@ -3,11 +3,12 @@ import {
   HomeIcon,
   UserIcon,
 } from '@heroicons/react/24/solid';
+import type { JSX } from 'react';
 
+import { SignOutButton } from '../_features/auth/SignOutButton';
 import { CustomNavLink } from '@/app/_components/CustomNavLink';
-import { SignOutButton } from '@/app/_components/SignOutButton';
 
-export function SideNavigation() {
+export function SideNavigation(): JSX.Element {
   return (
     <nav className="sticky top-0 h-full border-r border-primary-100 py-2 dark:border-primary-900">
       <ul className="flex h-full flex-col gap-2 text-lg">

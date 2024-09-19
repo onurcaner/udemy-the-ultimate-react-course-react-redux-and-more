@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, FormHTMLAttributes } from 'react';
+import type { DetailedHTMLProps, FormHTMLAttributes, JSX } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type FormProps = DetailedHTMLProps<

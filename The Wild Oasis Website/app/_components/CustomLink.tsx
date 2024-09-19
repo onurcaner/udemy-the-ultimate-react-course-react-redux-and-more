@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { LinkProps } from 'next/link';
-import type { AnchorHTMLAttributes, DetailedHTMLProps } from 'react';
+import type { AnchorHTMLAttributes, DetailedHTMLProps, JSX } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 type NextLinkProps = DetailedHTMLProps<

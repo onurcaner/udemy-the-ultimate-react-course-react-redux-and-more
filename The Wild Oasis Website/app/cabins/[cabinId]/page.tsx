@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import type { JSX } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
 import { H2 } from '@/app/_components/H2';
+import { LoginMessage } from '@/app/_components/LoginMessage';
 import { Main } from '@/app/_components/Main';
+import { auth } from '@/app/_features/auth/auth';
 import { CabinDetails } from '@/app/_features/cabins/CabinDetails';
 import { NewReservationDateSelector } from '@/app/_features/reservations/NewReservationDateSelector';
 import { NewReservationForm } from '@/app/_features/reservations/NewReservationForm';
@@ -40,10 +43,11 @@ export async function generateMetadata({
 export default async function CabinPage({
   params,
 }: CabinPageParams): Promise<JSX.Element> {
-  const [cabin, settings, bookedDates] = await Promise.all([
+  const [cabin, settings, bookedDates, session] = await Promise.all([
     getCabin(+params.cabinId),
     getSettings(),
     getBookedDatesByCabinId(+params.cabinId),
+    auth(),
   ]);
 
   return (
@@ -63,7 +67,16 @@ export default async function CabinPage({
             settings={settings}
             bookedDates={bookedDates}
           />
-          <NewReservationForm cabin={cabin} />
+          {!session?.user && <LoginMessage />}
+          {session?.user && (
+            <NewReservationForm
+              cabin={cabin}
+              user={{
+                name: session.user.name ?? 'NO NAME',
+                image: session.user.image ?? '',
+              }}
+            />
+          )}
         </div>
       </section>
     </Main>

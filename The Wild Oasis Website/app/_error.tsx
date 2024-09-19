@@ -1,5 +1,7 @@
 'use client';
 
+import type { JSX } from 'react';
+
 import { Button } from '@/app/_components/Button';
 import { CustomLink } from '@/app/_components/CustomLink';
 import { H2 } from '@/app/_components/H2';

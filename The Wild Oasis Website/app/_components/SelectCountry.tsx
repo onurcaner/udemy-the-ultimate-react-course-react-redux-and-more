@@ -1,4 +1,4 @@
-import type { DetailedHTMLProps, SelectHTMLAttributes } from 'react';
+import type { DetailedHTMLProps, JSX, SelectHTMLAttributes } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
 import { Select } from '@/app/_components/Select';

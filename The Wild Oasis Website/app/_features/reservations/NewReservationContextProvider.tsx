@@ -1,7 +1,7 @@
 'use client';
 
 import { differenceInDays } from 'date-fns';
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import { useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 

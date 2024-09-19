@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 
 import { DebugDarkMode } from './_components/DebugDarkMode';
 import { Header } from './_components/Header';

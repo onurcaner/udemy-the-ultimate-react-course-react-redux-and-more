@@ -8,7 +8,7 @@ export const supabase = createClient<Database>(
   process.env.SUPABASE_SERVICE_KEY as unknown as string,
 );
 
-export const authorizeNextjs = cache(async () => {
+/* export const authorizeNextjs = cache(async () => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email: process.env.SUPABASE_EMAIL as unknown as string,
     password: process.env.SUPABASE_PASSWORD as unknown as string,
@@ -20,4 +20,4 @@ export const authorizeNextjs = cache(async () => {
   }
 
   console.log(data.user.role);
-});
+}); */

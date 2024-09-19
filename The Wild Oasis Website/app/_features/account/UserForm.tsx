@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import type { JSX } from 'react';
 
 import { Button } from '@/app/_components/Button';
 import { Form } from '@/app/_components/Form';
@@ -28,7 +29,7 @@ export function UserForm({ SelectCountry }: UserFormProps): JSX.Element {
           <label htmlFor="nationality">Where are you from?</label>
           <div className="relative h-5 w-8 overflow-hidden rounded-sm bg-primary-800 dark:bg-primary-200">
             <Image
-              src={'https://flagcdn.com/dz.svg'}
+              src={'https://flagcdn.com/pl.svg'}
               fill
               alt="Country flag"
               className="absolute object-cover object-center"

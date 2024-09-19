@@ -1,6 +1,7 @@
 'use client';
 
 import { isWithinInterval } from 'date-fns';
+import type { JSX } from 'react';
 import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
@@ -36,7 +37,7 @@ export function NewReservationDateSelector({
         className="place-self-center pt-12"
       />
 
-      {dateRange?.from ?? dateRange?.to ? (
+      {(dateRange?.from ?? dateRange?.to) ? (
         <Button
           $variant="secondary"
           className="self-center py-3 text-base"

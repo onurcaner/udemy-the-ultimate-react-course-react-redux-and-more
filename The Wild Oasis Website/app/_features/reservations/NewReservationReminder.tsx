@@ -2,6 +2,7 @@
 
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { format } from 'date-fns';
+import type { JSX } from 'react';
 
 import { useNewReservationContext } from './useNewReservationContext';
 import { Button } from '@/app/_components/Button';

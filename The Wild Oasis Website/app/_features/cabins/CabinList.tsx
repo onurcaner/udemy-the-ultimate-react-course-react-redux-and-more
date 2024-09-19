@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { CabinCard } from './CabinCard';
 import { appRevalidates } from '@/app/_appRevalidates';
 import { Ul } from '@/app/_components/Ul';

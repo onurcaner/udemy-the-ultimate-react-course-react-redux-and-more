@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { Logo } from '@/app/_components/Logo';
 import { Navigation } from '@/app/_components/Navigation';
 

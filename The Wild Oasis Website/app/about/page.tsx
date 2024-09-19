@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import type { JSX } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
 import { CustomLink } from '@/app/_components/CustomLink';

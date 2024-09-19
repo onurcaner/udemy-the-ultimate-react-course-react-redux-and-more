@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { H2 } from '@/app/_components/H2';
 import { SelectCountry } from '@/app/_components/SelectCountry';
 import { UserForm } from '@/app/_features/account/UserForm';

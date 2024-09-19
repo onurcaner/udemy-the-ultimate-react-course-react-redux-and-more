@@ -1,5 +1,8 @@
 'use client';
 
+import Image from 'next/image';
+import type { JSX } from 'react';
+
 import { Button } from '@/app/_components/Button';
 import { Form } from '@/app/_components/Form';
 import { Select } from '@/app/_components/Select';
@@ -8,24 +11,28 @@ import { CabinAttributes } from '@/app/_services/types';
 
 export function NewReservationForm({
   cabin,
+  user,
 }: {
   cabin: CabinAttributes;
+  user: { name: string; image: string };
 }): JSX.Element {
   return (
     <div>
-      <div className="flex items-center justify-between bg-primary-200 px-12 py-3 text-primary-700 dark:bg-primary-800 dark:text-primary-300">
+      <div className="flex items-center justify-between bg-primary-200 px-12 py-4 text-primary-700 dark:bg-primary-800 dark:text-primary-300">
         <p>Logged in as</p>
 
-        {/* <div className='flex gap-4 items-center'>
-          <img
-            // Important to display google profile images
-            referrerPolicy='no-referrer'
-            className='h-8 rounded-full'
-            src={user.image}
-            alt={user.name}
-          />
+        <div className="flex items-center gap-2">
+          <div className="relative h-8 w-8 overflow-hidden rounded-full">
+            <Image
+              referrerPolicy="no-referrer"
+              className="object-contain object-center"
+              src={user.image}
+              alt={user.name}
+              fill
+            />
+          </div>
           <p>{user.name}</p>
-        </div> */}
+        </div>
       </div>
 
       <Form>

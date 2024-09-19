@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { appRoutes } from '@/app/_appRoutes';
 import { CustomNavLink } from '@/app/_components/CustomNavLink';
 

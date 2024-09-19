@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import type { JSX } from 'react';
 
 export function DebugDarkMode(): JSX.Element {
   const [isDarkMode, setIsDarkMode] = useState(false);

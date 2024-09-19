@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, TextareaHTMLAttributes } from 'react';
+import type { DetailedHTMLProps, JSX, TextareaHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type TextareaProps = DetailedHTMLProps<

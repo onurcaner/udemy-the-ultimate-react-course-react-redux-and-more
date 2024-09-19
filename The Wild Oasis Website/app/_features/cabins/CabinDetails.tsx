@@ -1,5 +1,6 @@
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import type { JSX } from 'react';
 
 import { H2 } from '@/app/_components/H2';
 import { PWithShowButton } from '@/app/_components/PWithShowButton';

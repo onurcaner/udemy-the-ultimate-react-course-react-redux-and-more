@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import type { JSX } from 'react';
 
 import { NewReservationReminder } from '../_features/reservations/NewReservationReminder';
 import { CabinsSearchCapacityValues, CabinsSearchFields } from './_query';

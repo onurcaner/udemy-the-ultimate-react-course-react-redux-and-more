@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 
 import { Main } from '@/app/_components/Main';
 import { SideNavigation } from '@/app/_components/SideNavigation';

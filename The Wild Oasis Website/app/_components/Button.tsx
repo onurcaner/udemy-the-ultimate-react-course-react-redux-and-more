@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import type { ButtonHTMLAttributes, DetailedHTMLProps, JSX } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 
 interface ButtonProps

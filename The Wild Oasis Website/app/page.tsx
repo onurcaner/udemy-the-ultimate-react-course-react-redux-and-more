@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { JSX } from 'react';
 
 import { appRoutes } from './_appRoutes';
 import { CustomLink } from './_components/CustomLink';

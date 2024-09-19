@@ -4,6 +4,8 @@ enum Crumbs {
   Cabins = 'cabins',
   Profile = 'profile',
   Reservations = 'reservations',
+  Login = 'login',
+  Logout = 'logout',
 }
 
 export enum Params {
@@ -21,4 +23,7 @@ export const appRoutes = {
 
   cabins: '/' + Crumbs.Cabins,
   cabin: (cabinId: string) => '/' + Crumbs.Cabins + '/' + cabinId,
+
+  login: '/' + Crumbs.Login,
+  logout: '/' + Crumbs.Logout,
 };

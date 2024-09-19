@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, SelectHTMLAttributes } from 'react';
+import type { DetailedHTMLProps, JSX, SelectHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type SelectProps = DetailedHTMLProps<

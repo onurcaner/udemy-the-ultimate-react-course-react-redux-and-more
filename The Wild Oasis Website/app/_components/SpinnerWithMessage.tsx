@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { Spinner } from '@/app/_components/Spinner';
 
 export function SpinnerWithMessage({

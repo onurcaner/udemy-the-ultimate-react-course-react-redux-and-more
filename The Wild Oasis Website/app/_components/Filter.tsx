@@ -1,12 +1,8 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import {
-  type DetailedHTMLProps,
-  type MenuHTMLAttributes,
-  useEffect,
-  useState,
-} from 'react';
+import { useEffect, useState } from 'react';
+import type { DetailedHTMLProps, JSX, MenuHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface FilterProps

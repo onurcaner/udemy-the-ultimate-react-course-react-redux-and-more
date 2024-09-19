@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { Filter } from '@/app/_components/Filter';
 import {
   CabinsSearchCapacityValues,
