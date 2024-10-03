@@ -1,14 +1,29 @@
 import Image from 'next/image';
-import type { JSX } from 'react';
+import type { ButtonHTMLAttributes, DetailedHTMLProps, JSX } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 import { signInGoogleAction } from './signInActions';
 import { Button } from '@/app/_components/Button';
 
-export function SignInGoogleButton(): JSX.Element {
+interface SingInGoogleButtonProps
+  extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  redirectTo?: string | null;
+}
+
+export function SignInGoogleButton({
+  redirectTo,
+  className,
+}: SingInGoogleButtonProps): JSX.Element {
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form action={signInGoogleAction}>
-      <Button $variant="secondary" className="flex items-center gap-6">
+    <form action={signInGoogleAction.bind(null, redirectTo)}>
+      <Button
+        $variant="outline"
+        className={twMerge('flex items-center gap-6', className)}
+      >
         <div className="relative h-6 w-6">
           <Image
             src="https://authjs.dev/img/providers/google.svg"

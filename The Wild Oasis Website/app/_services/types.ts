@@ -25,6 +25,9 @@ export type CreateCabinAttributes = Pick<
 >;
 
 export type CreateGuestAttributes = Pick<GuestAttributes, 'email' | 'fullName'>;
+export type UpdateGuestAttributes = Partial<
+  Pick<GuestAttributes, 'countryFlag' | 'nationalId' | 'nationality'>
+>;
 
 export interface CustomUserMetadata {
   fullName: string;

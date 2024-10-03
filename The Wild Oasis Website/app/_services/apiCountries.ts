@@ -1,7 +1,7 @@
 import { cache } from 'react';
 
 import { delayDebug } from './delayDebug';
-import { CountryAttributes } from './types';
+import type { CountryAttributes } from './types';
 
 export const getCountries = cache(async (): Promise<CountryAttributes[]> => {
   console.log('Inside: getCountries()');

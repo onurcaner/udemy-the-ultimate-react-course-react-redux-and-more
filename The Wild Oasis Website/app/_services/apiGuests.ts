@@ -1,6 +1,6 @@
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
-import { CreateGuestAttributes } from './types';
+import type { CreateGuestAttributes, UpdateGuestAttributes } from './types';
 
 export async function getGuest(email: string) {
   console.log(`Inside: getGuest(${email})`);
@@ -16,6 +16,9 @@ export async function getGuest(email: string) {
 }
 
 export async function createGuest(newGuest: CreateGuestAttributes) {
+  console.log(`Inside: createGuest(${Object.values(newGuest).join(' ')})`);
+  await delayDebug();
+
   const { data, error } = await supabase.from('guests').insert([
     {
       countryFlag: '',
@@ -29,6 +32,25 @@ export async function createGuest(newGuest: CreateGuestAttributes) {
   if (error) {
     console.error(error);
     throw new Error('Guest could not be created');
+  }
+
+  return data;
+}
+
+export async function updateGuest(
+  id: number,
+  updateData: UpdateGuestAttributes,
+) {
+  const { data, error } = await supabase
+    .from('guests')
+    .update(updateData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Guest could not be updated');
   }
 
   return data;

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { JSX } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
+import { appRoutes } from '@/app/_appRoutes';
 import { H2 } from '@/app/_components/H2';
 import { LoginMessage } from '@/app/_components/LoginMessage';
 import { Main } from '@/app/_components/Main';
@@ -12,6 +13,7 @@ import { NewReservationForm } from '@/app/_features/reservations/NewReservationF
 import { getBookedDatesByCabinId } from '@/app/_services/apiBookings';
 import { getCabin, getCabins } from '@/app/_services/apiCabins';
 import { getSettings } from '@/app/_services/apiSettings';
+import { LoginSearchFields } from '@/app/login/_query';
 
 interface CabinPageParams {
   params: { cabinId: string };
@@ -27,7 +29,8 @@ export async function generateStaticParams(): Promise<
   CabinPageParams['params'][]
 > {
   const cabins = await getCabins();
-  return cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
+  const cabinIds = cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
+  return cabinIds;
 }
 
 export async function generateMetadata({
@@ -67,7 +70,13 @@ export default async function CabinPage({
             settings={settings}
             bookedDates={bookedDates}
           />
-          {!session?.user && <LoginMessage />}
+          {!session?.user && (
+            <LoginMessage
+              searchParams={{
+                [LoginSearchFields.RedirectTo]: appRoutes.cabin(params.cabinId),
+              }}
+            />
+          )}
           {session?.user && (
             <NewReservationForm
               cabin={cabin}

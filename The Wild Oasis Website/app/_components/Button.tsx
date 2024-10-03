@@ -6,7 +6,7 @@ interface ButtonProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  $variant?: 'primary' | 'secondary' | 'underline';
+  $variant?: 'primary' | 'secondary' | 'underline' | 'outline';
 }
 
 export function Button({
@@ -15,7 +15,10 @@ export function Button({
   $variant = 'primary',
   ...rest
 }: ButtonProps): JSX.Element {
-  const isButton = $variant === 'primary' || $variant === 'secondary';
+  const isButton =
+    $variant === 'primary' ||
+    $variant === 'secondary' ||
+    $variant === 'outline';
   const isText = $variant === 'underline';
 
   return (
@@ -32,6 +35,8 @@ export function Button({
             'bg-primary-800 text-primary-200 hover:bg-primary-700 dark:bg-primary-200 dark:text-primary-800 dark:hover:bg-primary-100',
           $variant === 'underline' &&
             'text-accent-800 hover:text-accent-700 dark:text-accent-200 dark:hover:text-accent-300',
+          $variant === 'outline' &&
+            'border border-primary-400 hover:bg-primary-100 dark:border-primary-600 dark:hover:bg-primary-900',
         ),
         className,
       )}
