@@ -1,7 +1,9 @@
+import { cache } from 'react';
+
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
 
-export const getSettings = async () => {
+export const getSettings = cache(async () => {
   console.log('Inside: getSettings()');
   await delayDebug();
 
@@ -13,4 +15,4 @@ export const getSettings = async () => {
   }
 
   return data;
-};
+});

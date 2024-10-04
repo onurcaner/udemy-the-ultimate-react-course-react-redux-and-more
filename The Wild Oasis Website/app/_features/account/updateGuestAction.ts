@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { authUser } from '../auth/auth';
+import { authUser } from '../auth/authUser';
 import type { UpdateGuestFormFields } from './types';
 import { appRoutes } from '@/app/_appRoutes';
 import { getGuest, updateGuest } from '@/app/_services/apiGuests';

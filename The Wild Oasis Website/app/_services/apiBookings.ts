@@ -3,6 +3,25 @@ import { cache } from 'react';
 
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
+import { BookingAttributesExtended } from './types';
+
+export const getBookingsOfGuest = cache(async (guestId: number) => {
+  console.log(`Inside: getBookingsOfGuest(${String(guestId)})`);
+  await delayDebug();
+
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*, cabins(*), guests(*)')
+    .eq('guestId', guestId)
+    .order('startDate');
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
+  }
+
+  return data as unknown as BookingAttributesExtended[];
+});
 
 export const getBookingsFromTodayByCabinId = cache(async (cabinId: number) => {
   console.log(`Inside: getBookingsFromTodayByCabinId(${String(cabinId)})`);

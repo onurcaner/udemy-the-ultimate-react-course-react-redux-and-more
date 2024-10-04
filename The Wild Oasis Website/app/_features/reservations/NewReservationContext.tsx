@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext } from 'react';
-import { DateRange } from 'react-day-picker';
+import type { DateRange } from 'react-day-picker';
 
 export const NewReservationContext = createContext<{
   dateRange?: DateRange;

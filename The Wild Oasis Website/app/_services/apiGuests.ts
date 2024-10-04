@@ -1,8 +1,10 @@
+import { cache } from 'react';
+
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
 import type { CreateGuestAttributes, UpdateGuestAttributes } from './types';
 
-export async function getGuest(email: string) {
+export const getGuest = cache(async (email: string) => {
   console.log(`Inside: getGuest(${email})`);
   await delayDebug();
 
@@ -13,7 +15,7 @@ export async function getGuest(email: string) {
     .single();
 
   return data;
-}
+});
 
 export async function createGuest(newGuest: CreateGuestAttributes) {
   console.log(`Inside: createGuest(${Object.values(newGuest).join(' ')})`);
