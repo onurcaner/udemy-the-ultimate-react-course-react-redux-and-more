@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { JSX } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
-import { appRoutes } from '@/app/_appRoutes';
+import { Params, appRoutes } from '@/app/_appRoutes';
 import { H2 } from '@/app/_components/H2';
 import { LoginMessage } from '@/app/_components/LoginMessage';
 import { Main } from '@/app/_components/Main';
@@ -16,7 +16,7 @@ import { getSettings } from '@/app/_services/apiSettings';
 import { LoginSearchFields } from '@/app/login/_query';
 
 interface CabinPageParams {
-  params: { cabinId: string };
+  params: { [Params.CabinId]: string };
 }
 
 export const revalidate = Math.min(

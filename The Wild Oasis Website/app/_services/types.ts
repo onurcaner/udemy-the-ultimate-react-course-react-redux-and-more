@@ -14,6 +14,11 @@ export type BookingAttributesExtended = BookingAttributes & {
   guests: GuestAttributes;
 };
 
+export type UpdateBookingAttributes = Pick<
+  BookingAttributesExtended,
+  'numberOfGuests' | 'observations'
+>;
+
 export type CreateCabinAttributes = Pick<
   CabinAttributes,
   | 'description'

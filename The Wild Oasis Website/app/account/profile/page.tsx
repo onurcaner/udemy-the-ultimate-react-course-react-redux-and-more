@@ -1,11 +1,14 @@
 import type { JSX } from 'react';
 
+import { appRevalidates } from '@/app/_appRevalidates';
 import { H2 } from '@/app/_components/H2';
 import { SelectCountry } from '@/app/_components/SelectCountry';
 import { UserForm } from '@/app/_features/account/UserForm';
 import { GuestFormKeys } from '@/app/_features/account/types';
 import { authUser } from '@/app/_features/auth/authUser';
 import { getGuest } from '@/app/_services/apiGuests';
+
+export const revalidate = appRevalidates.guest;
 
 export default async function ProfilePage(): Promise<JSX.Element> {
   const { email } = await authUser();

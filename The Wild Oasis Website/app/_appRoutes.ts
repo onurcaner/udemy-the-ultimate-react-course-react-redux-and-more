@@ -2,14 +2,17 @@ enum Crumbs {
   About = 'about',
   Account = 'account',
   Cabins = 'cabins',
-  Profile = 'profile',
-  Reservations = 'reservations',
+
+  Edit = 'edit',
   Login = 'login',
   Logout = 'logout',
+  Profile = 'profile',
+  Reservations = 'reservations',
 }
 
 export enum Params {
   CabinId = 'cabinId',
+  BookingId = 'bookingId',
 }
 
 export const appRoutes = {
@@ -20,6 +23,15 @@ export const appRoutes = {
   account: '/' + Crumbs.Account,
   profile: '/' + Crumbs.Account + '/' + Crumbs.Profile,
   reservations: '/' + Crumbs.Account + '/' + Crumbs.Reservations,
+  editReservation: (bookingId: string) =>
+    '/' +
+    Crumbs.Account +
+    '/' +
+    Crumbs.Reservations +
+    '/' +
+    Crumbs.Edit +
+    '/' +
+    bookingId,
 
   cabins: '/' + Crumbs.Cabins,
   cabin: (cabinId: string) => '/' + Crumbs.Cabins + '/' + cabinId,

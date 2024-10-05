@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import type { JSX } from 'react';
 
+import { appRevalidates } from '../_appRevalidates';
 import { NewReservationReminder } from '../_features/reservations/NewReservationReminder';
 import { CabinsSearchCapacityValues, CabinsSearchFields } from './_query';
 import { H2 } from '@/app/_components/H2';
@@ -10,6 +11,7 @@ import { SpinnerWithMessage } from '@/app/_components/SpinnerWithMessage';
 import { CabinList } from '@/app/_features/cabins/CabinList';
 import { CabinsFilter } from '@/app/_features/cabins/CabinsFilter';
 
+export const revalidate = appRevalidates.cabins;
 interface CabinsPageQuery {
   searchParams: { [CabinsSearchFields.Capacity]?: CabinsSearchCapacityValues };
 }

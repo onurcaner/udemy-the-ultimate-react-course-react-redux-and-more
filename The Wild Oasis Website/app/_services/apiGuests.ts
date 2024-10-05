@@ -1,10 +1,13 @@
 import { cache } from 'react';
 
+import { appRevalidates } from '../_appRevalidates';
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
 import type { CreateGuestAttributes, UpdateGuestAttributes } from './types';
 
-export const getGuest = cache(async (email: string) => {
+export const revalidate = Math.min(appRevalidates.guest, appRevalidates.guests);
+
+export const getGuest = async (email: string) => {
   console.log(`Inside: getGuest(${email})`);
   await delayDebug();
 
@@ -15,9 +18,9 @@ export const getGuest = cache(async (email: string) => {
     .single();
 
   return data;
-});
+};
 
-export async function createGuest(newGuest: CreateGuestAttributes) {
+export const createGuest = async (newGuest: CreateGuestAttributes) => {
   console.log(`Inside: createGuest(${Object.values(newGuest).join(' ')})`);
   await delayDebug();
 
@@ -37,12 +40,12 @@ export async function createGuest(newGuest: CreateGuestAttributes) {
   }
 
   return data;
-}
+};
 
-export async function updateGuest(
+export const updateGuest = async (
   id: number,
   updateData: UpdateGuestAttributes,
-) {
+) => {
   const { data, error } = await supabase
     .from('guests')
     .update(updateData)
@@ -56,4 +59,4 @@ export async function updateGuest(
   }
 
   return data;
-}
+};

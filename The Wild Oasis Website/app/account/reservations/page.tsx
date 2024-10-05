@@ -1,14 +1,19 @@
 import type { JSX } from 'react';
 
+import { appRevalidates } from '@/app/_appRevalidates';
 import { appRoutes } from '@/app/_appRoutes';
 import { CustomLink } from '@/app/_components/CustomLink';
 import { H2 } from '@/app/_components/H2';
+import { Ul } from '@/app/_components/Ul';
 import { authUser } from '@/app/_features/auth/authUser';
 import { ReservationCard } from '@/app/_features/reservations/ReservationCard';
 import { getBookingsOfGuest } from '@/app/_services/apiBookings';
 import { getGuest } from '@/app/_services/apiGuests';
 
-export const revalidate = 30;
+export const revalidate = Math.min(
+  appRevalidates.bookings,
+  appRevalidates.guest,
+);
 
 export default async function ReservationsPage(): Promise<JSX.Element> {
   const { email } = await authUser();
@@ -33,13 +38,13 @@ export default async function ReservationsPage(): Promise<JSX.Element> {
       )}
 
       {bookings.length !== 0 && (
-        <ul className="flex flex-col gap-6">
+        <Ul className="flex flex-col gap-8">
           {bookings.map((booking) => (
             <li key={booking.id}>
               <ReservationCard booking={booking} />
             </li>
           ))}
-        </ul>
+        </Ul>
       )}
     </>
   );

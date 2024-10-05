@@ -4,6 +4,7 @@ import Image from 'next/image';
 import type { JSX } from 'react';
 
 import { DeleteReservationButton } from './DeleteReservationButton';
+import { appRoutes } from '@/app/_appRoutes';
 import { Button } from '@/app/_components/Button';
 import { Card } from '@/app/_components/Card';
 import { CustomLink } from '@/app/_components/CustomLink';
@@ -83,7 +84,7 @@ export function ReservationCard({
         {isFuture(startDate) && (
           <CustomLink
             $variant="outline"
-            href={`/account/reservations/edit/${String(id)}`}
+            href={appRoutes.editReservation(String(id))}
             className="flex items-center gap-2 border-0 border-primary-200 text-xs font-bold uppercase dark:border-primary-800"
           >
             <span>

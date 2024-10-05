@@ -1,8 +1,10 @@
 import { cache } from 'react';
 
+import { appRevalidates } from '../_appRevalidates';
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
 
+export const revalidate = appRevalidates.settings;
 export const getSettings = cache(async () => {
   console.log('Inside: getSettings()');
   await delayDebug();

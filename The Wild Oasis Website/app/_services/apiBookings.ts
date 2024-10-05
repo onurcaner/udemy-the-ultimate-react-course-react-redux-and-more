@@ -1,10 +1,15 @@
 import { eachDayOfInterval } from 'date-fns';
 import { cache } from 'react';
 
+import { appRevalidates } from '../_appRevalidates';
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
 import { BookingAttributesExtended } from './types';
 
+export const revalidate = Math.min(
+  appRevalidates.booking,
+  appRevalidates.bookings,
+);
 export const getBookingsOfGuest = cache(async (guestId: number) => {
   console.log(`Inside: getBookingsOfGuest(${String(guestId)})`);
   await delayDebug();
@@ -62,3 +67,30 @@ export const getBookedDatesByCabinId = cache(async (cabinId: number) => {
 
   return bookedDates;
 });
+
+export const getBooking = cache(async (id: number) => {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*, cabins(*), guests(*)')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not get loaded');
+  }
+
+  return data as unknown as BookingAttributesExtended;
+});
+
+export const deleteBooking = async (id: number) => {
+  console.log(`Inside: deleteBooking(${String(id)})`);
+  await delayDebug();
+
+  const { error } = await supabase.from('bookings').delete().eq('id', id);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be deleted');
+  }
+};

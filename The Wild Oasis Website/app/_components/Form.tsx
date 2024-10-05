@@ -11,7 +11,7 @@ export function Form({ className, children, ...rest }: FormProps): JSX.Element {
     <form
       {...rest}
       className={twMerge(
-        'flex flex-col gap-y-6 bg-primary-100 px-12 py-8 dark:bg-primary-900',
+        'flex flex-col gap-y-8 bg-primary-100 px-12 py-10 dark:bg-primary-900',
         className,
       )}
     >

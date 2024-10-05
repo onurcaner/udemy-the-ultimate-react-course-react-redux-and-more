@@ -1,8 +1,11 @@
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 
+import { appRevalidates } from '../_appRevalidates';
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
+
+export const revalidate = Math.min(appRevalidates.cabin, appRevalidates.cabins);
 
 export const getCabin = cache(async (id: number) => {
   console.log(`Inside: getCabin(${String(id)})`);
