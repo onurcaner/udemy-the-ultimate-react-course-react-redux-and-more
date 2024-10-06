@@ -118,18 +118,18 @@ export const API_KEY = 'apikey'; // https://www.omdbapi.com/apikey.aspx
 
 - Code: [This Repository / The Wild Oasis](./The%20Wild%20Oasis)
 
-- Notes: Supabase backend is paused/deleted.
+- Notes: Supabase backend may be paused/deleted.
 
 ### 10. The Wild Oasis Website
 
 - Description: The Wild Oasis Website app is created for the guests for
   displaying and reserving cabins, updating personal information
 
-- Requirements: None
+- Requirements: .env.local file with secrets is required
 
 - Environment: Driven by Node, displayed in browser
 
 - Code: [This Repository / The Wild Oasis Website](./The%20Wild%20Oasis%20Website)
 
-- Notes: Supabase backend is paused/deleted. Google authentication service is
-  deleted
+- Notes: Supabase backend may be paused/deleted. Google authentication service
+  may be paused/deleted

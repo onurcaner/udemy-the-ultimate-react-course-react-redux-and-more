@@ -10,7 +10,7 @@ export function Main({ children, className, ...rest }: MainProps): JSX.Element {
   return (
     <main
       {...rest}
-      className={twMerge('mx-auto my-16 max-w-7xl px-8 text-lg', className)}
+      className={twMerge('mx-auto max-w-7xl px-8 py-16 text-lg', className)}
     >
       {children}
     </main>

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import type { JSX } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
@@ -15,6 +16,9 @@ export const revalidate = Math.min(
   appRevalidates.guest,
 );
 
+export const metadata: Metadata = {
+  title: 'Reservations',
+};
 export default async function ReservationsPage(): Promise<JSX.Element> {
   const { email } = await authUser();
   if (!email) throw new Error('email is null');

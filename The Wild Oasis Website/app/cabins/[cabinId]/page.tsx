@@ -70,6 +70,7 @@ export default async function CabinPage({
             settings={settings}
             bookedDates={bookedDates}
           />
+
           {!session?.user && (
             <LoginMessage
               searchParams={{
@@ -81,9 +82,10 @@ export default async function CabinPage({
             <NewReservationForm
               cabin={cabin}
               user={{
-                name: session.user.name ?? 'NO NAME',
-                image: session.user.image ?? '',
+                name: session.user.name ?? 'NO_NAME',
+                image: session.user.image ?? 'NO_IMAGE',
               }}
+              settings={settings}
             />
           )}
         </div>

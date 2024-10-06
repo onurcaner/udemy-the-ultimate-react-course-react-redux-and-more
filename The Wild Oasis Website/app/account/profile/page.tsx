@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import type { JSX } from 'react';
 
 import { appRevalidates } from '@/app/_appRevalidates';
@@ -10,6 +11,9 @@ import { getGuest } from '@/app/_services/apiGuests';
 
 export const revalidate = appRevalidates.guest;
 
+export const metadata: Metadata = {
+  title: 'Profile',
+};
 export default async function ProfilePage(): Promise<JSX.Element> {
   const { email } = await authUser();
   if (!email) throw new Error('email is null');

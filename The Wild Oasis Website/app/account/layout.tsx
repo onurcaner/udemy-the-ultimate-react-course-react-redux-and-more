@@ -11,7 +11,7 @@ export default function AccountLayout({
   return (
     <div className="grid grid-cols-[16rem_1fr_16rem]">
       <SideNavigation />
-      <Main>{children}</Main>
+      <Main className="h-full overflow-y-auto">{children}</Main>
       <div></div>
     </div>
   );

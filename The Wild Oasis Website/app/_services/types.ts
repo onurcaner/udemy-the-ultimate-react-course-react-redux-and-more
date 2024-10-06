@@ -14,6 +14,22 @@ export type BookingAttributesExtended = BookingAttributes & {
   guests: GuestAttributes;
 };
 
+export type CreateBookingAttributes = Pick<
+  BookingAttributes,
+  | 'startDate'
+  | 'endDate'
+  | 'nights'
+  | 'numberOfGuests'
+  | 'cabinPrice'
+  | 'extrasPrice'
+  | 'totalPrice'
+  | 'status'
+  | 'hasBreakfast'
+  | 'isPaid'
+  | 'observations'
+  | 'cabinId'
+  | 'guestId'
+>;
 export type UpdateBookingAttributes = Pick<
   BookingAttributesExtended,
   'numberOfGuests' | 'observations'

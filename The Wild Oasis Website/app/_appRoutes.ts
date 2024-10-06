@@ -8,6 +8,7 @@ enum Crumbs {
   Logout = 'logout',
   Profile = 'profile',
   Reservations = 'reservations',
+  ThankYou = 'thankyou',
 }
 
 export enum Params {
@@ -32,6 +33,8 @@ export const appRoutes = {
     Crumbs.Edit +
     '/' +
     bookingId,
+  reservationsThankYou:
+    '/' + Crumbs.Account + '/' + Crumbs.Reservations + '/' + Crumbs.ThankYou,
 
   cabins: '/' + Crumbs.Cabins,
   cabin: (cabinId: string) => '/' + Crumbs.Cabins + '/' + cabinId,

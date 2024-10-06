@@ -1,7 +1,7 @@
 'use client';
 
-import { isWithinInterval } from 'date-fns';
-import type { JSX } from 'react';
+import { isPast, isSameDay, isWithinInterval } from 'date-fns';
+import { type JSX, useEffect } from 'react';
 import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
@@ -21,6 +21,10 @@ export function NewReservationDateSelector({
   const { dateRange, setDateRange, resetDateRange, nights } =
     useNewReservationContext();
 
+  useEffect(() => {
+    if (isRangeAlreadyBooked(bookedDates, dateRange)) resetDateRange();
+  }, [bookedDates, dateRange, resetDateRange]);
+
   return (
     <div className="flex flex-col justify-between gap-y-4">
       <DayPicker
@@ -33,13 +37,17 @@ export function NewReservationDateSelector({
         fromDate={new Date()}
         toYear={new Date().getFullYear() + 1}
         numberOfMonths={2}
+        disabled={(testDate) =>
+          isPast(testDate) ||
+          bookedDates.some((bookedDate) => isSameDay(bookedDate, testDate))
+        }
         captionLayout="dropdown"
         className="place-self-center pt-12"
       />
 
       {(dateRange?.from ?? dateRange?.to) ? (
         <Button
-          $variant="secondary"
+          $variant="outline"
           className="self-center py-3 text-base"
           onClick={resetDateRange}
         >
@@ -78,7 +86,7 @@ export function NewReservationDateSelector({
   );
 }
 
-function isAlreadyBooked(bookedDates: Date[], range?: DateRange): boolean {
+function isRangeAlreadyBooked(bookedDates: Date[], range?: DateRange): boolean {
   if (!range) return false;
 
   const { from, to } = range;

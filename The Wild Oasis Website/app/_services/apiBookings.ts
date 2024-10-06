@@ -4,7 +4,11 @@ import { cache } from 'react';
 import { appRevalidates } from '../_appRevalidates';
 import { delayDebug } from './delayDebug';
 import { supabase } from './supabase';
-import { BookingAttributesExtended } from './types';
+import {
+  BookingAttributes,
+  BookingAttributesExtended,
+  CreateBookingAttributes,
+} from './types';
 
 export const revalidate = Math.min(
   appRevalidates.booking,
@@ -94,3 +98,37 @@ export const deleteBooking = async (id: number) => {
     throw new Error('Booking could not be deleted');
   }
 };
+
+export async function updateBooking(
+  id: number,
+  updatedFields: Partial<BookingAttributes>,
+) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .update(updatedFields)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be updated');
+  }
+
+  return data;
+}
+
+export async function createBooking(newBooking: CreateBookingAttributes) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .insert([newBooking])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be created');
+  }
+
+  return data;
+}
